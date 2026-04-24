@@ -1,0 +1,135 @@
+:root {
+    --primary-color: #e50914;
+    --dark-color: #141414;
+}
+
+.card {
+    border-radius: 0 !important;
+    border: none !important; 
+    box-shadow: 0px 4px 4px #040D12;
+}
+
+h4 {
+    letter-spacing: 3px;
+    font-size: 30px;
+}
+
+header {
+    background:linear-gradient(transparent, black), url('../caroimg/caro2.jpg');
+    background-size: cover;
+    background-position: center;
+    /* height: 85vh; */
+    
+}
+
+nav {
+    z-index: 9999;
+}
+
+.footercustom {
+    margin-top: 100px;
+}
+
+.red {
+    color: var(--primary-color);
+}
+
+/* lista pagamento */
+.ulpay {
+    list-style-type: none;
+}
+
+
+
+
+
+/* darkmode */
+/* Body */
+body.dark-mode { 
+    background-color: #040D12 !important; 
+}
+
+/* Navbar */
+body.dark-mode .navbar.bg-body-tertiary { 
+    background-color: #183D3D !important; 
+    color: white !important;
+}
+
+/* card */
+body.dark-mode .card { 
+    background-color: #183D3D !important; 
+    border: 1px solid #5C8374 !important;
+    color: #f1f1f1 !important; 
+}
+
+body.dark-mode .card-body {
+    color: #f1f1f1 !important;
+}
+/* fine card */
+
+/* forza elementi dark */
+body.dark-mode h2,
+body.dark-mode h3, 
+body.dark-mode h4,
+body.dark-mode h5, 
+body.dark-mode a,
+body.dark-mode p {
+    color: white !important;
+}
+
+/* darkmode per pagina card */
+/* Sistemazione List Group nella pagina prodotto */
+body.dark-mode .list-group-item {
+    background-color: #183D3D !important;   
+    color: #f1f1f1 !important;          
+    border-color: #5C8374 !important;    
+}
+
+/* titoli testi */
+body.dark-mode .list-group-item strong, 
+body.dark-mode .list-group-item span {
+    color: #ffffff !important;
+}
+
+/* Se hai intestazioni nella lista */
+body.dark-mode .list-group-item.active {
+    background-color: #5C8374 !important;
+    border-color: #f1f1f1 !important;
+}
+
+body.dark-mode .ulpay {
+    color: white !important;
+}
+
+/* font */
+
+/* card categorie */
+.category1 {
+    text-shadow: #040D12 5px 5px 5px;
+}
+
+.category2 {
+    text-shadow: #040D12 5px 5px 5px;
+}
+
+.category3 {
+    text-shadow: #040D12 5px 5px 5px;
+}
+/* fine dark categorie */
+
+.oswald {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+body{
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+
