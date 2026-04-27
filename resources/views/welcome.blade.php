@@ -25,7 +25,7 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary position-fixed top-0 w-100">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./index.html"><img src="{{ asset('immagini/logo_logo22.png') }}" alt="Logo"></a>
+            <a class="navbar-brand" href="/"><img src="{{ asset('immagini/logo_logo22.png') }}" alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@
                         </ul>
                     </div>
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="./formRegistrati.html">Accedi/Registrati</a>
+                        <a class="nav-link" href="/accesso">Accedi/Registrati</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -87,7 +87,7 @@
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card’s
                             content.</p>
-                        <a href="./shiruya.html" class="btn btn-success">Acquista</a>
+                        <a href="/articolo" class="btn btn-success">Acquista</a>
                         <a href="" class="btn btn-warning add-to-cart ms-2"><i class="bi bi-cart"></i></a>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                     <img src="{{ asset('categorie/offerte.png')}}" class="card-img" alt="...">
                     <div class="card-img-overlay h-100">
                         <h5 class="card-title text-center category2">Novità e offerte</h5>
-                        <p class="card-text text-center"><a href="./offerte.html" class="stretched-link">Scopri di più</a></p>
+                        <p class="card-text text-center"><a href="/offerte" class="stretched-link">Scopri di più</a></p>
                     </div>
                 </div>
             </div>
