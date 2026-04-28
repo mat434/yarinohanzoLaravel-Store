@@ -25,7 +25,8 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary position-fixed top-0 w-100">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="{{ asset('immagini/logo_logo22.png') }}" alt="Logo"></a>
+            <a class="navbar-brand" href="/"><img src="{{ asset('immagini/logo_logo22.png') }}"
+                    alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,13 +34,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav  ms-auto">
                     <li class="nav-item mx-2">
-                        <a id="darkicon" class="nav-link active" aria-current="page" href="#"><i class="bi bi-moon-fill"></i></a>
+                        <a id="darkicon" class="nav-link active" aria-current="page" href="#"><i
+                                class="bi bi-moon-fill"></i></a>
                     </li>
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <button class="btn btn-warning" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                                <button class="btn btn-warning" data-bs-toggle="dropdown" aria-expanded="false">
                                     Carrello <span id="cart-counter">0</span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
@@ -67,7 +68,24 @@
     <header class="container-fluid">
         <div class="row vh-100 justify-content-center align-items-center">
             <div class="col-12">
-                <h4 class="text-center text-white">Scopri le nostre katana</h4>
+                <h4 class="text-center text-white">SCOPRI LE NOSTRE KATANE</h4>
+                <div class="d-flex justify-content-center">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            SCEGLI CATEGORIA
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item text-center" href="#">Tutti i prodotti</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-center" href="#">Pratica e arti marziali</a></li>
+                            <li><a class="dropdown-item text-center" href="#">offerte e novità</a></li>
+                            <li><a class="dropdown-item text-center" href="#">katane e accessori</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -81,7 +99,7 @@
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0MURAKAMIKATANA copy.jpg')}}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/0MURAKAMIKATANA copy.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Shiruya Haji</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -94,7 +112,7 @@
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0YAGYUKATANA.jpg')}}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/0YAGYUKATANA.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -107,7 +125,7 @@
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0NOBUNAGA.jpg')}}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/0NOBUNAGA.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -120,7 +138,7 @@
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0FUKUSHIMAKATANA.jpg')}}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/0FUKUSHIMAKATANA.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -154,47 +172,50 @@
                 </p>
             </div>
             <div class="col-12 col-md-6">
-                <img src="{{ asset('caroimg/caro3.jpg')}}" class="img-fluid" alt="">
+                <img src="{{ asset('caroimg/caro3.jpg') }}" class="img-fluid" alt="">
             </div>
         </div>
     </section>
-<!-- section link categorie -->
+    <!-- section link categorie -->
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12 col-md-4">
                 <div class="card bg-dark text-white">
-                    <img src="{{ asset('categorie/katane e accessori.png')}}" class="card-img" alt="...">
+                    <img src="{{ asset('categorie/katane e accessori.png') }}" class="card-img" alt="...">
                     <div class="card-img-overlay h-100">
                         <h5 class="card-title text-start category1">Katana e Accessori</h5>
-                        <p class="card-text text-start"><a href="./kataneAccessori.html" class="stretched-link">Scopri di più</a></p>
+                        <p class="card-text text-start"><a href="./kataneAccessori.html"
+                                class="stretched-link">Scopri di più</a></p>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div class="card bg-dark text-white">
-                    <img src="{{ asset('categorie/offerte.png')}}" class="card-img" alt="...">
+                    <img src="{{ asset('categorie/offerte.png') }}" class="card-img" alt="...">
                     <div class="card-img-overlay h-100">
                         <h5 class="card-title text-center category2">Novità e offerte</h5>
-                        <p class="card-text text-center"><a href="/offerte" class="stretched-link">Scopri di più</a></p>
+                        <p class="card-text text-center"><a href="/offerte" class="stretched-link">Scopri di più</a>
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-4">
-                    <div class="card bg-dark text-white">
-                        <img src="{{ asset('categorie/pratica e arti marziali.png')}}" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title text-end category3">pratica, arti marziali</h5>
-                            <p class="card-text text-end"><a href="./praticaArtimarziali.html" class="stretched-link">Scopri di più</a></p>
-                        </div>
+                <div class="card bg-dark text-white">
+                    <img src="{{ asset('categorie/pratica e arti marziali.png') }}" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title text-end category3">pratica, arti marziali</h5>
+                        <p class="card-text text-end"><a href="./praticaArtimarziali.html"
+                                class="stretched-link">Scopri di più</a></p>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
-<!-- fine section link categorie -->
+    <!-- fine section link categorie -->
     <section class="container-fluid  my-5 py-5">
         <div class="row my-1 justify-content-start align-items-center">
             <div class="col-12 col-md-6">
-                <img src="{{ asset('caroimg/caro4.jpg')}}" class="img-fluid" alt="">
+                <img src="{{ asset('caroimg/caro4.jpg') }}" class="img-fluid" alt="">
             </div>
             <div class="col-12 col-md-6">
                 <p class="text-end">
@@ -230,8 +251,10 @@
                     <li><a href="">Termini e condizioni</a></li>
                     <li><a href="https://www.instagram.com/yarinohanzoswords/" target="_blank">Instangram</a> <i
                             class="bi bi-instagram ms-1"></i></li>
-                    <li><a href="https://www.facebook.com/YariNoHanzoKatana/?locale=it_IT" target="_blank">Facebook</a>
-                        <i class="bi bi-facebook ms-1"></i></li>
+                    <li><a href="https://www.facebook.com/YariNoHanzoKatana/?locale=it_IT"
+                            target="_blank">Facebook</a>
+                        <i class="bi bi-facebook ms-1"></i>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -244,8 +267,8 @@
 
     <!-- bootastrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
     <!-- my js -->
     <script src="{{ asset('js/script.js') }}"></script>
 </body>

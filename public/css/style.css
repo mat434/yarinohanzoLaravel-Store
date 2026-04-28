@@ -10,8 +10,9 @@
 }
 
 h4 {
-    letter-spacing: 3px;
-    font-size: 30px;
+    letter-spacing: 1px;
+    font-size: 35px;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 header {
@@ -39,6 +40,13 @@ nav {
     list-style-type: none;
 }
 
+/* carousel article */
+.caroarticle {
+    height: 400px;        /* Imposta l'altezza che preferisci */
+    object-fit: cover;    /* Taglia i bordi dell'immagine per riempire lo spazio senza deformarla */
+    object-position: center; /* Mantiene il centro dell'immagine visibile */
+}
+/* fine carousel article */
 
 
 

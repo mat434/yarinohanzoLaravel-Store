@@ -9,10 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-<!-- fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
     <!-- icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -25,7 +25,8 @@
     <!-- inizio navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary position-fixed top-0 w-100">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="{{ asset('immagini/logo_logo22.png')}}" alt="Logo"></a>
+            <a class="navbar-brand" href="/"><img src="{{ asset('immagini/logo_logo22.png') }}"
+                    alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,7 +34,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav  ms-auto">
                     <li class="nav-item mx-2">
-                        <a id="darkicon" class="nav-link active" aria-current="page" href="#"><i class="bi bi-moon-fill"></i></a>
+                        <a id="darkicon" class="nav-link active" aria-current="page" href="#"><i
+                                class="bi bi-moon-fill"></i></a>
                     </li>
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
@@ -67,11 +69,43 @@
     <section class="container-fluid my-5 py-5">
         <div class="row my-2 justify-content-start align-items-center">
             <div class="col-12 col-md-6">
-                <img src="{{ asset('caroimg/caro4.jpg')}}" class="img-fluid " alt="">
+                {{-- carousel --}}
+                <div id="carouselExampleIndicators" class="carousel slide caroarticle">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/caroimg/caro1.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/caroimg/caro2.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/caroimg/caro3.jpg" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                {{-- fine carousel --}}
             </div>
             <div class="col-12 col-md-6 text-end">
                 <h3>Shiruya Haji</h3>
-                <p> 
+                <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt reiciendis amet asperiores ducimus
                     totam adipisci veritatis! Delectus odit numquam odio omnis deleniti maiores vel. Ipsam modi, ea
                     inventore quia non atque voluptatem animi facilis nisi esse repellendus error sunt fugiat, sit
@@ -130,8 +164,10 @@
                     <li><a href="">Termini e condizioni</a></li>
                     <li><a href="https://www.instagram.com/yarinohanzoswords/" target="_blank">Instangram</a> <i
                             class="bi bi-instagram ms-1"></i></li>
-                    <li><a href="https://www.facebook.com/YariNoHanzoKatana/?locale=it_IT" target="_blank">Facebook</a>
-                        <i class="bi bi-facebook ms-1"></i></li>
+                    <li><a href="https://www.facebook.com/YariNoHanzoKatana/?locale=it_IT"
+                            target="_blank">Facebook</a>
+                        <i class="bi bi-facebook ms-1"></i>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -145,10 +181,10 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
 
-        <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 
 </body>
 
