@@ -95,20 +95,19 @@
             </div>
             <div class="col-12 col-md-9">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach ($offerte as $katana)
                     <div class="col">
                         <div class="card" style="width: 18rem;">
-                            <img src="{{ asset('immagini/0MURAKAMIKATANA copy.jpg')}}" class="card-img-top" alt="...">
+                            <img src="{{ asset($katana['img']) }}" alt="{{ $katana['nome'] }}"  class="card-img-top" alt="...">
                             <div class="card-body px-2">
-                                <h5 class="card-title">Shiruya Haji</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of
-                                    the card’s
-                                    content.</p>
-                                <a href="./shiruya.html" class="btn btn-success">Acquista</a>
+                                <h5 class="card-title">{{ $katana['nome'] }}</h5>
+                                <p class="card-text">{{ $katana['descrizione'] }}</p>
+                                <a href="/articolo" class="btn btn-success">Acquista</a>
                                 <a href="" class="btn btn-warning ms-2"><i class="bi bi-cart"></i></a>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>

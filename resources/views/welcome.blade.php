@@ -80,9 +80,9 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item text-center" href="#">Pratica e arti marziali</a></li>
-                            <li><a class="dropdown-item text-center" href="#">offerte e novità</a></li>
-                            <li><a class="dropdown-item text-center" href="#">katane e accessori</a></li>
+                            <li><a class="dropdown-item text-center" href="/offerte">Pratica e arti marziali</a></li>
+                            <li><a class="dropdown-item text-center" href="/offerte">offerte e novità</a></li>
+                            <li><a class="dropdown-item text-center" href="/offerte">katane e accessori</a></li>
                         </ul>
                     </div>
                 </div>
@@ -95,11 +95,11 @@
     <section class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center my-5">
-                <h2>Articoli in evidenza</h2>
+                <h2>Articoli più recenti</h2>
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0MURAKAMIKATANA copy.jpg') }}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/muraka.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Shiruya Haji</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -112,7 +112,7 @@
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0YAGYUKATANA.jpg') }}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/yagyu.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -125,7 +125,7 @@
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0NOBUNAGA.jpg') }}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/nobunaga.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -138,7 +138,7 @@
             </div>
             <div class="col-12 col-md-3 d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('immagini/0FUKUSHIMAKATANA.jpg') }}" class="card-img-top" alt="...">
+                    <img src="{{ asset('immagini/yagyu.jpg') }}" class="card-img-top" alt="...">
                     <div class="card-body px-2">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of

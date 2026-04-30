@@ -143,7 +143,7 @@
                 <ul class="ulpay">
                     <li class="my-2">Costo 125,00 euro</li>
                 </ul>
-                <button class="btn btn-success">Acquista</button>
+                <button class="btn btn-warning">Aggiungi al carrello</button>
             </div>
         </div>
         </div>
