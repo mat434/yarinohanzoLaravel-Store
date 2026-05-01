@@ -8,12 +8,11 @@ Route::get('/', [PublicController::class, 'welcome'])->name('welcome'); // Pagin
 // articolo page
 Route::get('/articolo', [PublicController::class, 'article'])->name('article'); // Pagina articolo
 
-// offerte page
-Route::get('/offerte', [PublicController::class, 'offers'])->name('offers'); // Pagina offerte
-
 // log in page
 Route::get('/accesso', [PublicController::class, 'login'])->name('login'); // Pagina accesso
 
+// products page
+Route::get('/prodotti/{category}', [PublicController::class, 'products'])->name('products.index');
 
 
 

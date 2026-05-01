@@ -70,8 +70,8 @@
     <section class="container-fluid my-5 py-5 ">
         <div class="row justify-content-center my-5">
             <div class="col-12 col-md-12">
-                <h2 class="text-center">Katane e Accessori</h2>
-                <h4 class="text-center">Scopri tutte le nostre offerte e non perderti tutte le nostre Novità!</h4>
+                <h2 class="text-center">{{ $titolo }}</h2>
+                <h4 class="text-center">{{ $description }}</h4>
             </div>
         </div>
     </section>
@@ -83,14 +83,21 @@
         <div class="row">
             <div class="col-12 col-md-3">
                 <ul class="list-group me-5 pe-4">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                    <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item">And a fifth one</li>
-                    <li class="list-group-item">A third item</li>
-                    <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item"><a href="">sotto categoria 1</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 2</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 3</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 4</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 5</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 6</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 7</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 8</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 9</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 10</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 11</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 12</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 13</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 14</a></li>
+                    <li class="list-group-item"><a href="">sotto categoria 15</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-9">
@@ -103,7 +110,7 @@
                                 <h5 class="card-title">{{ $katana['nome'] }}</h5>
                                 <p class="card-text">{{ $katana['descrizione'] }}</p>
                                 <a href="/articolo" class="btn btn-success">Acquista</a>
-                                <a href="" class="btn btn-warning ms-2"><i class="bi bi-cart"></i></a>
+                                <a href="{{ route('article', ['id' => $katana['id']]) }}" class="btn btn-warning ms-2"><i class="bi bi-cart"></i></a>
                             </div>
                         </div>
                     </div>
