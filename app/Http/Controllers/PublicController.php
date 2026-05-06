@@ -46,18 +46,31 @@ private $offerte = [
             ['id' => 10, 'nome' => 'Katana Sakura', 'prezzo' => 300, 'descrizione' => 'Una katana decorativa ispirata al ciliegio.' , 'img' => 'immagini/muraka.jpg'],
         ];
 
+private $UltimiProdotti = [
+            ['id' => 1, 'nome' => 'Hakama', 'prezzo' => 100, 'caratteristica1 => cotone 100%' , 'descrizione' => 'Un hakama utilizzato per l\'allenamento.' , 'img' => 'immagini/fukushima.jpg'],
+            ['id' => 2, 'nome' => 'Gi', 'prezzo' => 50, 'caratteristica1 => unisex' , 'descrizione' => 'Un gi utilizzato per l\'allenamento.' , 'img' => 'immagini/nobunaga.jpg'],
+            ['id' => 3, 'nome' => 'Bokken Allenamento', 'prezzo' => 50, 'caratteristica1 => legno di faggio' , 'descrizione' => 'Un bokken utilizzato per l\'allenamento.' , 'img' => 'immagini/muraka.jpg'],
+            ['id' => 4, 'nome' => 'Katana del Drago', 'prezzo' => 300, 'caratteristica1 => acciaio 1095', 'descrizione' => 'Una katana decorativa ispirata al drago.' , 'img' => 'immagini/yagyu.jpg'],
+        ];
 
 
+// welcome page
     public function welcome()
     {
-        return view('welcome');
+        // Prendiamo l'array che hai appena creato
+    $prodottiVetrina = $this->UltimiProdotti;
+
+        // Lo passiamo alla vista welcome
+    return view('welcome', ['prodotti' => $prodottiVetrina]);
     }
 
     public function article()
     {
         return view('article');
     }
+// fine welcome page
 
+// products page
 public function products($category)
 {
     if ($category == 'katane-accessori') {
@@ -82,9 +95,15 @@ public function products($category)
         'description' => $description
     ]);
 }
+// fine products page
+
+
+// log in page
     public function login()
     {
         return view('login');
     }
 }
+
+// fine log in page
 

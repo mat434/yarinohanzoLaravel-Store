@@ -16,7 +16,7 @@ h4 {
 }
 
 header {
-    background:linear-gradient(transparent, black), url('../caroimg/caro2.jpg');
+    background:linear-gradient(transparent, black), url('/public/caroimg/caro2.jpg');
     background-size: cover;
     background-position: center;
     /* height: 85vh; */
