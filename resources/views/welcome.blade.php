@@ -46,6 +46,18 @@
     </section>
     <!-- fine section card -->
 
+<!-- section personalizzakatana -->
+    <section class="container-fluid">
+        <div class="row justify-content-center">
+            <h4 class="text-center mt-5">Personalizza la tua katana</h4>
+            <div class="col-12 d-flex justify-content-center my-3">
+                <a class="text-center" href="{{ route('personalizzakatana') }}"><img src="{{ asset('caroimg/nobgkatana.png') }}" class="w-50" alt=""></a>
+            </div>
+        </div>
+    </section>
+<!-- fine section personalizzakatana -->
+
+
     <!-- section story -->
     <section class="container-fluid my-5 py-5">
         <div class="row align-items-center my-1">
