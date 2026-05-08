@@ -18,3 +18,5 @@ Route::get('/prodotti/{category}', [PublicController::class, 'products'])->name(
 
 // personalizzakatana page
 Route::get('/personalizzakatana', [OrderController::class, 'personalizzakatana'])->name('personalizzakatana');
+
+Route::post('/personalizzakatana/done', [OrderController::class, 'personalizzakatana_done'])->name('personalizzakatana_done');

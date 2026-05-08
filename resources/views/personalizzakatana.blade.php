@@ -1,16 +1,23 @@
 <x-layout>
     <h2 class="text-center mt-5 pt-5">Personalizza la tua katana</h2>
     <div class="container my-5">
-        <form action="" method="POST" class="shadow p-4 bg-white rounded">
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <form action="{{ route('personalizzakatana_done') }}" method="POST" class="shadow p-4 rounded">
             @csrf
             <h2 class="text-center mb-5">Configuratore Katana Personalizzata</h2>
-            <div class="section-box mb-5 p-3 border rounded bg-light">
+            <div class="section-box mb-5 p-3 border rounded">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">1. Geometria e Misure Lama</h4>
                 <div class="row g-3">
                     <div class="col-md-4">
                         <label class="form-label fw-bold">Lunghezza Lama (Nagasa cm)</label>
                         <input type="number" name="nagasa_length" class="form-control" placeholder="es. 72"
-                            min="60" max="90" required>
+                            min="0" max="180" required>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold">Sori (Curvatura)</label>
@@ -30,55 +37,40 @@
             </div>
             {{-- FINE IMPOSTAZIONI LAMA --}}
 
+
             <div class="mb-5">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">2. Struttura Acciaio (Kitae)</h4>
                 <div class="row row-cols-2 row-cols-md-4 g-3">
-                    <div class="col">
-                        <input type="radio" name="kitae" value="maru" id="maru" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="maru">
-                            <img src="{{ asset('personalizza/acciao10601.jpg') }}" class="card-img-top" alt="Maru">
-                            <div class="card-body p-2 text-center small">MarukKitae 1060</div>
-                        </label>
-                    </div>
+                    @foreach ($options['acciaio'] as $item)
+                        <div class="col">
+                            <input type="radio" name="kitae" value="{{ $item['id'] }}"
+                                id="acciaio_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="acciaio_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="Maru">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-            <div class="mb-5">
-                <div class="row row-cols-2 row-cols-md-4 g-3">
-                    <div class="col">
-                        <input type="radio" name="kitae" value="maru" id="maru" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="maru">
-                            <img src="{{ asset('personalizza/acciaio1060-45-95-2.jpg') }}" class="card-img-top" alt="Maru">
-                            <div class="card-body p-2 text-center small">MaruKitae 1060 + 1045 + 1090</div>
-                        </label>
-                    </div>
-                </div>
-            </div>
+
             {{-- FINE IMPOSTAZIONE ACCIAIO --}}
 
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">3. Presenza Bo-hi (Sguscio)</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['bohi'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="bohi" value="{{ $item['id'] }}"
+                                id="bohi_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="bohi_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE IMPOSTAZIONE BOHI --}}
@@ -87,41 +79,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">4. TSUBA</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/tsubakocho1.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Tsuba Kocho</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/TsubaFuku2.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Tsuba Fuku</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/tsubaMusha3.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Tsuba Musha</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['tsuba'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="tsuba" value="{{ $item['id'] }}"
+                                id="tsuba_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="tsuba_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE IMPOSTAZIONE TSUBA --}}
@@ -130,27 +98,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">5. Fuchi & Kashira</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Fuchi_Kashira'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="fuchikashira" value="{{ $item['id'] }}"
+                                id="fuchikashira_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="fuchikashira_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE IMPOSTAZIONE FUCHI & KASHIRA --}}
@@ -159,27 +117,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">6. Menuki</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Menuki'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="Menuki" value="{{ $item['id'] }}"
+                                id="menuki_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="menuki_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE IMPOSTAZIONE MENUKI --}}
@@ -188,27 +136,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">7. Habaki</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['habaki'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="habaki" value="{{ $item['id'] }}"
+                                id="habaki_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="habaki_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE IMPOSTAZIONE HABAKI --}}
@@ -217,27 +155,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">8. Seppa</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Seppa'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="seppa" value="{{ $item['id'] }}"
+                                id="seppa_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="seppa_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE IMPOSTAZIONE SEPPA --}}
@@ -246,27 +174,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">9. Samegawa</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Samegawa'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="samegawa" value="{{ $item['id'] }}"
+                                id="samegawa_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="samegawa_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE IMPOSTAZIONE SAMEGAWA --}}
@@ -275,27 +193,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">10. Stile Tsuka</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Stile_Tsuka'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="stile_tsuka" value="{{ $item['id'] }}"
+                                id="stile_tsuka_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="stile_tsuka_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE STILE STUKA --}}
@@ -304,27 +212,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">11. Colore Tsuka</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Colore_Tsuka'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="colore_tsuka" value="{{ $item['id'] }}"
+                                id="colore_tsuka_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="colore_tsuka_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE COLORE TSUKA --}}
@@ -333,27 +231,17 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">12. Tipo Saya</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Tipo_Saya'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="tipo_saya" value="{{ $item['id'] }}"
+                                id="tipo_saya_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="tipo_saya_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE TIPO SAYA --}}
@@ -362,37 +250,38 @@
             <div class="mb-5 text-center">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">13. Colore Sageo</h4>
                 <div class="row row-cols-2 justify-content-center g-3">
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="yes" id="bohi_yes" class="btn-check" required>
-                        <label class="card h-100 custom-card-selectable" for="bohi_yes">
-                            <img src="{{ asset('personalizza/bohi.jpg') }}" class="card-img-top" alt="Con Bo-hi">
-                            <div class="card-body p-2 text-center small">Con Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/NObohi.jpg') }}" class="card-img-top" alt="Senza Bo-hi">
-                            <div class="card-body p-2 text-center small">Senza Bo-hi</div>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="radio" name="bohi" value="no" id="bohi_no" class="btn-check">
-                        <label class="card h-100 custom-card-selectable" for="bohi_no">
-                            <img src="{{ asset('personalizza/doppiohi.jpg') }}" class="card-img-top" alt="Doppio Bo-hi">
-                            <div class="card-body p-2 text-center small">Doppio Bo-hi</div>
-                        </label>
-                    </div>
+                    @foreach ($options['Colore_Sageo'] as $item)
+                        <div class="col-md-3">
+                            <input type="radio" name="colore_sageo" value="{{ $item['id'] }}"
+                                id="colore_sageo_{{ $item['id'] }}" class="btn-check" required>
+                            <label class="card h-100 customcard" for="colore_sageo_{{ $item['id'] }}">
+                                <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
+                                    alt="{{ $item['name'] }}">
+                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             {{-- FINE COLORE SAGEO --}}
 
-            <div class="section-box mb-5 p-3 border rounded bg-light">
+            <div class="section-box mb-5 p-3 border rounded">
                 <h4 class="mb-4 border-bottom pb-2 text-danger">14. Impugnatura (Lunghezza Tsuka)</h4>
                 <div class="row g-3">
                     <div class="col-md-4">
                         <label class="form-label fw-bold">Lunghezza Tsuka (cm)</label>
-                        <input type="number" name="tsuka_length" class="form-control" placeholder="es. 26">
+                        <input type="number" name="tsuka_length" class="form-control" placeholder="es. 26"
+                            required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Non hai un'account? inserisci il tuo indirizzo email</label>
+                        <input type="email" name="email" class="form-control" placeholder="es. tuo@email.com"
+                            required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Dai un nome alla tua Katana</label>
+                        <input type="text" name="katana_name" class="form-control"
+                            placeholder="es. My Custom Katana" required>
                     </div>
                 </div>
             </div>
@@ -403,6 +292,4 @@
             </div>
         </form>
     </div>
-
-
 </x-layout>
