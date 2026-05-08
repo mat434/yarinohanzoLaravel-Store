@@ -14,7 +14,7 @@
     <p>Lunghezza Tsuka: {{ $katanaMail['tsuka_length'] }} cm</p>
     <p>curvatura sori: {{ $katanaMail['sori'] }} mm</p>
     <p>larghezza base: {{ $katanaMail['motohaba'] }} mm</p>
-    <p>acciaio kitae: {{ $katanaMail['kitae'] }} cm</p>
+    <p>acciaio kitae: {{ $katanaMail['kitae'] }} </p>
     <p>Bohi: {{ $katanaMail['bohi'] }}</p>
     <p>Tipo tsuba: {{ $katanaMail['tsuba'] }}</p>
     <p>Fuchi e Kashira: {{ $katanaMail['fuchikashira'] }}</p>
