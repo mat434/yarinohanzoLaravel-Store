@@ -10,3 +10,7 @@ Components creati:
 -cards
 -layout
 -footer
+
+Modifica 14 maggio.
+è stato implementato il Maria_DB con Xampp.
+gli array di dati sono stati spostati nel DB ed è stata modificata la logica per le pagine product e offer. Inoltre sono state create le migration con model e seeder per le categorie katana, MartiaArts e Offers. 

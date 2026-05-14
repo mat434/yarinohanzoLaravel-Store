@@ -3,6 +3,12 @@
     <div class="card-body px-2">
         <h5 class="card-title">{{ $katana['nome'] }}</h5>
         <p class="card-text">{{ $katana['descrizione'] }}</p>
+
+        {{-- Se passiamo un prezzo scontato, lo mostriamo qui dentro --}}
+        @if (isset($discount))
+            <p class="text-danger fw-bold">In offerta a: {{ $discount }}€</p>
+        @endif
+
         <a href="/articolo" class="btn btn-success">Acquista</a>
         <a href="{{ route('article', ['id' => $katana['id']]) }}" class="btn btn-warning ms-2"><i
                 class="bi bi-cart"></i></a>

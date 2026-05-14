@@ -16,13 +16,13 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item text-center"
-                                    href="{{ route('products.index', ['category' => 'arti-marziali']) }}">Pratica e arti
+                                    href="{{ route('products.index', ['category' => 'artimarziali']) }}">Pratica e arti
                                     marziali</a></li>
                             <li><a class="dropdown-item text-center"
-                                    href="{{ route('products.index', ['category' => 'offerte-novita']) }}">offerte e
+                                    href="{{ route('products.index', ['category' => 'offerte']) }}">offerte e
                                     novità</a></li>
                             <li><a class="dropdown-item text-center"
-                                    href="{{ route('products.index', ['category' => 'katane-accessori']) }}">katane e
+                                    href="{{ route('products.index', ['category' => 'katana']) }}">katane e
                                     accessori</a></li>
                         </ul>
                     </div>
@@ -38,9 +38,9 @@
             <div class="col-12 text-center my-5">
                 <h2>Articoli più recenti</h2>
             </div>
-            @foreach ($prodotti as $prodotto)
+            @foreach ($items as $item)
                 <div class="col-12 col-md-3 d-flex justify-content-center">
-                    <x-cards :katana="$prodotto" />
+                    <x-cards :katana="$item" />
                 </div>
             @endforeach
     </section>
@@ -92,7 +92,7 @@
                     <div class="card-img-overlay h-100">
                         <h5 class="card-title text-start category1">Katana e Accessori</h5>
                         <p class="card-text text-start"><a
-                                href="{{ route('products.index', ['category' => 'katane-accessori']) }}"
+                                href="{{ route('products.index', ['category' => 'katana']) }}"
                                 class="stretched-link">Scopri di più</a></p>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                     <div class="card-img-overlay h-100">
                         <h5 class="card-title text-center category2">Novità e offerte</h5>
                         <p class="card-text text-center"><a
-                                href="{{ route('products.index', ['category' => 'offerte-novita']) }}"
+                                href="{{ route('products.index', ['category' => 'offerte']) }}"
                                 class="stretched-link">Scopri di più</a>
                         </p>
                     </div>
@@ -115,7 +115,7 @@
                     <div class="card-img-overlay">
                         <h5 class="card-title text-end category3">pratica, arti marziali</h5>
                         <p class="card-text text-end"><a
-                                href="{{ route('products.index', ['category' => 'arti-marziali']) }}"
+                                href="{{ route('products.index', ['category' => 'artimarziali']) }}"
                                 class="stretched-link">Scopri di più</a></p>
                     </div>
                 </div>
