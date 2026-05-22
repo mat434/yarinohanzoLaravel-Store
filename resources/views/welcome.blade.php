@@ -16,14 +16,15 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item text-center"
+                                    href="{{ route('products.index', ['category' => 'katana']) }}">katane e
+                                    accessori</a></li>
+                            <li><a class="dropdown-item text-center"
                                     href="{{ route('products.index', ['category' => 'artimarziali']) }}">Pratica e arti
                                     marziali</a></li>
                             <li><a class="dropdown-item text-center"
                                     href="{{ route('products.index', ['category' => 'offerte']) }}">offerte e
                                     novità</a></li>
-                            <li><a class="dropdown-item text-center"
-                                    href="{{ route('products.index', ['category' => 'katana']) }}">katane e
-                                    accessori</a></li>
+                            
                         </ul>
                     </div>
                 </div>
