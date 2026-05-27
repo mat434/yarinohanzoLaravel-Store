@@ -27,7 +27,7 @@ return [
         ['id' => '3nobunaga', 'name' => 'Fuchi e Kashira Nobunaga', 'img' => 'fuchi&kashiraNobunaga3.jpg'],
     ],
 
-    'Menuki' => [
+    'menuki' => [
         ['id' => '1sakura', 'name' => 'Menuki Sakura', 'img' => 'menukiSakura1.jpg'],
         ['id' => '2nobunaga', 'name' => 'Menuki Nobunaga', 'img' => 'menukiNobunaga2.jpg'],
         ['id' => '3dotanuki', 'name' => 'Menuki Dotanuki', 'img' => 'menukiDotanuki3.jpg'],

@@ -9,16 +9,16 @@
 <body>
     <h1>Nuovo Ordine Katana Personalizzata</h1>
     <p>email: {{ $katanaMail['email'] }}</p>
-    <p>nome katana: {{$katanaMail['katana_name']}}</p>
-    <p>lunghezza nagasa: {{ $katanaMail['nagasa_length'] }} cm</p>
-    <p>Lunghezza Tsuka: {{ $katanaMail['tsuka_length'] }} cm</p>
+    <p>nome katana: {{$katanaMail['name']}}</p>
+    <p>lunghezza nagasa: {{ $katanaMail['nagasa_lenght'] }} cm</p>
+    <p>Lunghezza Tsuka: {{ $katanaMail['tsuka_lenght'] }} cm</p>
     <p>curvatura sori: {{ $katanaMail['sori'] }} mm</p>
     <p>larghezza base: {{ $katanaMail['motohaba'] }} mm</p>
     <p>acciaio kitae: {{ $katanaMail['kitae'] }} </p>
     <p>Bohi: {{ $katanaMail['bohi'] }}</p>
     <p>Tipo tsuba: {{ $katanaMail['tsuba'] }}</p>
     <p>Fuchi e Kashira: {{ $katanaMail['fuchikashira'] }}</p>
-    <p>Menuki: {{ $katanaMail['Menuki'] }}</p>
+    <p>Menuki: {{ $katanaMail['menuki'] }}</p>
     <p>Habaki : {{ $katanaMail['habaki'] }}</p>
     <p>Seppa : {{ $katanaMail['seppa'] }}</p>
     <p>Samegawa : {{ $katanaMail['samegawa'] }}</p>
