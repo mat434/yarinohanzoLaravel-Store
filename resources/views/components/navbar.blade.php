@@ -34,7 +34,7 @@
                         {{-- Usiamo un piccolo form per il logout --}}
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn nav-link" style="background:none; border:none;">Esci</button>
+                            <button type="submit" class="btn nav-link btesc" style="background:none; border:none;">Esci</button>
                         </form>
                     </li>
                 @else

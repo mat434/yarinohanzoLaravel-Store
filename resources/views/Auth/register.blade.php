@@ -46,13 +46,25 @@
 
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control" id="passwordInput" required>
+
+                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                <i class="bi bi-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="password_confirmation" class="form-label">Conferma Password</label>
-                        <input type="password" name="password_confirmation" class="form-control"
-                            id="password_confirmation" required>
+                        <div class="input-group">
+                            <input type="password" name="password_confirmation" class="form-control"
+                                id="password_confirmation" required>
+
+                            <button type="button" class="btn btn-outline-secondary" id="togglePasswordConfirmation">
+                                <i class="bi bi-eye" id="eyeIconConfirmation"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-warning w-100">Registrati</button>

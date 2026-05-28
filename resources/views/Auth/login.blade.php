@@ -14,6 +14,15 @@
             {{-- FINE DIVIDER  --}}
             <!-- Form -->
             <div class="col-md-5 p-5">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <h2 class="mb-4">Accedi alla Forgia</h2>
@@ -26,11 +35,11 @@
                         <label for="exampleInputPassword1" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="password_confirmation" class="form-label">Conferma Password</label>
                         <input type="password" name="password_confirmation" class="form-control"
                             id="password_confirmation" required>
-                    </div>
+                    </div> --}}
                     <button type="submit" class="btn btn-warning w-100">Accedi</button>
                 </form>
             </div>

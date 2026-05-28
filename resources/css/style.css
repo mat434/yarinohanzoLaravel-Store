@@ -103,12 +103,14 @@ body.dark-mode .card-body {
 /* fine card */
 
 /* forza elementi dark */
-body.dark-mode h2,
+body.dark-mode h1,
 body.dark-mode h3, 
 body.dark-mode h4,
 body.dark-mode h5, 
 body.dark-mode a,
+body.dark-mode button,
 body.dark-mode label,
+body.dark-mode h2,
 body.dark-mode p {
     color: white !important;
 }
