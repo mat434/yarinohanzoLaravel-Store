@@ -16,9 +16,7 @@
                 <option selected disabled>Manutenzione e accessori</option>
                 <option value="#">Kit manutenzione</option>
                 <option value="#">Sageo</option>
-                <option value="#">Tsuba</option>
                 <option value="#">Saya e tsuba</option>
-                <option value="#">Olio choji</option>
                 <option value="#">Mini katane e penne</option>
                 <option value="#">Sacche e borse</option>
                 <option value="#">Katana Kake (Supporti)</option>
@@ -44,7 +42,6 @@
                 <option value="#">Obi/Cinture</option>
                 <option value="#">Tabi, Tekou, Kyahan</option>
                 <option value="#">Zaini</option>
-                <option value="#">Abbigliamento & Accessori</option>
             </select>
 
             <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
@@ -54,8 +51,6 @@
                 <option value="#">Budogu&Ningu</option>
                 <option value="#">Bo Jo/Hanbo</option>
                 <option value="#">Yari/Naginata</option>
-                <option value="#">Legno Faggio</option>
-                <option value="#">Legno Frassino</option>
                 <option value="#">Wengè</option>
                 <option value="#">Lignum Vitae</option>
             </select>
