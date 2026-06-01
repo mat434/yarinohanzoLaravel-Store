@@ -11,8 +11,6 @@ Route::get('/', [PublicController::class, 'welcome'])->name('welcome');
 // articolo page
 Route::get('/articolo', [PublicController::class, 'article'])->name('article'); 
 
-// products page
-Route::get('/prodotti/{category}', [PublicController::class, 'products'])->name('products.index');
 
 // offer page
 Route::get('/offerte', [PublicController::class, 'offers'])->name('offers.index');
@@ -24,11 +22,6 @@ Route::post('/personalizzakatana/done', [OrderController::class, 'personalizzaka
 // personalizzakatana page end
 
 
-// pagina login
-
-
-// pagina logout
-   
 
 // Middlware Guest registration
 Route::middleware('guest')->group(function () {
@@ -44,3 +37,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+// logica sidebar
+
+Route::get('/prodotti/{category}/{subcategory?}', [PublicController::class, 'products'])->name('products.index');

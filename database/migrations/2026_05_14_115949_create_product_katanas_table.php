@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('descrizione');
             $table->decimal('prezzo', 8, 2);
             $table->string('img');
+            $table->unsignedBigInteger('subcategory_id');
             $table->timestamps();
         });
     }

@@ -7,12 +7,22 @@
         <div class="mb-4 pe-2">
             <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
                 <option selected disabled>Katana e Iaito</option>
-                @foreach($subcategories as $sub)
-                    <option value="{{ $sub['link'] }}">{{ $sub['nome'] }}</option>
+                @foreach($subcategories->whereIn('nome', ['Basics', 'Practical', 'Performance', 'Superior', 'Damasco', 'Daisho Set Katana', 'Tanto', 'Wakizashi', 'Alternative Special']) as $sub)
+                    <option value="{{ url('/prodotti/katana/' . $sub->slug) }}">{{ $sub->nome }}</option>
                 @endforeach
             </select>
 
             <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
+                <option selected disabled>Manutenzione e accessori</option>
+                {{-- Filtra dinamicamente gli accessori per katana --}}
+                @foreach($subcategories->whereIn('nome', ['Kit manutenzione', 'Sageo', 'Saya e tsuba', 'Mini katane e penne', 'Sacche e borse', 'Katana Kake (Supporti)']) as $sub)
+                    <option value="{{ url('/prodotti/katana/' . $sub->slug) }}">{{ $sub->nome }}</option>
+                @endforeach
+            </select>
+        </div>
+    @endif
+
+            {{-- <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
                 <option selected disabled>Manutenzione e accessori</option>
                 <option value="#">Kit manutenzione</option>
                 <option value="#">Sageo</option>
@@ -21,8 +31,7 @@
                 <option value="#">Sacche e borse</option>
                 <option value="#">Katana Kake (Supporti)</option>
             </select>
-        </div>
-    @endif
+        </div> --}}
     {{-- fine katana --}}
 
     {{-- martial art --}}
@@ -31,12 +40,22 @@
         <div class="mb-4 pe-2">
             <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
                 <option selected disabled>Abbigliamento</option>
-                @foreach($subcategories as $sub)
-                    <option value="{{ $sub['link'] }}">{{ $sub['nome'] }}</option>
+                @foreach($subcategories->whereIn('nome', ['Iaido Gi', 'Kendo Gi', 'Hakama', 'Ninjutsu Gi', 'Aikido Gi', 'Judo Gi', 'Karate Gi']) as $sub)
+                    <option value="{{ url('/prodotti/artimarziali/' . $sub->slug) }}">{{ $sub->nome }}</option>
                 @endforeach
             </select>
 
             <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
+                <option selected disabled>Bokken e Armi in legno</option>
+                {{-- Filtra dinamicamente le armi in legno --}}
+                @foreach($subcategories->whereIn('nome', ['Ryuha', 'Standard', 'Budogu&Ningu', 'Bo Jo/Hanbo', 'Yari/Naginata', 'Wengè', 'Lignum Vitae']) as $sub)
+                    <option value="{{ url('/prodotti/artimarziali/' . $sub->slug) }}">{{ $sub->nome }}</option>
+                @endforeach
+            </select>
+        </div>
+    @endif
+
+            {{-- <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
                 <option selected disabled>Accessori</option>
                 <option value="#">Set di uniformi</option>
                 <option value="#">Obi/Cinture</option>
@@ -55,7 +74,7 @@
                 <option value="#">Lignum Vitae</option>
             </select>
         </div>
-    @endif
+    @endif --}}
     {{-- fine martial art --}}
 
     {{-- offer --}}
@@ -65,7 +84,7 @@
             <select class="form-select form-select-sm mt-3" onchange="location = this.value;">
                 <option selected disabled>Seleziona Reparto</option>
                 @foreach($subcategories as $sub)
-                <option href="{{ $sub['link'] }}" value="asc" class="text-decoration-none text-dark">{{ $sub['nome'] }} </option>
+                    <option value="{{ url('/prodotti/' . $sub->macro_categoria . '/' . $sub->slug) }}">{{ $sub->nome }}</option>
                 @endforeach
             </select>
         </div>
