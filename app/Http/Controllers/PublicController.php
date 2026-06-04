@@ -20,97 +20,116 @@ class PublicController extends Controller
         return view('welcome', compact('items'));
     }
 
-public function products($category, $subcategory_slug = null)
-    {
-        // 1. GESTIONE MACRO-CATEGORIA: KATANA
-        if ($category == 'katana') {
-            $description = 'Katane per ogni esigenza dalle Basics alle Superior di qualità YariNoHanzo';
-            
-            // Recuperiamo tutte le sottocategorie legate alle katane per la sidebar
-            $subcategories = Subcategory::where('macro_categoria', 'katana')->get();
+public function products(Request $request, $category, $subcategory_slug = null)
+{
+    // 1. Intercettiamo lo slug sia che arrivi dall'URL pulito, sia che arrivi dal form GET
+    $slug = $subcategory_slug;
 
-            // Se l'utente sta filtrando per una sottocategoria specifica
-            if ($subcategory_slug) {
-                $sub = Subcategory::where('slug', $subcategory_slug)->where('macro_categoria', 'katana')->firstOrFail();
-                $items = ProductKatanas::where('subcategory_id', $sub->id)->get();
+
+
+    // MACRO-CATEGORIA: KATANA
+    if ($category == 'katana') {
+        $description = 'Katane per ogni esigenza dalle Basics alle Superior di qualità YariNoHanzo';
+        $subcategories = Subcategory::where('macro_categoria', 'katana')->get();
+
+        $query = ProductKatanas::query();
+
+        // Filtro Sottocategoria tramite ID reale
+        if ($slug) {
+            $sub = Subcategory::where('slug', $slug)->where('macro_categoria', 'katana')->first();
+            if ($sub) {
+                $query->where('subcategory_id', $sub->id);
                 $title = 'Katane - ' . $sub->nome;
             } else {
-                // Altrimenti mostra tutte le katane
-                $items = ProductKatanas::all();
                 $title = 'Scopri le nostre katane';
             }
-
-            $type = 'katana';
-            return view('products', compact('items', 'title', 'description', 'type', 'subcategories'));
+        } else {
+            $title = 'Scopri le nostre katane';
         }
-        // OLD CODE
-    // public function products($category)
-    // {
-    //     if ($category == 'katana') {
-    //         $items = ProductKatanas::all();
-    //         $title = 'Scopri le nostre katane';
-    //         $description = 'katane per ogni esigenza dalle Basics alle Superior,';
 
-    //         $type = 'katana';
-    //         $subcategories = [
-    //             ['nome' => 'Basics', 'link' => '#'],
-    //             ['nome' => 'Practical', 'link' => '#'],
-    //             ['nome' => 'Performance', 'link' => '#'],
-    //             ['nome' => 'Superior', 'link' => '#'],
-    //             ['nome' => 'Damasco', 'link' => '#'],
-    //             ['nome' => 'Daisho Set Katana', 'link' => '#'],
-    //             ['nome' => 'Tanto', 'link' => '#'],
-    //             ['nome' => 'wakizashi', 'link' => '#'],
-    //             ['nome' => 'Alternative Special', 'link' => '#'],
-    //         ];
-    //         return view('products', ['items' => $items, 'title' => $title, 'description' => $description, 'type' => $type, 'subcategories' => $subcategories]);
-    //     }
-// OLD CODE
+        // Filtro Prezzo
+        $query->when($request->price_range, function ($q, $priceRange) {
+            if ($priceRange == '100') {
+                return $q->where('prezzo', '<=', 100);
+            } elseif ($priceRange == '100-300') {
+                return $q->whereBetween('prezzo', [100, 300]);
+            } elseif ($priceRange == '300') {
+                return $q->where('prezzo', '>', 300);
+            }
+        });
 
+        // Filtro Acciaio
+        $query->when($request->steel, function ($q, $steelArray) {
+            return $q->where(function($subQuery) use ($steelArray) {
+                foreach($steelArray as $steel) {
+                    $subQuery->orWhere('acciaio', 'LIKE', '%' . $steel . '%');
+                }
+            });
+        });
 
-// 2. GESTIONE MACRO-CATEGORIA: ARTICOLI MARZIALI
+        // Ordinamento
+        if ($request->filled('order_by') && in_array($request->order_by, ['asc', 'desc'])) {
+            $query->orderBy('prezzo', $request->order_by);
+        }
+
+        $items = $query->get();
+        $type = 'katana';
+
+        return view('products', compact('items', 'title', 'description', 'type', 'subcategories', 'slug'));
+    }
+
+    // MACRO-CATEGORIA: ARTICOLI MARZIALI
     if ($category == 'artimarziali') {
-            $description = 'Innumerevoli prodotti per la pratica delle arti marziali di qualità YariNoHanzo';
-            
-            // Recuperiamo tutte le sottocategorie legate alle arti marziali per la sidebar
-            $subcategories = Subcategory::where('macro_categoria', 'martial_arts')->get();
+        $description = 'Innumerevoli prodotti per la prima delle arti marziali di qualità YariNoHanzo';
+        $subcategories = Subcategory::where('macro_categoria', 'martial_arts')->get();
 
-            // Se l'utente sta filtrando per una sottocategoria specifica
-            if ($subcategory_slug) {
-                $sub = Subcategory::where('slug', $subcategory_slug)->where('macro_categoria', 'martial_arts')->firstOrFail();
-                $items = MartialArts::where('subcategory_id', $sub->id)->get();
+        $query = MartialArts::query();
+
+        if ($slug) {
+            $sub = Subcategory::where('slug', $slug)->where('macro_categoria', 'martial_arts')->first();
+            if ($sub) {
+                $query->where('subcategory_id', $sub->id);
                 $title = 'Arti Marziali - ' . $sub->nome;
             } else {
-                // Altrimenti mostra tutti i prodotti di arti marziali
-                $items = MartialArts::all();
                 $title = 'Scopri i nostri prodotti per le arti marziali';
             }
-
-            $type = 'martial';
-            return view('products', compact('items', 'title', 'description', 'type', 'subcategories'));
+        } else {
+            $title = 'Scopri i nostri prodotti per le arti marziali';
         }
 
-        // OLD CODE
-        // if ($category == 'artimarziali') {
-        //     $items = MartialArts::all();
-        //     $title = 'Scopri i nostri prodotti per le arti marziali';
-        //     $description = 'innumerevoli prodotti per la pratica delle arti marziali di qualità YariNoHanzo';
+        // Filtro Prezzo
+        $query->when($request->price_range, function ($q, $priceRange) {
+            if ($priceRange == '100') {
+                return $q->where('prezzo', '<=', 100);
+            } elseif ($priceRange == '100-300') {
+                return $q->whereBetween('prezzo', [100, 300]);
+            } elseif ($priceRange == '300') {
+                return $q->where('prezzo', '>', 300);
+            }
+        });
 
-        //     $type = 'martial';
-        //     $subcategories = [
-        //         ['nome' => 'Iaido Gi', 'link' => '#'],
-        //         ['nome' => 'Kendo Gi', 'link' => '#'],
-        //         ['nome' => 'Hakama', 'link' => '#'],
-        //         ['nome' => 'Ninjutsu Gi', 'link' => '#'],
-        //         ['nome' => 'Aikido Gi', 'link' => '#'],
-        //         ['nome' => 'Judo Gi', 'link' => '#'],
-        //         ['nome' => 'Karate Gi', 'link' => '#'],
-        //     ];
+        // Filtro Materiale
+        $query->when($request->material, function ($q, $materialArray) {
+            return $q->where(function($subQuery) use ($materialArray) {
+                foreach($materialArray as $material) {
+                    $subQuery->orWhere('descrizione', 'LIKE', '%' . $material . '%');
+                }
+            });
+        });
 
-        //     return view('products', ['items' => $items, 'title' => $title, 'description' => $description, 'type' => $type, 'subcategories' => $subcategories]);
-        // }
+        if ($request->filled('order_by') && in_array($request->order_by, ['asc', 'desc'])) {
+            $query->orderBy('prezzo', $request->order_by);
+        }
 
-        // OLD CODE
+        $items = $query->get();
+        $type = 'martial';
+
+        return view('products', compact('items', 'title', 'description', 'type', 'subcategories', 'slug'));
+    }
+
+    abort(404);
+
+        
 
         if ($category == 'offerte') {
             $items = Offers::with(['katana', 'martialArt'])->get();
@@ -126,25 +145,6 @@ public function products($category, $subcategory_slug = null)
         abort(404);
     }
 
-    //     if ($category == 'offerte') {
-    //         // Carichiamo le offerte con i prodotti collegati
-    //         $items = Offers::with(['katana', 'martialArt'])->get();
-    //         $title = 'Le nostre Offerte';
-    //         $description = 'Innumerevoli offerte su tutti i prodotti YariNoHanzo';
-
-    //         $subcategories = [
-    //             ['nome' => 'Katana Kaizen', 'link' => '#'],
-    //             ['nome' => 'Katana edizione 18° Anniversario', 'link' => '#'],
-    //             ['nome' => 'Angolo delle occasioni', 'link' => '#'],
-    //             ['nome' => 'Budospring2026', 'link' => '#'],
-    //             ['nome' => 'ONI by YariNoHanzo - NOVITÀ 2025', 'link' => '#'],
-    //         ];
-
-    //         return view('offers', compact('items', 'title', 'description' , 'subcategories')); // Usiamo una vista specifica per le offerte
-    //     }
-
-    //     abort(404); 
-    // }
 
     public function article()
     {

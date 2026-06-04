@@ -23,17 +23,17 @@ class ProductKatanaSeeder extends Seeder
         $subTanto       = Subcategory::where('slug', 'tanto')->first();
         $subWakizashi   = Subcategory::where('slug', 'wakizashi')->first();
         $subManutenzione = Subcategory::where('slug', 'kit-manutenzione')->first();
-        $subSpecial     = Subcategory::where('slug', 'special')->first();
-        $subDaisho       = Subcategory::where('slug', 'daisho')->first();
+        $subSpecial     = Subcategory::where('slug', 'alternative-special')->first();
+        $subDaisho       = Subcategory::where('slug', 'daisho-set-katana')->first();
         $subPerfomance   = Subcategory::where('slug', 'performance')->first();
         $subDamasco     = Subcategory::where('slug', 'damasco')->first();
 
         // 2. Prepariamo l'array. Ho aggiunto ad ognuno la chiave 'subcategory_id' collegata ai modelli sopra!
         $katanaaccessori = [
             [
-                'nome' => 'Hattori Hanzo', 
+                'nome' => 'Kamei Katana Superior', 
                 'prezzo' => 1500, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1060 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50, 
@@ -42,20 +42,20 @@ class ProductKatanaSeeder extends Seeder
                 'subcategory_id' => $subSuperior->id // <-- Legata a Superior
             ],
             [
-                'nome' => 'Muramasa', 
+                'nome' => 'Tombo Superior', 
                 'prezzo' => 1200, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1060 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50,
                 'descrizione' => 'Una katana leggendaria appartenente alla famiglia Muramasa.', 
-                'img' => 'imgkatana/0TOMBOSUPERIOR',
+                'img' => 'imgkatana/0TOMBOSUPERIOR.jpg',
                 'subcategory_id' => $subSuperior->id // <-- Legata a Superior
             ],
             [
-                'nome' => 'Bokken Allenamento', 
+                'nome' => 'Ikedaka Katana Practical', 
                 'prezzo' => 50, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1090 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50, 
@@ -64,9 +64,9 @@ class ProductKatanaSeeder extends Seeder
                 'subcategory_id' => $subPractical->id // <-- Legata a Practical
             ],
             [
-                'nome' => 'Katana del Drago', 
+                'nome' => 'Kocho Katana Basics', 
                 'prezzo' => 300, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1060 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50,  
@@ -75,9 +75,9 @@ class ProductKatanaSeeder extends Seeder
                 'subcategory_id' => $subBasics->id // <-- Legata a Basics
             ],
             [
-                'nome' => 'Lama di Shisui', 
+                'nome' => 'Yamamoto Katana Practical', 
                 'prezzo' => 800, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1045 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50, 
@@ -86,9 +86,9 @@ class ProductKatanaSeeder extends Seeder
                 'subcategory_id' => $subPractical->id // <-- Legata a Practical
             ],
             [
-                'nome' => 'Wakizashi Base', 
+                'nome' => 'Wakizashi Minamoto', 
                 'prezzo' => 150, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1060 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50, 
@@ -97,9 +97,9 @@ class ProductKatanaSeeder extends Seeder
                 'subcategory_id' => $subWakizashi->id // <-- Legata a Wakizashi
             ],
             [
-                'nome' => 'Tanto di Giada', 
+                'nome' => 'Tanto YariNoHanzo', 
                 'prezzo' => 450, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1045 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50,  
@@ -108,9 +108,9 @@ class ProductKatanaSeeder extends Seeder
                 'subcategory_id' => $subTanto->id // <-- Legata a Tanto
             ],
             [
-                'nome' => 'Katana in Carbonio', 
+                'nome' => 'Nodachi Shiruya Special', 
                 'prezzo' => 600, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1045 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50, 
@@ -119,26 +119,26 @@ class ProductKatanaSeeder extends Seeder
                 'subcategory_id' => $subSpecial->id // <-- Legata a Special
             ],
             [
-                'nome' => 'Lama Imperiale', 
+                'nome' => 'Shinobi Katana Perfomance', 
                 'prezzo' => 2500, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1095 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50, 
                 'descrizione' => 'Una lama imperiale appartenente alla famiglia imperiale.', 
-                'img' => 'immagini/muraka.jpg',
-                'subcategory_id' => $subSuperior->id // <-- Legata a Superior
+                'img' => 'imgkatana/SHINOBIKATANAPERFOMANCE.jpg',
+                'subcategory_id' => $subPerfomance->id // <-- Legata a Superior
             ],
             [
-                'nome' => 'Katana Sakura', 
+                'nome' => 'Katana ASAKURA DAISHO', 
                 'prezzo' => 350, 
-                'acciaio' => 'High Carbon', 
+                'acciaio' => '1095 High Carbon', 
                 'larghezzalama' => 2, 
                 'lunghezzalama' => 100, 
                 'lunghezzatsuka' => 50,  
                 'descrizione' => 'Una katana decorativa ispirata al ciliegio.', 
-                'img' => 'immagini/muraka.jpg',
-                'subcategory_id' => $subBasics->id // <-- Legata a Basics
+                'img' => 'imgkatana/ASAKURADAISHO2.jpg',
+                'subcategory_id' => $subDaisho->id // <-- Legata a Daisho
             ],
             [
                 'nome' => 'Kit di Pulizia Tradizionale', 
@@ -148,7 +148,7 @@ class ProductKatanaSeeder extends Seeder
                 'lunghezzalama' => 0, 
                 'lunghezzatsuka' => 0,  
                 'descrizione' => 'Kit completo di polvere di pietra (uchiko), olio di garofano e martelletto.', 
-                'img' => 'immagini/kit.jpg',
+                'img' => 'imgkatana/MANUTENZIONE/MANUTENZIONEKIT.jpg',
                 'subcategory_id' => $subManutenzione->id // <-- Legata a Kit Manutenzione!
             ],
         ];

@@ -17,7 +17,7 @@ return new class extends Migration
     // Colonne per il collegamento (possono essere nulle se l'offerta è dell'altra categoria)
             $table->unsignedBigInteger('katana_id')->nullable();
             $table->unsignedBigInteger('martial_art_id')->nullable();
-            $table->unsignedBigInteger('subcategory_id');
+            // $table->unsignedBigInteger('subcategory_id');
     $table->timestamps();
 
     $table->foreign('katana_id')->references('id')->on('product_katanas')->onDelete('cascade');

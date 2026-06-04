@@ -39,5 +39,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // logica sidebar
+Route::get('/katana/{subcategory?}', function ($subcategory = null) {
+    return redirect()->route('products.index', ['category' => 'katana', 'subcategory' => $subcategory]);
+});
 
 Route::get('/prodotti/{category}/{subcategory?}', [PublicController::class, 'products'])->name('products.index');

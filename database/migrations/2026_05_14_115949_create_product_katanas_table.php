@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('lunghezzalama');
             $table->string('lunghezzatsuka');
             $table->string('larghezzalama');
-            $table->string('categoria');
+            $table->string('categoria')->default('Katana');
             $table->text('descrizione');
             $table->decimal('prezzo', 8, 2);
             $table->string('img');
