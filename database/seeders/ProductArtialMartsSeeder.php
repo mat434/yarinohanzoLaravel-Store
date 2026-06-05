@@ -64,7 +64,7 @@ class ProductArtialMartsSeeder extends Seeder
                 'prezzo' => 95,
                 'materiale' => 'Cotone rinforzato',
                 'descrizione' => 'Divisa completa da Ninjutsu inclusiva di giacca, pantalone, ghette e cappuccio.',
-                'img' => 'imgMartialArts/immagini/NINJUTSUGI.jpg',
+                'img' => 'imgMartialArts/NINJUTSUGI.jpg',
                 'subcategory_id' => $subNinjutsuGi?->id
             ],
             [
@@ -72,7 +72,7 @@ class ProductArtialMartsSeeder extends Seeder
                 'prezzo' => 70,
                 'materiale' => '100% Cotone',
                 'descrizione' => 'Giacca con tessitura a grana di riso specifica per le proiezioni e le prese dell\'Aikido.',
-                'img' => 'imgMartialArts/immagini/AIKIDOSET.jpg',
+                'img' => 'imgMartialArts/AIKIDOSET.jpg',
                 'subcategory_id' => $subAikidoGi?->id
             ],
             [
@@ -80,7 +80,7 @@ class ProductArtialMartsSeeder extends Seeder
                 'prezzo' => 110,
                 'materiale' => 'Cotone grana di riso pesante',
                 'descrizione' => 'Gi omologato per competizioni di Judo, cuciture rinforzate sui punti di trazione.',
-                'img' => 'imgMartialArts/immagini/JUDOGI.jpg',
+                'img' => 'imgMartialArts/JUDOGI.jpg',
                 'subcategory_id' => $subJudoGi?->id
             ],
             [
@@ -88,7 +88,7 @@ class ProductArtialMartsSeeder extends Seeder
                 'prezzo' => 45,
                 'materiale' => 'Cotone leggero',
                 'descrizione' => 'Ideale per il Kumite e per gli allenamenti estivi quotidiani.',
-                'img' => 'imgMartialArts/immagini/KARATEGI.jpg',
+                'img' => 'imgMartialArts/KARATEGI.jpg',
                 'subcategory_id' => $subKarateGi?->id
             ],
             [
@@ -144,7 +144,7 @@ class ProductArtialMartsSeeder extends Seeder
                 'prezzo' => 220,
                 'materiale' => 'Lignum Vitae (Guaiaco)',
                 'descrizione' => 'Il bokken più pesante e indistruttibile della collezione, realizzato con il legno più duro al mondo.',
-                'img' => 'imgMartialArts/BOKKEN/BOKKENLIGNUMVITAE1.jpg',
+                'img' => 'imgMartialArts/BOKKEN/BOKUTOLIGNUMVITAE1.jpg',
                 'subcategory_id' => $subLignumVitae?->id
             ],
         ];

@@ -55,6 +55,15 @@ class SubcategorySeeder extends Seeder
             ['nome' => 'Yari/Naginata', 'macro_categoria' => 'martial_arts'],
             ['nome' => 'Wengè', 'macro_categoria' => 'martial_arts'],
             ['nome' => 'Lignum Vitae', 'macro_categoria' => 'martial_arts'],
+
+            // SOTTOCATEGORIE OFFERTE
+            ['nome' => 'Katana Kaizen', 'macro_categoria' => 'offerte'],
+            ['nome' => 'Katana Edizione 18Anniversario', 'macro_categoria' => 'offerte'],
+            ['nome' => 'Budospring 2026', 'macro_categoria' => 'offerte'],
+            ['nome' => 'Angolo delle occasioni', 'macro_categoria' => 'offerte'],
+            ['nome' => 'ONI by YariNoHanzo', 'macro_categoria' => 'offerte'],
+            ['nome' => 'YariNoHanzo HANDMADE', 'macro_categoria' => 'offerte'],
+            ['nome' => 'Katana Shogun ELITE', 'macro_categoria' => 'offerte'],
         ];
 
         foreach ($subcategories as $sub) {

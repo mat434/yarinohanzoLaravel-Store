@@ -79,7 +79,7 @@ public function products(Request $request, $category, $subcategory_slug = null)
     }
 
     // MACRO-CATEGORIA: ARTICOLI MARZIALI
-    if ($category == 'artimarziali') {
+    if ($category == 'martial' || $category == 'artimarziali') {
         $description = 'Innumerevoli prodotti per la prima delle arti marziali di qualità YariNoHanzo';
         $subcategories = Subcategory::where('macro_categoria', 'martial_arts')->get();
 
@@ -127,23 +127,49 @@ public function products(Request $request, $category, $subcategory_slug = null)
         return view('products', compact('items', 'title', 'description', 'type', 'subcategories', 'slug'));
     }
 
-    abort(404);
-
-        
-
-        if ($category == 'offerte') {
-            $items = Offers::with(['katana', 'martialArt'])->get();
-            $title = 'Le nostre Offerte';
-            $description = 'Innumerevoli offerte su tutti i prodotti YariNoHanzo';
-            
-            // Passiamo tutte le sottocategorie per permettere di filtrare l'intero catalogo in offerta
-            $subcategories = Subcategory::all();
-
-            return view('offers', compact('items', 'title', 'description', 'subcategories'));
+    if ($category == 'offerte' || $category == 'offers') {
+            return $this->offers($slug);
         }
 
         abort(404);
     }
+
+
+
+    
+
+        
+
+    public function offers($slug = null)
+{
+    // Iniziamo la query sulle offerte
+    $query = Offers::with(['katana', 'martialArt']);
+
+    // Se l'utente ha cliccato su una sottocategoria specifica (es. "Budospring 2026")
+    if ($slug) {
+        $sub = Subcategory::where('slug', $slug)->where('macro_categoria', 'offerte')->first();
+        if ($sub) {
+            // Filtra i record della tabella offers in base all'ID della sottocategoria
+            $query->where('subcategory_id', $sub->id);
+            $title = 'Offerte - ' . $sub->nome;
+        } else {
+            $title = 'Le nostre Offerte';
+        }
+    } else {
+        $title = 'Le nostre Offerte';
+    }
+
+    $items = $query->get();
+    $description = 'Innumerevoli offerte esclusive e occasioni speciali YariNoHanzo';
+    
+    $subcategories = Subcategory::where('macro_categoria', 'offerte')->get();
+    
+    $type = 'offer'; 
+
+
+    return view('offers', compact('items', 'title', 'description', 'subcategories', 'type', 'slug'));
+}
+
 
 
     public function article()

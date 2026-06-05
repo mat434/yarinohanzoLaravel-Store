@@ -56,10 +56,9 @@
         @if($type === 'offer')
             <h5 class="mb-3 fw-bold">Filtra Offerte</h5>
             <div class="mb-4 pe-2">
-                {{-- Nota: Presumo che la rotta base delle offerte sia /offerte, modificalo se usi /offer --}}
-                <select class="form-select form-select-sm mt-3" onchange="window.location.href = this.value ? '/prodotti/offerte/' + this.value : '/prodotti/offerte';">
+                <select class="form-select form-select-sm mt-3" onchange="window.location.href = this.value ? '/offerte?filtro=' + this.value : '/offerte';">
                     <option value="">Seleziona Reparto</option>
-                    @foreach($subcategories as $sub)
+                    @foreach($subcategories->where('macro_categoria', 'offerte') as $sub)
                         <option value="{{ $sub->slug }}" {{ $slug == $sub->slug ? 'selected' : '' }}>
                             {{ $sub->nome }}
                         </option>
