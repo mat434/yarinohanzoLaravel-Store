@@ -11,10 +11,6 @@
                             SCEGLI CATEGORIA
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item text-center" href="#">Tutti i prodotti</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                             <li><a class="dropdown-item text-center"
                                     href="{{ route('products.index', ['category' => 'katana']) }}">katane e
                                     accessori</a></li>

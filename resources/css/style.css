@@ -62,11 +62,27 @@ h4 {
 /* fine lista pagamento */
 
 /* carousel article */
-.caroarticle {
-    height: 400px;        
-    object-fit: cover;   
-    object-position: center; 
+.caroarticle .carousel-inner {
+    height: 500px; /* Puoi aumentare o diminuire questo valore a piacimento */
+    background-color: #f8f9fa; /* Sfondo neutro per le immagini più strette */
+    border-radius: 8px; /* Arrotonda leggermente gli angoli */
+    overflow: hidden;
 }
+
+/* Forza le immagini ad adattarsi al box da 500px senza deformarsi */
+.caroarticle .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain; /* Mantiene le proporzioni corrette mostrando l'immagine intera */
+}
+
+/* Responsive: abbassa l'altezza sui display dei dispositivi mobili */
+@media (max-width: 768px) {
+    .caroarticle .carousel-inner {
+        height: 350px;
+    }
+}
+
 /* fine carousel article */
 
 

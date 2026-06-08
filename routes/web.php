@@ -8,8 +8,15 @@ use Illuminate\Support\Facades\Route;
 // welcome page
 Route::get('/', [PublicController::class, 'welcome'])->name('welcome'); 
 
-// articolo page
-Route::get('/articolo', [PublicController::class, 'article'])->name('article'); 
+// articolo page catalogo normale
+Route::get('/prodotto/{id}', [PublicController::class, 'showProduct'])->name('product.show');
+
+// articolo page catalogo offerte
+Route::get('/offerta/{id}', [PublicController::class, 'showOffer'])->name('offer.show');
+
+// articolo martial art
+// Rotta per le arti marziali dal catalogo normale
+Route::get('/arte-marziale/{id}', [PublicController::class, 'showMartialArt'])->name('martialArt.show');
 
 
 // offer page

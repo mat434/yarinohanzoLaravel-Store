@@ -15,19 +15,20 @@
 
     <!-- main card -->
     <main class="container-fluid">
-        <div class="row">
-            <x-sidebar :type="$type" :subcategories="$subcategories" :slug="$slug" />
-            <div class="col-12 col-md-9">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    @foreach ($items as $item)
-                    <div class="col">
-                        <x-cards :katana="$item" />
-                    </div>
-                    @endforeach
+    <div class="row">
+        <x-sidebar :type="$type" :subcategories="$subcategories" :slug="$slug" />
+        <div class="col-12 col-md-9">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach ($items as $item)
+                <div class="col">
+                    {{-- 🌟 Passiamo il $type dinamico alla card --}}
+                    <x-cards :katana="$item" :type="$type" />
                 </div>
+                @endforeach
             </div>
         </div>
-    </main>
+    </div>
+</main>
     <!-- fine main card -->
 
 

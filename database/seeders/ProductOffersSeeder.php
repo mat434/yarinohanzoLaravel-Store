@@ -16,7 +16,7 @@ class ProductOffersSeeder extends Seeder
     {
 
         $subKaizen       = Subcategory::where('slug', 'katana-kaizen')->first();
-        $subAnniversario = Subcategory::where('slug', 'katana-18anniversario-yarinohanzo')->first();
+        $subAnniversario = Subcategory::where('slug', 'katana-edizione-18anniversario')->first();
         $subBudospring   = Subcategory::where('slug', 'budospring-2026')->first();
         $subOccasioni    = Subcategory::where('slug', 'angolo-delle-occasioni')->first();
 
@@ -41,13 +41,7 @@ class ProductOffersSeeder extends Seeder
                 'subcategory_id' => $subKaizen->id 
         ]);
 
-        // 18 anniversario
-        Offers::create([
-            'martial_art_id'  => null,
-            'katana_id'       => 4,
-            'subcategory_id'  => $subKaizen ? $subKaizen->id : null,
-            'prezzo_scontato' => 250
-        ]);
+
 
         // [Katana 18° Anniversario] - Katana Speciale (ID 5)
         Offers::create([
@@ -59,7 +53,7 @@ class ProductOffersSeeder extends Seeder
                 'lunghezzatsuka' => 50, 
                 'descrizione' => 'Una katana Ispirata al FujiSan per celebrare il 18° anniversario di YariNoHanzo.', 
                 'img' => 'imgoffer/FUJIKATANA18.jpg', // Cambiato 'img' in 'immagine' se sul DB si chiama così
-                'subcategory_id' => $subAnniversario?->id,
+                'subcategory_id' => $subAnniversario->id,
         ]);
 
         // [Angolo delle Occasioni] - Articolo Marziale (ID 2)
@@ -82,10 +76,10 @@ class ProductOffersSeeder extends Seeder
 
         // [YariNoHanzo Handmade] - Katana Artigianale (ID 7)
         Offers::create([
-            'nome' => 'Kamei Katana Superior', 
-                'prezzo' => 1500, 
-                'materiale' => '',
-                'descrizione' => 'Una katana leggendaria appartenente alla famiglia Hattori.', 
+            'nome' => 'Saccan Ninja Handmade', 
+                'prezzo' => 40, 
+                'materiale' => 'cotone',
+                'descrizione' => 'Sacca in pieno stile ninja, realizzata a mano dai nostri artigiani. Perfetta per trasportare la tua katana in modo sicuro e con stile.', 
                 'img' => 'imgoffer/0HANDMADESACCANINJA.jpg', // Cambiato 'img' in 'immagine' se sul DB si chiama così
                 'subcategory_id' => $subHandmade->id 
         ]);
@@ -103,17 +97,5 @@ class ProductOffersSeeder extends Seeder
                 'subcategory_id' => $subShogun->id // 
         ]);
 
-
-
-        \App\Models\Offers::create([
-            'martial_art_id' => 1,
-            'prezzo_scontato' => 80
-        ]);
-
-        // Esempio: Mettere in offerta la Katana del Drago (ID 4 in product_katanas)
-        \App\Models\Offers::create([
-            'katana_id' => 4,
-            'prezzo_scontato' => 250
-        ]);
     }
 }

@@ -1,6 +1,5 @@
 <x-layout>
 
-    <!-- testo principale -->
     <section class="container-fluid my-5 py-5 ">
         <div class="row justify-content-center my-5">
             <div class="col-12 col-md-12">
@@ -9,22 +8,24 @@
             </div>
         </div>
     </section>
-    <!-- fine testo -->
-
     <main class="container-fluid">
         <div class="row">
-            <x-sidebar type="offer" :subcategories="$subcategories" />  
+            <x-sidebar type="offer" :subcategories="$subcategories" :slug="$slug"/>  
             <div class="col-12 col-md-9">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     @foreach ($items as $offerta)
                         <div class="col">
                             @if ($offerta->katana)
-                                {{-- Passiamo l'oggetto katana al componente --}}
-                                <x-cards :katana="$offerta->katana" :discount="$offerta->prezzo_scontato"/>
+                                {{-- Passiamo l'oggetto katana E l'ID dell'offerta --}}
+                                <x-cards :katana="$offerta->katana" :discount="$offerta->prezzo_scontato" :offerId="$offerta->id"/>
                                 
                             @elseif($offerta->martialArt)
-                                {{-- Passiamo l'oggetto arte marziale, ma il componente lo chiamerà comunque "katana" internamente --}}
-                                <x-cards :katana="$offerta->martialArt" :discount="$offerta->prezzo_scontato"/>
+                                {{-- Passiamo l'oggetto arte marziale E l'ID dell'offerta --}}
+                                <x-cards :katana="$offerta->martialArt" :discount="$offerta->prezzo_scontato" :offerId="$offerta->id"/>
+
+                            @else
+                                {{-- Passiamo l'offerta diretta E l'ID dell'offerta --}}
+                                <x-cards :katana="$offerta" :discount="$offerta->prezzo_scontato" :offerId="$offerta->id"/>
                             @endif
                         </div>
                     @endforeach
