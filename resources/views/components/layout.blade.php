@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>YariNoHanzo</title>
 
+    {{-- icona --}}
+    <link rel="icon" type="image/png" href="{{ asset('favICO.png') }}">
+
     <!-- icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 

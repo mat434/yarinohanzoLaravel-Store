@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,10 @@ Route::get('/', [PublicController::class, 'welcome'])->name('welcome');
 
 // articolo page catalogo normale
 Route::get('/prodotto/{id}', [PublicController::class, 'showProduct'])->name('product.show');
+
+// Carrello
+Route::post('/carrello/aggiungi', [CartController::class, 'add'])->name('cart.add');
+Route::post('/carrello/rimuovi', [CartController::class, 'remove'])->name('cart.remove');
 
 // articolo page catalogo offerte
 Route::get('/offerta/{id}', [PublicController::class, 'showOffer'])->name('offer.show');
