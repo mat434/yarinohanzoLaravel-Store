@@ -16,6 +16,9 @@ Route::get('/prodotto/{id}', [PublicController::class, 'showProduct'])->name('pr
 Route::post('/carrello/aggiungi', [CartController::class, 'add'])->name('cart.add');
 Route::post('/carrello/rimuovi', [CartController::class, 'remove'])->name('cart.remove');
 
+// barra di ricerca
+Route::get('/ricerca', [PublicController::class, 'search'])->name('products.search');
+
 // articolo page catalogo offerte
 Route::get('/offerta/{id}', [PublicController::class, 'showOffer'])->name('offer.show');
 

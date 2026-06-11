@@ -20,6 +20,29 @@ class PublicController extends Controller
         return view('welcome', compact('items'));
     }
 
+
+    // logica search
+    public function search(Request $request)
+    {
+        // Recuperiamo la parola inserita dall'utente
+        $searched = $request->input('searched');
+
+        // Cerca nelle Katane/Prodotti per nome (usiamo LIKE %parola%)
+        $products = ProductKatanas::where('nome', 'LIKE', "%{$searched}%")->get();
+
+        // Cerca nelle Arti Marziali per nome (se hai modelli separati)
+        $martialArts = MartialArts::where('nome', 'LIKE', "%{$searched}%")->get();
+
+        $offers = Offers::where('nome', 'LIKE', "%{$searched}%")->get();
+
+        // Aggiungiamo 'offers' nel compact per mandarlo alla vista
+        return view('search-results', compact('products', 'martialArts', 'offers', 'searched'));
+}
+
+
+
+
+
     public function products(Request $request, $category, $subcategory_slug = null)
     {
         // 1. Intercettiamo lo slug sia che arrivi dall'URL pulito, sia che arrivi dal form GET
@@ -216,11 +239,11 @@ class PublicController extends Controller
     }
 
     public function showMartialArt($id)
-{
-    // Cerca direttamente nella tabella delle arti marziali
-    $item = \App\Models\MartialArts::findOrFail($id); 
+    {
+        // Cerca direttamente nella tabella delle arti marziali
+        $item = \App\Models\MartialArts::findOrFail($id);
 
-    // Sfrutta la STESSA vista article.blade.php
-    return view('article', compact('item'));
-}
+        // Sfrutta la STESSA vista article.blade.php
+        return view('article', compact('item'));
+    }
 }

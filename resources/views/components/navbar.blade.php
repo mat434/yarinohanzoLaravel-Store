@@ -24,7 +24,7 @@
                         0,
                     );
                 @endphp
-{{-- logica carrello --}}
+                {{-- logica carrello --}}
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
@@ -103,9 +103,11 @@
                     </li>
                 @endauth
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <form class="d-flex" action="{{ route('products.search') }}" method="GET" role="search">
+                {{-- Il value mantiene la parola scritta anche dopo il caricamento della pagina --}}
+                <input class="form-control me-2" type="search" name="searched" placeholder="Cerca nel sito..."
+                    aria-label="Search" value="{{ request('searched') }}" />
+                <button class="btn btn-outline-secondary" type="submit">Cerca</button>
             </form>
         </div>
     </div>
