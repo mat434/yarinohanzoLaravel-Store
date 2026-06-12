@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,13 @@ Route::get('/prodotto/{id}', [PublicController::class, 'showProduct'])->name('pr
 // Carrello
 Route::post('/carrello/aggiungi', [CartController::class, 'add'])->name('cart.add');
 Route::post('/carrello/rimuovi', [CartController::class, 'remove'])->name('cart.remove');
+
+// Rotta per l'acquisto immediato (aggiunge e reindirizza)
+Route::post('/carrello/acquista-ora', [CartController::class, 'buyNow'])->name('cart.buynow');
+
+// Rotte per la pagina di Checkout
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/conferma', [CheckoutController::class, 'process'])->name('checkout.process');
 
 // barra di ricerca
 Route::get('/ricerca', [PublicController::class, 'search'])->name('products.search');
@@ -33,7 +41,7 @@ Route::get('/offerte', [PublicController::class, 'offers'])->name('offers.index'
 // personalizzakatana page
 Route::get('/personalizzakatana', [OrderController::class, 'personalizzakatana'])->name('personalizzakatana');
 
-Route::post('/personalizzakatana/done', [OrderController::class, 'personalizzakatana_done'])->name('personalizzakatana_done');
+Route::post('/personalizzakatana/done', [OrderController::class, 'personalizzakatana_done'])->name('personalizzakatana.done');
 // personalizzakatana page end
 
 

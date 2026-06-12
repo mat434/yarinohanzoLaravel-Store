@@ -74,7 +74,7 @@
                                             <span>Totale:</span>
                                             <span>{{ number_format($totalPrice, 2, ',', '.') }}€</span>
                                         </div>
-                                        <a href="#" class="btn btn-success w-100 fw-bold">Vai alla Cassa</a>
+                                        <a href="{{ route('checkout.index') }}" class="btn btn-success w-100 fw-bold">Vai alla Cassa</a>
                                     </li>
                                 @endif
                             </ul>

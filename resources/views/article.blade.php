@@ -86,7 +86,28 @@
                         {{ number_format($item->prezzo_scontato ?? $item->prezzo, 2, ',', '.') }} €
                     </li>
                 </ul>
-                <button class="btn btn-warning btn-lg fw-bold shadow-sm px-4">Aggiungi al carrello</button>
+                {{-- button acquista e carrello --}}
+                <form action="{{ route('cart.add') }}" method="POST"
+                    class="d-flex flex-column align-items-end w-100 stylebutton">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $item->id }}">
+                    {{-- Identifichiamo il tipo: se ha l'acciaio è una katana, altrimenti un articolo marziale --}}
+                    <input type="hidden" name="type" value="{{ $item->acciaio ? 'katana' : 'martial' }}">
+                    <input type="hidden" name="nome" value="{{ $item->nome }}">
+                    <input type="hidden" name="prezzo" value="{{ $item->prezzo_scontato ?? $item->prezzo }}">
+                    <input type="hidden" name="img" value="{{ $item->img }}">
+
+                    {{-- Pulsante Standard: Aggiunge e resta sulla pagina --}}
+                    <button type="submit" class="btn btn-warning btn-lg fw-bold shadow-sm px-4 mb-2 w-50">
+                        <i class="bi bi-cart-plus"></i> Aggiungi al carrello
+                    </button>
+
+                    {{-- Pulsante Acquista Ora: Sfrutta 'formaction' per andare alla rotta rapida --}}
+                    <button type="submit" formaction="{{ route('cart.buynow') }}"
+                        class="btn btn-danger btn-lg fw-bold shadow-sm px-4 w-50">
+                        <i class="bi bi-lightning-fill"></i> Acquista Ora
+                    </button>
+                </form>
             </div>
         </div>
     </section>

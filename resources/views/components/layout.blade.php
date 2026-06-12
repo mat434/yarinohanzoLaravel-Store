@@ -27,6 +27,20 @@
     <x-navbar />
     {{ $slot }}
 
+    @if (session('success'))
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100; margin-top: 90px;">
+            <div class="alert alert-success alert-dismissible fade show shadow-lg border-0 bg-white p-3" role="alert" style="min-width: 320px; border-left: 5px solid #198754 !important;">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                    <div>
+                        <h6 class="mb-0 fw-bold text-dark">Operazione Completata</h6>
+                        <small class="text-muted">{{ session('success') }}</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 
     <!-- footer -->
     <x-footer />

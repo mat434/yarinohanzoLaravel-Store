@@ -8,16 +8,16 @@
             </div>
         @endif
         @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <form action="{{ route('personalizzakatana_done') }}" method="POST" class="shadow p-4 rounded" novalidate>
+        <form action="{{ route('personalizzakatana.done') }}" method="POST" class="shadow p-4 rounded" novalidate>
             @csrf
             <h2 class="text-center mb-5">Configuratore Katana Personalizzata</h2>
             <div class="section-box mb-5 p-3 border rounded">
@@ -26,7 +26,7 @@
                     <div class="col-md-4">
                         <label class="form-label fw-bold">Lunghezza Lama (Nagasa cm)</label>
                         <input type="number" name="nagasa_lenght" class="form-control" placeholder="es. 72"
-                            min="30" max="200"  value="{{ old('nagasa_lenght') }}" required>
+                            min="30" max="200" value="{{ old('nagasa_lenght') }}" required>
                         @error('nagasa_lenght')
                             <span class="text-danger small">{{ $message }}</span>
                         @enderror
@@ -56,7 +56,8 @@
                     @foreach ($options['acciaio'] as $item)
                         <div class="col">
                             <input type="radio" name="kitae" value="{{ $item['id'] }}"
-                                id="acciaio_{{ $item['id'] }}" class="btn-check" {{ old('kitae') == $item['id'] ? 'checked' : '' }} required>
+                                id="acciaio_{{ $item['id'] }}" class="btn-check"
+                                {{ old('kitae') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="acciaio_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="Maru">
@@ -75,7 +76,8 @@
                     @foreach ($options['bohi'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="bohi" value="{{ $item['id'] }}"
-                                id="bohi_{{ $item['id'] }}" class="btn-check" {{ old('bohi') == $item['id'] ? 'checked' : '' }} required>
+                                id="bohi_{{ $item['id'] }}" class="btn-check"
+                                {{ old('bohi') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="bohi_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -97,7 +99,8 @@
                     @foreach ($options['tsuba'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="tsuba" value="{{ $item['id'] }}"
-                                id="tsuba_{{ $item['id'] }}" class="btn-check" {{ old('tsuba') == $item['id'] ? 'checked' : '' }} required>
+                                id="tsuba_{{ $item['id'] }}" class="btn-check"
+                                {{ old('tsuba') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="tsuba_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -119,7 +122,8 @@
                     @foreach ($options['Fuchi_Kashira'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="fuchikashira" value="{{ $item['id'] }}"
-                                id="fuchikashira_{{ $item['id'] }}" class="btn-check" {{ old('fuchikashira') == $item['id'] ? 'checked' : '' }} required>
+                                id="fuchikashira_{{ $item['id'] }}" class="btn-check"
+                                {{ old('fuchikashira') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="fuchikashira_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -141,7 +145,8 @@
                     @foreach ($options['menuki'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="menuki" value="{{ $item['id'] }}"
-                                id="menuki_{{ $item['id'] }}" class="btn-check" {{ old('menuki') == $item['id'] ? 'checked' : '' }} required>
+                                id="menuki_{{ $item['id'] }}" class="btn-check"
+                                {{ old('menuki') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="menuki_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -163,7 +168,8 @@
                     @foreach ($options['habaki'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="habaki" value="{{ $item['id'] }}"
-                                id="habaki_{{ $item['id'] }}" class="btn-check" {{ old('habaki') == $item['id'] ? 'checked' : '' }} required>
+                                id="habaki_{{ $item['id'] }}" class="btn-check"
+                                {{ old('habaki') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="habaki_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -172,9 +178,9 @@
                         </div>
                     @endforeach
                 </div>
-                    @error('habaki')
-                        <div class="text-danger small text-center mt-2">{{ $message }}</div>
-                    @enderror
+                @error('habaki')
+                    <div class="text-danger small text-center mt-2">{{ $message }}</div>
+                @enderror
             </div>
             {{-- FINE IMPOSTAZIONE HABAKI --}}
 
@@ -185,7 +191,8 @@
                     @foreach ($options['Seppa'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="seppa" value="{{ $item['id'] }}"
-                                id="seppa_{{ $item['id'] }}" class="btn-check" {{ old('seppa') == $item['id'] ? 'checked' : '' }} required>
+                                id="seppa_{{ $item['id'] }}" class="btn-check"
+                                {{ old('seppa') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="seppa_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -195,7 +202,7 @@
                     @endforeach
                 </div>
                 @error('seppa')
-                    <div class="text-danger small text-center mt-2">{{ $message }}</div>                
+                    <div class="text-danger small text-center mt-2">{{ $message }}</div>
                 @enderror
             </div>
             {{-- FINE IMPOSTAZIONE SEPPA --}}
@@ -207,7 +214,8 @@
                     @foreach ($options['Samegawa'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="samegawa" value="{{ $item['id'] }}"
-                                id="samegawa_{{ $item['id'] }}" class="btn-check" {{ old('samegawa') == $item['id'] ? 'checked' : '' }} required>
+                                id="samegawa_{{ $item['id'] }}" class="btn-check"
+                                {{ old('samegawa') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="samegawa_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -229,7 +237,8 @@
                     @foreach ($options['Stile_Tsuka'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="stile_tsuka" value="{{ $item['id'] }}"
-                                id="stile_tsuka_{{ $item['id'] }}" class="btn-check" {{ old('stile_tsuka') == $item['id'] ? 'checked' : '' }} required>
+                                id="stile_tsuka_{{ $item['id'] }}" class="btn-check"
+                                {{ old('stile_tsuka') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="stile_tsuka_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -251,8 +260,9 @@
                     @foreach ($options['Colore_Tsuka'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="colore_tsuka" value="{{ $item['id'] }}"
-                                id="colore_tsuka_{{ $item['id'] }}" class="btn-check" {{ old('colore_tsuka') == $item['id'] ? 'checked' : '' }} required>
-                            
+                                id="colore_tsuka_{{ $item['id'] }}" class="btn-check"
+                                {{ old('colore_tsuka') == $item['id'] ? 'checked' : '' }} required>
+
                             <label class="card h-100 customcard" for="colore_tsuka_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -263,7 +273,7 @@
                 </div>
                 @error('colore_tsuka')
                     <div class="text-danger small text-center mt-2">{{ $message }}</div>
-                @enderror   
+                @enderror
             </div>
             {{-- FINE COLORE TSUKA --}}
 
@@ -274,7 +284,8 @@
                     @foreach ($options['Tipo_Saya'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="tipo_saya" value="{{ $item['id'] }}"
-                                id="tipo_saya_{{ $item['id'] }}" class="btn-check" {{ old('tipo_saya') == $item['id'] ? 'checked' : '' }} required>
+                                id="tipo_saya_{{ $item['id'] }}" class="btn-check"
+                                {{ old('tipo_saya') == $item['id'] ? 'checked' : '' }} required>
                             <label class="card h-100 customcard" for="tipo_saya_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -296,8 +307,9 @@
                     @foreach ($options['Colore_Sageo'] as $item)
                         <div class="col-md-3">
                             <input type="radio" name="colore_sageo" value="{{ $item['id'] }}"
-                                id="colore_sageo_{{ $item['id'] }}" class="btn-check" {{ old('colore_sageo') == $item['id'] ? 'checked' : '' }} required>
-                            
+                                id="colore_sageo_{{ $item['id'] }}" class="btn-check"
+                                {{ old('colore_sageo') == $item['id'] ? 'checked' : '' }} required>
+
                             <label class="card h-100 customcard" for="colore_sageo_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
@@ -343,8 +355,11 @@
             </div>
 
             <div class="d-grid gap-2 mt-5">
-                <button type="submit" class="btn btn-danger btn-lg text-uppercase fw-bold">Invia il Progetto al
-                    Maestro Forgiatore</button>
+                {{-- FIX: Cambiata la rotta e sistemate le virgolette dopo }} --}}
+                <button type="submit" formaction="{{ route('personalizzakatana.done') }}"
+                    class="btn btn-danger btn-lg text-uppercase fw-bold">
+                    Invia il Progetto al Maestro Forgiatore
+                </button>
             </div>
         </form>
     </div>

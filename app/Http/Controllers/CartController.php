@@ -6,6 +6,28 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+
+public function buyNow(Request $request)
+{
+    $cart = session()->get('cart', []);
+    $key = $request->type . '_' . $request->id;
+    
+    if (isset($cart[$key])) {
+        $cart[$key]['quantity']++;
+    } else {
+        $cart[$key] = [
+            "nome" => $request->nome,
+            "quantity" => 1,
+            "prezzo" => $request->prezzo,
+            "img" => $request->img
+        ];
+    }
+    session()->put('cart', $cart);
+
+    return redirect()->route('checkout.index');
+}
+
+
     // Aggiunge un prodotto al carrello
     public function add(Request $request)
     {
