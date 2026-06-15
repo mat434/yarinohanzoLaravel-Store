@@ -61,7 +61,12 @@
                             <label class="card h-100 customcard" for="acciaio_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="Maru">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -81,7 +86,12 @@
                             <label class="card h-100 customcard" for="bohi_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -104,7 +114,12 @@
                             <label class="card h-100 customcard" for="tsuba_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -127,7 +142,12 @@
                             <label class="card h-100 customcard" for="fuchikashira_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -150,7 +170,12 @@
                             <label class="card h-100 customcard" for="menuki_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -173,7 +198,12 @@
                             <label class="card h-100 customcard" for="habaki_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -196,7 +226,12 @@
                             <label class="card h-100 customcard" for="seppa_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -219,7 +254,12 @@
                             <label class="card h-100 customcard" for="samegawa_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -242,7 +282,12 @@
                             <label class="card h-100 customcard" for="stile_tsuka_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -266,7 +311,12 @@
                             <label class="card h-100 customcard" for="colore_tsuka_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -289,7 +339,12 @@
                             <label class="card h-100 customcard" for="tipo_saya_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -313,7 +368,12 @@
                             <label class="card h-100 customcard" for="colore_sageo_{{ $item['id'] }}">
                                 <img src="{{ asset('personalizza/' . $item['img']) }}" class="card-img-top"
                                     alt="{{ $item['name'] }}">
-                                <div class="card-body p-2 text-center small">{{ $item['name'] }}</div>
+                                <div class="card-body p-2 text-center small">
+                                    <div class="fw-bold">{{ $item['name'] }}</div>
+                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                        {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
+                                    </span>
+                                </div>
                             </label>
                         </div>
                     @endforeach
@@ -354,8 +414,13 @@
                 </div>
             </div>
 
+            {{-- BOX DEL PREZZO DINAMICO --}}
+            <div class="card bg-light p-3 mb-4 text-end shadow-sm">
+                <span class="text-muted fw-bold text-uppercase" style="font-size: 0.85rem;">Prezzo Stimato Configurazione</span>
+                <h2 class="fw-bold text-danger mb-0" id="dynamic-price">150,00 €</h2>
+            </div>
+
             <div class="d-grid gap-2 mt-5">
-                {{-- FIX: Cambiata la rotta e sistemate le virgolette dopo }} --}}
                 <button type="submit" formaction="{{ route('personalizzakatana.done') }}"
                     class="btn btn-danger btn-lg text-uppercase fw-bold">
                     Invia il Progetto al Maestro Forgiatore
@@ -363,4 +428,54 @@
             </div>
         </form>
     </div>
+
+    <script>
+        const katanaConfig = @json($options);
+        const basePrice = 150.00;
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceDisplay = document.getElementById('dynamic-price');
+            const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+            function calculateTotal() {
+                let total = basePrice;
+
+                radioInputs.forEach(input => {
+                    if (input.checked) {
+                        const category = input.name; 
+                        const selectedId = input.value; 
+
+                        let configKey = category;
+                        if (category === 'kitae') configKey = 'acciaio';
+                        if (category === 'fuchikashira') configKey = 'Fuchi_Kashira';
+                        if (category === 'stile_tsuka') configKey = 'Stile_Tsuka';
+                        if (category === 'colore_tsuka') configKey = 'Colore_Tsuka';
+                        if (category === 'tipo_saya') configKey = 'Tipo_Saya';
+                        if (category === 'colore_sageo') configKey = 'Colore_Sageo';
+
+                        if (katanaConfig[configKey]) {
+                            const optionDetails = katanaConfig[configKey].find(opt => opt.id == selectedId);
+
+                            if (optionDetails && optionDetails.price) {
+                                total += parseFloat(optionDetails.price);
+                            }
+                        }
+                    }
+                });
+
+                priceDisplay.textContent = total.toLocaleString('it-IT', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) + ' €';
+            }
+
+            radioInputs.forEach(input => {
+                input.addEventListener('change', calculateTotal);
+            });
+
+            calculateTotal();
+        });
+    </script>
 </x-layout>
