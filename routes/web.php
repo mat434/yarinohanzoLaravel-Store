@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ReviewController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -44,6 +45,16 @@ Route::get('/personalizzakatana', [OrderController::class, 'personalizzakatana']
 Route::post('/personalizzakatana/done', [OrderController::class, 'personalizzakatana_done'])->name('personalizzakatana.done');
 // personalizzakatana page end
 
+// recensioni
+// Rotte pubbliche 
+Route::get('/reviews/latest', [ReviewController::class, 'getLatestReviews']);
+Route::get('/products/{productId}/reviews', [ReviewController::class, 'getProductReviews']);
+Route::get('/api/latest-reviews', [ReviewController::class, 'getLatestReviews']);
+
+// Rotte protette 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/reviews', [ReviewController::class, 'store']);
+});
 
 
 // Middlware Guest registration
@@ -60,6 +71,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+// rotta recensioni
+Route::middleware('auth')->group(function () {
+    // Manteniamo il prefisso /api/reviews così NON devi toccare lo script JavaScript!
+    Route::post('/api/reviews', [ReviewController::class, 'store']);
+});
+// fine rotta recensioni
 
 // logica sidebar
 Route::get('/katana/{subcategory?}', function ($subcategory = null) {

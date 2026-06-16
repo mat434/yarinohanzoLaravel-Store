@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('materiale');
             $table->text('descrizione');
             $table->string('img');
-            $table->unsignedBigInteger('subcategory_id');
+            $table->unsignedBigInteger('subcategory_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

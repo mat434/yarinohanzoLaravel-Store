@@ -111,4 +111,85 @@
             </div>
         </div>
     </section>
+
+{{-- section recensioni --}}
+    <div class="container mt-5">
+        <hr class="my-5">
+        <h3 class="fw-bold text-uppercase mb-4" style="font-family: 'Oswald', sans-serif;">Recensioni del Prodotto</h3>
+
+        @php
+            // Se l'oggetto corrente ha il metodo reviews usiamo lui direttamente (es. ProductKatanas).
+            // Se non ce l'ha (es. l'oggetto è un'offerta), andiamo a prendere il modello reale collegato tramite le tue relazioni.
+            $reviewSource = method_exists($item, 'reviews') ? $item : ($item->katana ?? $item->martialArt ?? null);
+        @endphp
+
+        @auth
+            <div class="card mb-4 shadow-sm border-0 bg-light p-3">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">Lascia la tua recensione</h5>
+                    <form id="reviewForm">
+                        {{-- Inseriamo l'ID del prodotto reale in modo che JavaScript salvi la recensione sul prodotto corretto --}}
+                        <input type="hidden" id="productId" value="{{ $reviewSource ? $reviewSource->id : $item->id }}">
+                        
+                        <div class="mb-3">
+                            <label for="reviewRating" class="form-label fw-bold">Il tuo voto:</label>
+                            <select class="form-select w-auto" id="reviewRating" required>
+                                <option value="5">⭐⭐⭐⭐⭐ (Eccellente)</option>
+                                <option value="4">⭐⭐⭐⭐ (Molto Buono)</option>
+                                <option value="3">⭐⭐⭐ (Buono)</option>
+                                <option value="2">⭐⭐ (Sufficiente)</option>
+                                <option value="1">⭐ (Scarso)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="reviewComment" class="form-label fw-bold">Commento:</label>
+                            <textarea class="form-control" id="reviewComment" rows="3" placeholder="Racconta la tua esperienza con questa katana (bilanciamento, finiture, acciaio...)" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark text-uppercase fw-bold">Invia Recensione</button>
+                    </form>
+                    
+                    <div id="reviewMessage" class="mt-3 d-none alert"></div>
+                </div>
+            </div>
+        @else
+            <div class="alert alert-secondary border-0 shadow-sm d-flex align-items-center mb-4">
+                <i class="bi bi-info-circle-fill fs-5 me-3 text-dark"></i>
+                <div>
+                    <a href="{{ route('login') }}" class="fw-bold text-dark text-decoration-underline">Accedi</a> per poter lasciare una recensione su questa lama.
+                </div>
+            </div>
+        @endauth
+
+        <div id="reviewsContainer" class="d-flex flex-column gap-3">
+            @if($reviewSource && method_exists($reviewSource, 'reviews'))
+                @forelse($reviewSource->reviews()->latest()->get() as $review)
+                    <div class="card shadow-sm border-0 p-2 bg-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <strong class="text-uppercase" style="font-family: 'Oswald', sans-serif;">
+                                    <i class="bi bi-person-fill me-1"></i>{{ $review->user->name }}
+                                </strong>
+                                <span class="text-warning">
+                                    {{ str_repeat('⭐', $review->rating) }}
+                                </span>
+                            </div>
+                            <p class="mb-0 text-muted mt-2">"{{ $review->comment }}"</p>
+                            <div class="text-end mt-2">
+                                <small class="text-secondary" style="font-size: 0.75rem;">
+                                    Inviata il {{ $review->created_at->format('d/m/Y') }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <p id="noReviewsText" class="text-muted italic">Non ci sono ancora recensioni per questo prodotto. Sii il primo a scriverne una!</p>
+                @endforelse
+            @else
+                <p id="noReviewsText" class="text-muted italic">Recensioni non disponibili per questo tipo di articolo.</p>
+            @endif
+        </div>
+    </div>
+    {{-- fine section recensioni --}}
 </x-layout>

@@ -54,6 +54,27 @@
     </section>
 <!-- fine section personalizzakatana -->
 
+{{-- section ultime recensioni --}}
+<section class="py-5">
+        <div class="container">
+            <div class="row mb-4 text-center">
+                <div class="col">
+                    <h2 class="fw-bold text-uppercase" style="font-family: 'Oswald', sans-serif;">Cosa dicono i nostri clienti</h2>
+                    <p class="text-muted">Le ultime impressioni di appassionati e praticanti sulle nostre lame</p>
+                </div>
+            </div>
+
+            <div id="latestReviewsContainer" class="row g-4 justify-content-center">
+                <div class="col-12 text-center py-4" id="reviewsLoader">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="visually-hidden">Caricamento...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- fine section ultime recensioni --}}
+
 
     <!-- section story -->
     <section class="container-fluid my-5 py-5">

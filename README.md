@@ -28,3 +28,11 @@ Scusate.. da un pò non aggiorno il read me.
 -- Aggiunta logica carrello e pagina articolo Dinamica
 
 --Aggiunta logica Barra di Ricerca Funzionalità prezzo nella sidebar (la barra di ricerca si trova nella navbar) 
+
+16 Giungo 2026
+
+Aggiunte:
+
+--logica form di pagamento per articoli e katana personalizzata con aggiunta di prezzo dinamico
+
+--aggiunta logica recensioni welcome e detail article
