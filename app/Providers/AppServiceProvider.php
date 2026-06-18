@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Subcategory;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,5 +35,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with('subcategories', Subcategory::all());
         }
     });
+
+    Relation::morphMap([
+            'katana'  => \App\Models\ProductKatanas::class,
+            'martial' => \App\Models\MartialArts::class,
+            'offer'   => \App\Models\Offers::class,
+        ]);
     }
 }

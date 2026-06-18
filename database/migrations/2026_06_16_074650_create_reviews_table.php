@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
         $table->id();
-        // Collega la recensione all'utente (cancella le recensioni se l'utente viene eliminato)
+        // Collega la recensione all'utente
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
         
-        // Se hai una tabella 'products' per le katane di serie, usiamo questo:
-        $table->foreignId('product_id')->constrained('product_katanas')->onDelete('cascade');
-        
-        // Se le recensioni si applicano anche alle katane custom, potremmo usare una stringa 
-        // o rendere il product_id nullable. Per ora lo teniamo legato ai prodotti di serie.
+        // Questo comando crea automaticamente 'reviewable_id' (bigint) e 'reviewable_type' (string)
+        $table->morphs('reviewable');
 
-        $table->tinyInteger('rating')->unsigned(); // Voto da 1 a 5
-        $table->text('comment')->nullable();       // Testo della recensione (opzionale)
-        $table->timestamps();                      // Creato il / Aggiornato il
+        $table->tinyInteger('rating')->unsigned(); 
+        $table->text('comment')->nullable();       
+        $table->timestamps();                      
     });
     }
 

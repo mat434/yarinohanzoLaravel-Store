@@ -12,9 +12,10 @@ class Review extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
+        'reviewable_id',
+        'reviewable_type',
         'rating',
-        'comment',
+        'comment'
     ];
 
     /**
@@ -23,5 +24,10 @@ class Review extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function reviewable()
+    {
+        return $this->morphTo();
     }
 }

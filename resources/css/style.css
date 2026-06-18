@@ -86,9 +86,89 @@ h4 {
 /* fine carousel article */
 
 
-
-
 /* darkmode */
+/* --- Stili specifici per la pagina Profilo Utente in Dark Mode --- */
+
+/* Sfondo della sidebar sinistra */
+body.dark-mode .custom-sidebar {
+    background-color: #183D3D !important;
+    border: 1px solid #5C8374 !important;
+}
+
+/* Link non attivi della sidebar */
+body.dark-mode .custom-sidebar .nav-link {
+    color: #f1f1f1 !important;
+}
+
+/* Link attivo della sidebar */
+body.dark-mode .custom-sidebar .nav-link.active {
+    background-color: #5C8374 !important;
+    color: #ffffff !important;
+}
+
+/* Box principale di destra */
+body.dark-mode .custom-tab-profile {
+    background-color: #183D3D !important;
+    border-color: #5C8374 !important;
+}
+
+/* Campi di input (Nome ed Email) */
+body.dark-mode .custom-input {
+    background-color: #040D12 !important;
+    border-color: #5C8374 !important;
+    color: #ffffff !important;
+}
+
+/* Etichette degli input */
+body.dark-mode .custom-label {
+    color: #adb5bd !important; /* Grigio chiaro leggibile */
+}
+
+/* Card delle recensioni all'interno del profilo */
+body.dark-mode .custom-review-card {
+    background-color: #040D12 !important;
+    border: 1px solid #5C8374 !important;
+}
+
+/* Correzione testi grigi/secondari nelle recensioni e nei testi vuoti */
+body.dark-mode .custom-comment,
+body.dark-mode .custom-empty {
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .custom-date,
+body.dark-mode .custom-type {
+    color: #adb5bd !important;
+}
+
+/* Accordion delle Katane Custom */
+body.dark-mode .custom-accordion-item {
+    background-color: #040D12 !important;
+    border: 1px solid #5C8374 !important;
+}
+
+body.dark-mode .custom-accordion-btn {
+    background-color: #183D3D !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .custom-accordion-btn:not(.collapsed) {
+    background-color: #5C8374 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .custom-accordion-body {
+    background-color: #040D12 !important;
+    color: #f1f1f1 !important;
+    border-color: #5C8374 !important;
+}
+
+/* Inverte il colore della freccia dell'accordion per renderla visibile */
+body.dark-mode .custom-accordion-btn::after {
+    filter: invert(1) !important;
+}
+/* darkmode specifico profile view */
+
 /* Body */
 body.dark-mode { 
     background-color: #040D12 !important; 
@@ -145,6 +225,8 @@ body.dark-mode .list-group-item strong,
 body.dark-mode .list-group-item span {
     color: #ffffff !important;
 }
+
+/* accordion */
 
 /* Se hai intestazioni nella lista */
 body.dark-mode .list-group-item.active {

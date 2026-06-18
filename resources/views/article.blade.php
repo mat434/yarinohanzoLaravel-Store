@@ -112,25 +112,31 @@
         </div>
     </section>
 
-{{-- section recensioni --}}
+    {{-- section recensioni --}}
     <div class="container mt-5">
         <hr class="my-5">
         <h3 class="fw-bold text-uppercase mb-4" style="font-family: 'Oswald', sans-serif;">Recensioni del Prodotto</h3>
 
         @php
-            // Se l'oggetto corrente ha il metodo reviews usiamo lui direttamente (es. ProductKatanas).
-            // Se non ce l'ha (es. l'oggetto è un'offerta), andiamo a prendere il modello reale collegato tramite le tue relazioni.
-            $reviewSource = method_exists($item, 'reviews') ? $item : ($item->katana ?? $item->martialArt ?? null);
+            // Estraiamo il nome del Modello Eloquent (es: ProductKatanas, MartialArts, Offers)
+            $modelName = class_basename($reviewSource);
+
+            // Mappiamo il nome del modello in una stringa semplice per il database/controller
+            $reviewableType = match ($modelName) {
+                'ProductKatanas' => 'katana',
+                'MartialArts' => 'martial_arts',
+                'Offers' => 'offer',
+                default => 'katana',
+            };
+            $reviewSource = method_exists($item, 'reviews') ? $item : $item->katana ?? ($item->martialArt ?? null);
         @endphp
 
         @auth
             <div class="card mb-4 shadow-sm border-0 bg-light p-3">
                 <div class="card-body">
                     <h5 class="fw-bold mb-3">Lascia la tua recensione</h5>
-                    <form id="reviewForm">
+                    <form id="reviewForm" data-reviewable-id="{{ $reviewSource->id }}" data-reviewable-type="{{ $reviewableType }}">
                         {{-- Inseriamo l'ID del prodotto reale in modo che JavaScript salvi la recensione sul prodotto corretto --}}
-                        <input type="hidden" id="productId" value="{{ $reviewSource ? $reviewSource->id : $item->id }}">
-                        
                         <div class="mb-3">
                             <label for="reviewRating" class="form-label fw-bold">Il tuo voto:</label>
                             <select class="form-select w-auto" id="reviewRating" required>
@@ -144,12 +150,13 @@
 
                         <div class="mb-3">
                             <label for="reviewComment" class="form-label fw-bold">Commento:</label>
-                            <textarea class="form-control" id="reviewComment" rows="3" placeholder="Racconta la tua esperienza con questa katana (bilanciamento, finiture, acciaio...)" required></textarea>
+                            <textarea class="form-control" id="reviewComment" rows="3"
+                                placeholder="Racconta la tua esperienza con questa katana (bilanciamento, finiture, acciaio...)" required></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-dark text-uppercase fw-bold">Invia Recensione</button>
                     </form>
-                    
+
                     <div id="reviewMessage" class="mt-3 d-none alert"></div>
                 </div>
             </div>
@@ -157,13 +164,14 @@
             <div class="alert alert-secondary border-0 shadow-sm d-flex align-items-center mb-4">
                 <i class="bi bi-info-circle-fill fs-5 me-3 text-dark"></i>
                 <div>
-                    <a href="{{ route('login') }}" class="fw-bold text-dark text-decoration-underline">Accedi</a> per poter lasciare una recensione su questa lama.
+                    <a href="{{ route('login') }}" class="fw-bold text-dark text-decoration-underline">Accedi</a> per
+                    poter lasciare una recensione su questa lama.
                 </div>
             </div>
         @endauth
 
         <div id="reviewsContainer" class="d-flex flex-column gap-3">
-            @if($reviewSource && method_exists($reviewSource, 'reviews'))
+            @if ($reviewSource && method_exists($reviewSource, 'reviews'))
                 @forelse($reviewSource->reviews()->latest()->get() as $review)
                     <div class="card shadow-sm border-0 p-2 bg-white">
                         <div class="card-body">
@@ -184,10 +192,12 @@
                         </div>
                     </div>
                 @empty
-                    <p id="noReviewsText" class="text-muted italic">Non ci sono ancora recensioni per questo prodotto. Sii il primo a scriverne una!</p>
+                    <p id="noReviewsText" class="text-muted italic">Non ci sono ancora recensioni per questo prodotto.
+                        Sii il primo a scriverne una!</p>
                 @endforelse
             @else
-                <p id="noReviewsText" class="text-muted italic">Recensioni non disponibili per questo tipo di articolo.</p>
+                <p id="noReviewsText" class="text-muted italic">Recensioni non disponibili per questo tipo di
+                    articolo.</p>
             @endif
         </div>
     </div>

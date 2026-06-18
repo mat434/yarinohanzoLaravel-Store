@@ -32,4 +32,9 @@ class Offers extends Model
     public function martialArt() {
         return $this->belongsTo(MartialArts::class, 'martial_art_id');
     }
+
+    public function reviews()
+{
+    return $this->morphMany(\App\Models\Review::class, 'reviewable');
+}
 }

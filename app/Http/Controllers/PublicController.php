@@ -195,13 +195,14 @@ class PublicController extends Controller
 
 
     public function showProduct($id)
-    {
-        // Cerca direttamente nella tabella delle katane
-        $item = ProductKatanas::findOrFail($id);
+{
+    $item = ProductKatanas::findOrFail($id);
+    
+    // Assegniamo l'oggetto a $reviewSource così la vista sa da dove prendere le recensioni
+    $reviewSource = $item; 
 
-        // Manda i dati alla vista 'article.blade.php'
-        return view('article', compact('item'));
-    }
+    return view('article', compact('item', 'reviewSource'));
+}
 
     // 2. GESTISCE LE OFFERTE (Il "controller intelligente" di prima)
     public function showOffer($id)
@@ -234,16 +235,17 @@ class PublicController extends Controller
             }
         }
 
-        // Manda i dati strutturati alla STESSA vista 'article.blade.php'
-        return view('article', compact('item'));
+        $reviewSource = $item;
+
+    return view('article', compact('item', 'reviewSource'));
     }
 
     public function showMartialArt($id)
-    {
-        // Cerca direttamente nella tabella delle arti marziali
-        $item = \App\Models\MartialArts::findOrFail($id);
+{
+    $item = \App\Models\MartialArts::findOrFail($id);
+    
+    $reviewSource = $item;
 
-        // Sfrutta la STESSA vista article.blade.php
-        return view('article', compact('item'));
-    }
+    return view('article', compact('item', 'reviewSource'));
+}
 }

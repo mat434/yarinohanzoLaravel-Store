@@ -83,8 +83,11 @@
                 </div>
                 {{-- fine logica carrello --}}
                 @auth
+                    {{-- Collegamento all'Area Personale --}}
                     <li class="nav-item mx-2">
-                        <a href="" class="nav-link"> Ciao {{ Auth::user()->name }}</a>
+                        <a href="{{ route('user.profile') }}" class="nav-link fw-bold text-dark">
+                            <i class="bi bi-person-circle me-1 text-danger"></i> Ciao {{ Auth::user()->name }}
+                        </a>
                     </li>
                     <li class="nav-item mx-2">
                         {{-- Usiamo un piccolo form per il logout --}}
@@ -112,4 +115,4 @@
         </div>
     </div>
 </nav>
-<!-- fine navbar -->
+{{-- fine navbar --}}

@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 // welcome page
 Route::get('/', [PublicController::class, 'welcome'])->name('welcome'); 
@@ -70,12 +71,19 @@ Route::middleware('guest')->group(function () {
 // Middlware Authenticated LogOut
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    // Nuova rotta per l'area personale dell'utente
+    Route::get('/area-personale', [UserController::class, 'index'])->name('user.profile');
 });
 
 // rotta recensioni
 Route::middleware('auth')->group(function () {
     // Manteniamo il prefisso /api/reviews così NON devi toccare lo script JavaScript!
     Route::post('/api/reviews', [ReviewController::class, 'store']);
+});
+
+Route::middleware(['auth'])->prefix('api')->group(function () {
+    Route::post('/reviews', [App\Http\Controllers\API\ReviewController::class, 'store']);
 });
 // fine rotta recensioni
 

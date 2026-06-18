@@ -17,9 +17,9 @@ class ProductKatanas extends Model
     return $this->belongsTo(Subcategory::class);
 }
 
-public function reviews(): HasMany
-    {
-        // Specifichiamo 'product_id' come chiave esterna presente nella tabella reviews
-        return $this->hasMany(Review::class, 'product_id');
-    }
+public function reviews()
+{
+    // Diciamo a Laravel che questo modello possiede molte recensioni polimorfiche
+    return $this->morphMany(\App\Models\Review::class, 'reviewable');
+}
 }
