@@ -36,3 +36,7 @@ Aggiunte:
 --logica form di pagamento per articoli e katana personalizzata con aggiunta di prezzo dinamico
 
 --aggiunta logica recensioni welcome e detail article
+
+19 Giugno aggiunta pagina utente e migliorata logica accesso con un pò di css.
+
+Il sito web è quasi ultimato.
