@@ -40,3 +40,6 @@ Aggiunte:
 19 Giugno aggiunta pagina utente e migliorata logica accesso con un pò di css.
 
 Il sito web è quasi ultimato.
+
+08/07/2026
+aggiornamento lato front end del sito con stile minimal. leggere il commit 

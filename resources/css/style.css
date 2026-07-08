@@ -7,252 +7,332 @@
     color: var(--primary-color);
 }
 
+/* ==========================================
+   NAVBAR MINIMALISTA PURE LIGHT (YariNoHanzo)
+   ========================================== */
+
+.custom-navbar {
+    padding-top: 1.2rem !important;
+    padding-bottom: 1.2rem !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    transition: background-color 0.3s ease;
+}
+
+/* Forzatura spigoli vivi totale */
+.custom-navbar,
+.custom-navbar .form-control,
+.custom-navbar .btn,
+.custom-navbar .dropdown-menu,
+.custom-navbar .badge,
+.custom-navbar img,
+.custom-product-card,
+.custom-product-card .custom-card-img,
+.custom-product-card .custom-btn-square,
+.custom-product-card .custom-discount-badge,
+.custom-hero-header .btn,
+.custom-hero-header .dropdown-menu,
+.custom-reviews-section .card,
+.custom-reviews-section .custom-review-card,
+.caroarticle .carousel-inner { /* Forzato a 0px anche il carosello */
+    border-radius: 0px !important;
+}
+
+.custom-nav-link {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+    color: #111 !important;
+}
+
+.custom-nav-link:hover {
+    color: #dc3545 !important;
+}
+
+.btn-cart-minimal {
+    background: transparent;
+    border: 1px solid #111;
+    color: #111;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 0.5rem 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.btn-cart-minimal:hover,
+.btn-cart-minimal:focus {
+    background-color: #111;
+    color: #fff;
+}
+
+.custom-dropdown {
+    background-color: #ffffff !important;
+    border: 1px solid #111 !important;
+}
+
+.custom-badge {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.5rem;
+}
+
+.custom-search-input {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #ccc;
+    color: #111;
+}
+
+.custom-search-input:focus {
+    background-color: #fff;
+    border-color: #111;
+    box-shadow: none;
+}
+
+.btn-search-minimal {
+    border: 1px solid #111;
+    border-left: none;
+    background-color: #111;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 0 1rem;
+}
+
+.btn-search-minimal:hover {
+    background-color: #333;
+}
+
+.custom-btn-square {
+    border-radius: 0px !important;
+}
+
 nav {
     z-index: 9999;
 }
 
-header {
-    background:linear-gradient(transparent, black), url('/public/caroimg/caro2.jpg');
+/* ==========================================
+HERO HEADER CORRETTO (YariNoHanzo)
+   ========================================== */
+
+header, .custom-hero-header {
+    /* CORRETTO: rimosso /public/ dal path e rimpiazzato il gradiente nero con uno chiaro protettivo */
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(245, 246, 248, 0.349)), 
+                url('/public/newfrontendimg/headernew1.avif');
     background-size: cover;
     background-position: center;
-    /* height: 85vh; */
-    
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.custom-header-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    color: #111111 !important; /* Testo scuro per abbinarsi alla palette chiara */
 }
 
 h4 {
     letter-spacing: 1px;
     font-size: 35px;
-    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
-/* card */
-.card {
-    border-radius: 0 !important;
-    border: none !important; 
-    box-shadow: 0px 4px 4px rgba(31, 15, 16, 0.5);
-}
-/* fine card */
-
-/* card form personalizza katana */
-.customcard:hover {
-    transform: translateY(-8px); /* La card "vola" verso l'alto */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    border-color: rgba(246, 13, 36, 0.5); /* Un rosso leggero */
+.btn-header-minimal {
+    background: transparent;
+    border: 2px solid #111111;
+    color: #111111;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
 }
 
-.btn-check:checked + .customcard {
-    border-color: #dc3545 !important; /* Rosso pieno */
-    background-color: rgba(220, 53, 69, 0.05); /* Sfondo rosato chiarissimo */
-    box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);
-    transform: scale(1.02); 
+.btn-header-minimal:hover,
+.btn-header-minimal:focus,
+.show > .btn-header-minimal.dropdown-toggle {
+    background-color: #111111 !important;
+    border-color: #111111 !important;
+    color: #ffffff !important;
 }
-/* fine card form personalizza katana */
 
-/* Footer */
-.footercustom {
-    margin-top: 100px;
+.custom-dropdown-menu {
+    background-color: #ffffff !important;
+    border: 1px solid #111111 !important;
+    margin-top: 10px !important;
 }
-/* fine footer */
 
-/* lista pagamento */
-.ulpay {
-    list-style-type: none;
+.custom-dropdown-menu .dropdown-item {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: #111111;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease;
 }
-/* fine lista pagamento */
 
-/* carousel article */
-.caroarticle .carousel-inner {
-    height: 500px; /* Puoi aumentare o diminuire questo valore a piacimento */
-    background-color: #f8f9fa; /* Sfondo neutro per le immagini più strette */
-    border-radius: 8px; /* Arrotonda leggermente gli angoli */
+.custom-dropdown-menu .dropdown-item:hover {
+    background-color: #111111;
+    color: #ffffff;
+}
+
+/* ==========================================
+   CARD PRODOTTI MINIMAL
+   ========================================== */
+
+.custom-product-card {
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    background-color: #ffffff;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.custom-product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06) !important;
+    border-color: #111111 !important;
+}
+
+.custom-card-img-container {
+    background-color: #f8f9fa;
+}
+
+.custom-card-img {
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.custom-product-card:hover .custom-card-img {
+    transform: scale(1.03);
+}
+
+.custom-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    color: #111111;
+    font-weight: 700;
+}
+
+.custom-card-text {
+    font-size: 0.88rem;
+    line-height: 1.4;
+    height: 42px;
     overflow: hidden;
 }
 
-/* Forza le immagini ad adattarsi al box da 500px senza deformarsi */
+.custom-discount-badge {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.letter-spacing-1 {
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+}
+
+/* Card Personalizzazione Katana */
+.customcard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    border-color: rgba(246, 13, 36, 0.5);
+}
+
+.btn-check:checked + .customcard {
+    border-color: #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.05);
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);
+    transform: scale(1.02);
+}
+
+/* ==========================================
+   SEZIONE RECENSIONI MINIMAL
+   ========================================== */
+
+.custom-reviews-section {
+    background-color: transparent !important;
+}
+
+.label-section-title {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+    color: #111111;
+}
+
+.sub-section-title {
+    font-size: 0.95rem;
+}
+
+.custom-review-card {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.custom-review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05) !important;
+    border-color: #111111 !important;
+}
+
+.custom-review-user {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #111111;
+    font-size: 1rem;
+}
+
+.custom-review-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #444444;
+    font-style: italic;
+}
+
+.custom-review-stars {
+    color: #ffc107;
+    font-size: 0.85rem;
+}
+
+/* Altri Componenti */
+.footercustom {
+    margin-top: 100px;
+}
+
+.ulpay {
+    list-style-type: none;
+}
+
+/* Carosello Articoli (Spigoli Vivi) */
+.caroarticle .carousel-inner {
+    height: 500px;
+    background-color: #f8f9fa;
+    overflow: hidden;
+}
+
 .caroarticle .carousel-item img {
     height: 100%;
     width: 100%;
-    object-fit: contain; /* Mantiene le proporzioni corrette mostrando l'immagine intera */
+    object-fit: contain;
 }
 
-/* Responsive: abbassa l'altezza sui display dei dispositivi mobili */
 @media (max-width: 768px) {
     .caroarticle .carousel-inner {
         height: 350px;
     }
 }
-
-/* fine carousel article */
-
-
-/* darkmode */
-/* --- Stili specifici per la pagina Profilo Utente in Dark Mode --- */
-
-/* Sfondo della sidebar sinistra */
-body.dark-mode .custom-sidebar {
-    background-color: #183D3D !important;
-    border: 1px solid #5C8374 !important;
-}
-
-/* Link non attivi della sidebar */
-body.dark-mode .custom-sidebar .nav-link {
-    color: #f1f1f1 !important;
-}
-
-/* Link attivo della sidebar */
-body.dark-mode .custom-sidebar .nav-link.active {
-    background-color: #5C8374 !important;
-    color: #ffffff !important;
-}
-
-/* Box principale di destra */
-body.dark-mode .custom-tab-profile {
-    background-color: #183D3D !important;
-    border-color: #5C8374 !important;
-}
-
-/* Campi di input (Nome ed Email) */
-body.dark-mode .custom-input {
-    background-color: #040D12 !important;
-    border-color: #5C8374 !important;
-    color: #ffffff !important;
-}
-
-/* Etichette degli input */
-body.dark-mode .custom-label {
-    color: #adb5bd !important; /* Grigio chiaro leggibile */
-}
-
-/* Card delle recensioni all'interno del profilo */
-body.dark-mode .custom-review-card {
-    background-color: #040D12 !important;
-    border: 1px solid #5C8374 !important;
-}
-
-/* Correzione testi grigi/secondari nelle recensioni e nei testi vuoti */
-body.dark-mode .custom-comment,
-body.dark-mode .custom-empty {
-    color: #f1f1f1 !important;
-}
-
-body.dark-mode .custom-date,
-body.dark-mode .custom-type {
-    color: #adb5bd !important;
-}
-
-/* Accordion delle Katane Custom */
-body.dark-mode .custom-accordion-item {
-    background-color: #040D12 !important;
-    border: 1px solid #5C8374 !important;
-}
-
-body.dark-mode .custom-accordion-btn {
-    background-color: #183D3D !important;
-    color: #ffffff !important;
-}
-
-body.dark-mode .custom-accordion-btn:not(.collapsed) {
-    background-color: #5C8374 !important;
-    color: #ffffff !important;
-}
-
-body.dark-mode .custom-accordion-body {
-    background-color: #040D12 !important;
-    color: #f1f1f1 !important;
-    border-color: #5C8374 !important;
-}
-
-/* Inverte il colore della freccia dell'accordion per renderla visibile */
-body.dark-mode .custom-accordion-btn::after {
-    filter: invert(1) !important;
-}
-/* darkmode specifico profile view */
-
-/* Body */
-body.dark-mode { 
-    background-color: #040D12 !important; 
-}
-
-/* Navbar */
-body.dark-mode .navbar.bg-body-tertiary { 
-    background-color: #183D3D !important; 
-    color: white !important;
-}
-
-/* card */
-body.dark-mode .card { 
-    background-color: #183D3D !important; 
-    border: 1px solid #5C8374 !important;
-    color: #f1f1f1 !important; 
-}
-
-body.dark-mode .shadow .p-4 .bg-white .rounded {
-    background-color: #183D3D !important; 
-    border: 1px solid #5C8374 !important;
-    color: #f1f1f1 !important; 
-}
-
-body.dark-mode .card-body {
-    color: #f1f1f1 !important;
-}
-/* fine card */
-
-/* forza elementi dark */
-body.dark-mode h1,
-body.dark-mode h3, 
-body.dark-mode h4,
-body.dark-mode h5, 
-body.dark-mode a,
-body.dark-mode span,
-body.dark-mode button,
-body.dark-mode label,
-body.dark-mode h2,
-body.dark-mode p {
-    color: white !important;
-}
-
-/* darkmode per pagina card */
-/* Sistemazione List Group nella pagina prodotto */
-body.dark-mode .list-group-item {
-    background-color: #183D3D !important;   
-    color: #f1f1f1 !important;          
-    border-color: #5C8374 !important;    
-}
-
-/* titoli testi */
-body.dark-mode .list-group-item strong, 
-body.dark-mode .list-group-item span {
-    color: #ffffff !important;
-}
-
-/* accordion */
-
-/* Se hai intestazioni nella lista */
-body.dark-mode .list-group-item.active {
-    background-color: #5C8374 !important;
-    border-color: #f1f1f1 !important;
-}
-
-body.dark-mode .ulpay {
-    color: white !important;
-}
-
-/* font */
-
-/* card categorie */
-.category1 {
-    text-shadow: #040D12 5px 5px 5px;
-}
-
-.category2 {
-    text-shadow: #040D12 5px 5px 5px;
-}
-
-.category3 {
-    text-shadow: #040D12 5px 5px 5px;
-}
-/* fine dark categorie */
 
 .oswald {
     font-family: "Oswald", sans-serif;
@@ -261,12 +341,16 @@ body.dark-mode .ulpay {
     font-style: normal;
 }
 
-
-body{
-    font-family: "Oswald", serif;
+/* ==========================================
+IL BODY (Sfondo sfumato chiaro)
+========================================== */
+body {
+    font-family: "Oswald", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
+    background: linear-gradient(135deg, #d2d1d1 0%, #f5f6f8 100%) !important;
+    background-attachment: fixed !important;
+    color: #111111;
+    min-height: 100vh;
 }
-
-

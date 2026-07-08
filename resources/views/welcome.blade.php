@@ -1,33 +1,45 @@
 <x-layout>
-    <!-- header -->
-    <header class="container-fluid">
-        <div class="row vh-100 justify-content-center align-items-center">
-            <div class="col-12">
-                <h4 class="text-center text-white">SCOPRI LE NOSTRE KATANE</h4>
-                <div class="d-flex justify-content-center">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            SCEGLI CATEGORIA
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item text-center"
-                                    href="{{ route('products.index', ['category' => 'katana']) }}">katane e
-                                    accessori</a></li>
-                            <li><a class="dropdown-item text-center"
-                                    href="{{ route('products.index', ['category' => 'artimarziali']) }}">Pratica e arti
-                                    marziali</a></li>
-                            <li><a class="dropdown-item text-center"
-                                    href="{{ route('products.index', ['category' => 'offerte']) }}">offerte e
-                                    novità</a></li>
-                            
-                        </ul>
-                    </div>
+    
+    {{-- inizio header --}}
+<header class="container-fluid custom-hero-header">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col-12 text-center">
+            {{-- Titolo principale con forte spaziatura --}}
+            <h1 class="text-white text-uppercase custom-header-title mb-4">
+                Scopri le nostre katane
+            </h1>
+            
+            <div class="d-flex justify-content-center">
+                <div class="dropdown">
+                    <button class="btn btn-header-minimal dropdown-toggle text-uppercase" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Scegli Categoria
+                    </button>
+                    
+                    <ul class="dropdown-menu shadow custom-dropdown-menu">
+                        <li>
+                            <a class="dropdown-item text-uppercase" href="{{ route('products.index', ['category' => 'katana']) }}">
+                                Katane e accessori
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-uppercase" href="{{ route('products.index', ['category' => 'artimarziali']) }}">
+                                Pratica e arti marziali
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-uppercase" href="{{ route('products.index', ['category' => 'offerte']) }}">
+                                Offerte e novità
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- fine header -->
+    </div>
+</header>
+{{-- fine header --}}
+    
 
     <!-- section card -->
     <section class="container">
@@ -54,26 +66,27 @@
     </section>
 <!-- fine section personalizzakatana -->
 
-{{-- section ultime recensioni --}}
-<section class="py-5">
-        <div class="container">
-            <div class="row mb-4 text-center">
-                <div class="col">
-                    <h2 class="fw-bold text-uppercase" style="font-family: 'Oswald', sans-serif;">Cosa dicono i nostri clienti</h2>
-                    <p class="text-muted">Le ultime impressioni di appassionati e praticanti sulle nostre lame</p>
-                </div>
+{{-- inizio sezione recensioni --}}
+<section class="py-5 custom-reviews-section">
+    <div class="container">
+        <div class="row mb-4 text-center">
+            <div class="col">
+                <h2 class="fw-bold text-uppercase label-section-title">Cosa dicono i nostri clienti</h2>
+                <p class="text-muted sub-section-title">Le ultime impressioni di appassionati e praticanti sulle nostre lame</p>
             </div>
+        </div>
 
-            <div id="latestReviewsContainer" class="row g-4 justify-content-center">
-                <div class="col-12 text-center py-4" id="reviewsLoader">
-                    <div class="spinner-border text-dark" role="status">
-                        <span class="visually-hidden">Caricamento...</span>
-                    </div>
+        {{-- Le card iniettate dal tuo JS spunteranno qui dentro --}}
+        <div id="latestReviewsContainer" class="row g-4 justify-content-center">
+            <div class="col-12 text-center py-4" id="reviewsLoader">
+                <div class="spinner-border text-dark" role="status">
+                    <span class="visually-hidden">Caricamento...</span>
                 </div>
             </div>
         </div>
-    </section>
-    {{-- fine section ultime recensioni --}}
+    </div>
+</section>
+{{-- fine sezione recensioni --}}
 
 
     <!-- section story -->

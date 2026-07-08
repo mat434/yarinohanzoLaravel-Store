@@ -1,26 +1,5 @@
 // Dark Mode
-let linkdark = document.querySelector('#darkicon');
-let body = document.querySelector('body');
 
-// Recupero al caricamento: controlliamo se nel localStorage esiste già la preferenza "dark"
-if (localStorage.getItem('tema') === 'dark') {
-    body.classList.add('dark-mode');
-}
-
-// Logica al click sull'icona
-if (linkdark) {
-    linkdark.addEventListener('click', (event) => {
-        event.preventDefault();
-        body.classList.toggle('dark-mode');
-
-        // Salvataggio della preferenza
-        if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('tema', 'dark');
-        } else {
-            localStorage.setItem('tema', 'light');
-        }
-    });
-}
 
 // 2 mostra password al click sull'occhio (Password e Conferma)
 document.addEventListener('DOMContentLoaded', function () {
