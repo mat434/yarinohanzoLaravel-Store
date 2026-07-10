@@ -7,10 +7,7 @@
     color: var(--primary-color);
 }
 
-/* ==========================================
-   NAVBAR MINIMALISTA PURE LIGHT (YariNoHanzo)
-   ========================================== */
-
+/* navbar style */
 .custom-navbar {
     padding-top: 1.2rem !important;
     padding-bottom: 1.2rem !important;
@@ -115,12 +112,10 @@ nav {
     z-index: 9999;
 }
 
-/* ==========================================
-HERO HEADER CORRETTO (YariNoHanzo)
-   ========================================== */
+/* header style */
 
 header, .custom-hero-header {
-    /* CORRETTO: rimosso /public/ dal path e rimpiazzato il gradiente nero con uno chiaro protettivo */
+
     background: linear-gradient(rgba(255, 255, 255, 0), rgba(245, 246, 248, 0.349)), 
                 url('/public/newfrontendimg/headernew1.avif');
     background-size: cover;
@@ -183,9 +178,7 @@ h4 {
     color: #ffffff;
 }
 
-/* ==========================================
-   CARD PRODOTTI MINIMAL
-   ========================================== */
+/* cards style */
 
 .custom-product-card {
     border: 1px solid rgba(0, 0, 0, 0.08) !important;
@@ -254,9 +247,7 @@ h4 {
     transform: scale(1.02);
 }
 
-/* ==========================================
-   SEZIONE RECENSIONI MINIMAL
-   ========================================== */
+/* Sezione recensioni */
 
 .custom-reviews-section {
     background-color: transparent !important;
@@ -341,9 +332,298 @@ h4 {
     font-style: normal;
 }
 
-/* ==========================================
-IL BODY (Sfondo sfumato chiaro)
-========================================== */
+/* footer style */
+
+.custom-footer {
+    margin-top: 120px; /* Spazio generoso per far respirare la pagina prima della fine */
+    background-color: #ffffff; /* Bianco solido per staccare dal gradiente del body */
+    /* Una linea nera netta di 2px in cima, stile bacheca giapponese */
+    border-top: 2px solid #111111; 
+    color: #111111;
+}
+
+/* Titoli delle Colonne */
+.footer-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: #111111;
+}
+
+/* Testo descrittivo del footer */
+.footer-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555555;
+    font-weight: 300;
+}
+
+/* Stile dei Link */
+.footer-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #444444 !important;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* Effetto Hover sui link del footer */
+.footer-link:hover {
+    color: #dc3545 !important; /* Richiamo rosso dinamico coerente con la navbar */
+    padding-left: 4px; /* Piccolo scatto dinamico elegante verso destra */
+}
+
+/* Icone Social nel footer */
+.footer-link i {
+    font-size: 0.95rem;
+    transition: transform 0.2s ease;
+}
+.footer-link:hover i {
+    transform: scale(1.15);
+}
+
+/* Sottobarre dei crediti di fine pagina */
+.custom-sub-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    background-color: #fcfcfc;
+}
+
+.footer-credits {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: #888888;
+}
+
+/* SIDEBAR STYLES */
+
+
+/* Scatola contenitore dei filtri bianca solida che si stacca dal corpo grigio */
+.border-minimal {
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+/* Titoli delle sezioni dei filtri */
+.custom-sidebar-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    color: #111111;
+}
+
+/* Menu Select della sidebar */
+.custom-select-minimal {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    border: 1px solid #cccccc !important;
+    color: #222222;
+    padding: 0.45rem 2rem 0.45rem 0.75rem;
+}
+
+.custom-select-minimal:focus {
+    border-color: #111111 !important;
+    box-shadow: none !important;
+}
+
+/* Linee divisorie interne alla sidebar sottili */
+.custom-sidebar-hr {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    opacity: 1;
+    margin: 1.25rem 0;
+}
+
+/* Allineamento e font per checkbox e radio */
+.custom-form-check {
+    display: flex;
+    align-items: center;
+    min-height: auto;
+}
+
+.custom-form-check .form-check-input {
+    margin-top: 0;
+    margin-right: 8px;
+    cursor: pointer;
+    border-color: #cccccc;
+}
+
+/* Colore rosso del brand quando si seleziona un filtro */
+.custom-form-check .form-check-input:checked {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    box-shadow: none !important;
+}
+
+.custom-filter-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    color: #444444;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Bottone Invia Filtri (Nero solido -> Inverte al passaggio) */
+.btn-sidebar-submit {
+    background-color: #111111;
+    border: 1px solid #111111;
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-sidebar-submit:hover {
+    background-color: #ffffff;
+    color: #111111;
+    border-color: #111111;
+}
+
+/* Bottone Reset Filtri (Outline neutro) */
+.btn-sidebar-reset {
+    background-color: transparent;
+    border: 1px solid #cccccc;
+    color: #666666;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-sidebar-reset:hover {
+    border-color: #111111;
+    color: #111111;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Integrazione nella forzatura spigoli vivi globale */
+.custom-sidebar-wrapper .border-minimal,
+.custom-sidebar-wrapper .custom-select-minimal,
+.custom-sidebar-wrapper .form-check-input,
+.custom-sidebar-wrapper .btn-sidebar-submit,
+.custom-sidebar-wrapper .btn-sidebar-reset {
+    border-radius: 0px !important;
+}
+
+/* Pagina Login e Register */
+
+
+/* Spazio protettivo superiore per evitare che la navbar fissa copra i titoli */
+.custom-auth-bg {
+    padding-top: 100px !important;
+}
+
+/* Titolo principale Oswald */
+.custom-auth-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    color: #111111;
+}
+
+/* Etichette dei campi della form (Label) */
+.custom-auth-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #333333;
+}
+
+/* Input di testo piatti, rettangolari e puliti */
+.custom-auth-input {
+    border: 1px solid #cccccc !important;
+    background-color: #ffffff !important;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: #111111;
+    transition: border-color 0.2s ease;
+}
+
+/* Quando l'utente clicca sul campo, il bordo diventa nero netto senza aloni colorati bootstrap */
+.custom-auth-input:focus {
+    border-color: #111111 !important;
+    box-shadow: none !important;
+    background-color: #ffffff !important;
+}
+
+/* Bottone Principale di Autenticazione (Nero -> Hover Bianco) */
+.btn-auth-minimal {
+    background-color: #111111;
+    border: 1px solid #111111;
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    transition: all 0.25s ease;
+}
+
+.btn-auth-minimal:hover {
+    background-color: #ffffff;
+    color: #111111;
+    border-color: #111111;
+}
+
+/* Link di interscambio sotto il bottone */
+.auth-secondary-link {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.auth-secondary-link:hover {
+    color: #dc3545 !important; /* Richiamo rosso del brand */
+}
+
+/* Immagine della forgia riquadrata a spigolo vivo con bordo d'alta moda */
+.custom-auth-img {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    height: 450px; /* Altezza bloccata per mantenere l'allineamento ordinato */
+}
+
+/* Divider verticale tra immagine e form sottile e raffinato */
+.custom-auth-divider {
+    border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+    height: 400px;
+    width: 0px;
+    padding: 0;
+    margin: 0 40px;
+}
+
+/* Scatola di errore validazione quadrata e pulita */
+.custom-alert-minimal {
+    border-radius: 0px !important;
+    border: none;
+    border-left: 4px solid #dc3545; /* Linea rossa tagliente sul lato */
+    background-color: rgba(220, 53, 69, 0.06) !important;
+    color: #b02a37;
+    padding: 1rem;
+}
+
+/* Forzatura spigoli vivi anche sulle pagine auth */
+.custom-auth-bg .form-control,
+.custom-auth-bg .btn,
+.custom-auth-bg .alert {
+    border-radius: 0px !important;
+}
+
+/* Utility spaziatura lettere */
+.letter-spacing-1 { letter-spacing: 1px; }
+.letter-spacing-05 { letter-spacing: 0.5px; }
+
+/* BODY */
 body {
     font-family: "Oswald", sans-serif;
     font-optical-sizing: auto;

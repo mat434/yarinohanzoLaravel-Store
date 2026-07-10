@@ -42,4 +42,7 @@ Aggiunte:
 Il sito web è quasi ultimato.
 
 08/07/2026
-aggiornamento lato front end del sito con stile minimal. leggere il commit 
+aggiornamento lato front end del sito con stile minimal. leggere il commit
+
+10/07/2026
+aggiornamento: modificato stile footer, sidebar e pagina login e register
