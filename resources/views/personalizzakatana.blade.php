@@ -63,7 +63,8 @@
                                     alt="Maru">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -88,7 +89,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -116,7 +118,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -144,7 +147,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -172,7 +176,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -200,7 +205,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -228,7 +234,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -256,7 +263,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -284,7 +292,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -313,7 +322,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -341,7 +351,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -370,7 +381,8 @@
                                     alt="{{ $item['name'] }}">
                                 <div class="card-body p-2 text-center small">
                                     <div class="fw-bold">{{ $item['name'] }}</div>
-                                    <span class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
+                                    <span
+                                        class="badge {{ isset($item['price']) && $item['price'] > 0 ? 'bg-danger' : 'bg-secondary' }} mt-1">
                                         {{ isset($item['price']) && $item['price'] > 0 ? '+ ' . number_format($item['price'], 2, ',', '.') . ' €' : 'Incluso' }}
                                     </span>
                                 </div>
@@ -416,7 +428,8 @@
 
             {{-- BOX DEL PREZZO DINAMICO --}}
             <div class="card bg-light p-3 mb-4 text-end shadow-sm">
-                <span class="text-muted fw-bold text-uppercase" style="font-size: 0.85rem;">Prezzo Stimato Configurazione</span>
+                <span class="text-muted fw-bold text-uppercase" style="font-size: 0.85rem;">Prezzo Stimato
+                    Configurazione</span>
                 <h2 class="fw-bold text-danger mb-0" id="dynamic-price">150,00 €</h2>
             </div>
 
@@ -444,8 +457,8 @@
 
                 radioInputs.forEach(input => {
                     if (input.checked) {
-                        const category = input.name; 
-                        const selectedId = input.value; 
+                        const category = input.name;
+                        const selectedId = input.value;
 
                         let configKey = category;
                         if (category === 'kitae') configKey = 'acciaio';
@@ -454,6 +467,8 @@
                         if (category === 'colore_tsuka') configKey = 'Colore_Tsuka';
                         if (category === 'tipo_saya') configKey = 'Tipo_Saya';
                         if (category === 'colore_sageo') configKey = 'Colore_Sageo';
+                        if (category === 'seppa') configKey = 'Seppa'; // <-- aggiungi
+                        if (category === 'samegawa') configKey = 'Samegawa';
 
                         if (katanaConfig[configKey]) {
                             const optionDetails = katanaConfig[configKey].find(opt => opt.id == selectedId);

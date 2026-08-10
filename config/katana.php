@@ -41,12 +41,12 @@ return [
 
     'Seppa' => [
         ['id' => '1ottone', 'price' => '20', 'name' => 'Seppa Ottone', 'img' => 'Seppa1.jpg'],
-        ['id' => '2nero', 'price' => '20', 'name' => 'Seppa Nero', 'img' => 'Seppa2.jpg'],
+        ['id' => '2nero', 'price' => '15', 'name' => 'Seppa Nero', 'img' => 'Seppa2.jpg'],
     ],
 
     'Samegawa' => [
         ['id' => '1bianco', 'price' => '20', 'name' => 'Samegawa Bianco', 'img' => 'SAmegawabianco.jpg'],
-        ['id' => '2nero', 'price' => '20', 'name' => 'Samegawa Nero', 'img' => 'Samegawanero.jpg'],
+        ['id' => '2nero', 'price' => '15', 'name' => 'Samegawa Nero', 'img' => 'Samegawanero.jpg'],
     ],
 
     'Stile_Tsuka' => [

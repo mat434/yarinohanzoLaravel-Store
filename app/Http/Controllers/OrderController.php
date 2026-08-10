@@ -83,11 +83,13 @@ class OrderController extends Controller
             'Colore Sageo'    => $this->getOptionName($options['Colore_Sageo'] ?? [], $validatedData['colore_sageo']),
         ];
 
+        
+
         // 3. Prepariamo il pacchetto completo da salvare in sessione
         $summary = [
             'info'              => $validatedData, // Mantiene i dati nativi pronti per il DB
             'dettagli_visibili' => $dettagliVisibili,
-            'prezzo'            => 450.00 // Puoi impostare il prezzo reale qui
+            'prezzo'            => $this->calcolaPrezzo($options, $validatedData), // Puoi impostare il prezzo reale qui
         ];
 
         // 4. Mettiamo in sessione e puliamo il carrello standard
@@ -97,6 +99,28 @@ class OrderController extends Controller
         // 5. Reindirizziamo alla rotta del checkout
         return redirect()->to('/checkout');
     }
+
+    private function calcolaPrezzo($options, $validatedData)
+{
+    $prezzoBase = 150; // prezzo di partenza della katana
+    $totale = $prezzoBase;
+
+    $campiConPrezzo = [
+        'kitae' => 'acciaio', 'bohi' => 'bohi', 'tsuba' => 'tsuba',
+        'fuchikashira' => 'Fuchi_Kashira', 'menuki' => 'menuki',
+        'habaki' => 'habaki', 'seppa' => 'Seppa', 'samegawa' => 'Samegawa',
+        'stile_tsuka' => 'Stile_Tsuka', 'colore_tsuka' => 'Colore_Tsuka',
+        'tipo_saya' => 'Tipo_Saya', 'colore_sageo' => 'Colore_Sageo',
+    ];
+
+    foreach ($campiConPrezzo as $campoInput => $chiaveConfig) {
+        $idScelto = $validatedData[$campoInput];
+        $opzione = collect($options[$chiaveConfig] ?? [])->firstWhere('id', $idScelto);
+        $totale += $opzione ? (float) $opzione['price'] : 0;
+    }
+
+    return $totale;
+}
 
     private function getOptionName($subOptions, $id)
     {
