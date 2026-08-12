@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CustomKatana extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'nagasa_lenght',

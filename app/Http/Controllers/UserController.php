@@ -17,7 +17,7 @@ class UserController extends Controller
         $reviews = $user->reviews()->latest()->get();
 
         // Recuperiamo le katane personalizzate ordinate dall'utente usando la sua email
-        $customKatanas = CustomKatana::where('email', $user->email)->latest()->get();
+        $customKatanas = CustomKatana::where('user_id', $user->id)->latest()->get();
 
         // Passiamo tutti i dati reali alla vista
         return view('user.profile', compact('user', 'reviews', 'customKatanas'));

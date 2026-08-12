@@ -61,6 +61,12 @@ Route::middleware('auth:sanctum')->group(function () {
 // Middlware Guest registration
 Route::middleware('guest')->group(function () {
 
+// Recupero password
+    Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->middleware('throttle:5,1')->name('password.email');
+    Route::get('/reset-password/{token}', [AuthController::class, 'showResetPassword'])->name('password.reset');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'store'])->middleware('throttle:5,1')->name('register.store');
 

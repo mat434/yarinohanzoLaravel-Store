@@ -13,7 +13,7 @@ class CheckoutController extends Controller
     {
         $cart = session('cart', []);
         $customKatana = session('custom_katana'); // Recuperiamo la katana personalizzata
-        
+
         // MODIFICA: Se sia il carrello standard CHE la katana su misura sono vuoti, allora reindirizza
         if (empty($cart) && !$customKatana) {
             return redirect()->to('/')->with('message', 'Il carrello è vuoto.');
@@ -57,6 +57,7 @@ class CheckoutController extends Controller
             unset($dataForDb['katana_name']);
 
             // 1. Salviamo sul Database
+            $dataForDb['user_id'] = auth()->id(); // null se l'utente non è loggato, id se lo è
             $customKatana = CustomKatana::create($dataForDb);
 
             // 2. Inviamo l'email ufficiale al Maestro Forgiatore con i dati del DB

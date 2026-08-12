@@ -36,6 +36,10 @@
                         <label for="password" class="form-label custom-auth-label text-uppercase">Password</label>
                         <input type="password" name="password" class="form-control custom-auth-input" id="password" required placeholder="••••••••">
                     </div>
+
+                    <div class="text-end mb-3">
+                        <a href="{{ route('password.request') }}" class="text-muted small text-uppercase letter-spacing-1 auth-secondary-link">Password dimenticata?</a>
+                    </div>
                     
                     <button type="submit" class="btn btn-auth-minimal w-100 text-uppercase fw-bold py-3">Accedi al Profilo</button>
                     
