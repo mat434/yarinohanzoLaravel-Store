@@ -39,22 +39,7 @@
 
                     <hr class="my-4">
 
-                    <h5 class="mb-3 fw-bold">Metodo di Pagamento</h5>
-
-                    <div class="my-3">
-                        <div class="form-check mb-2">
-                            <input id="credit" name="metodo_pagamento" type="radio" value="credit_card" class="form-check-input" checked required>
-                            <label class="form-check-label" for="credit">
-                                <i class="bi bi-credit-card-2-front-fill text-primary"></i> Carta di Credito / Debito
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input id="paypal" name="metodo_pagamento" type="radio" value="paypal" class="form-check-input" required>
-                            <label class="form-check-label" for="paypal">
-                                <i class="bi bi-paypal text-info"></i> PayPal (Pagamento Rapido)
-                            </label>
-                        </div>
-                    </div>
+                    <p class="text-muted small">Sarai reindirizzato a una pagina di pagamento sicura per completare l'acquisto.</p>
 
                     <button class="w-100 btn btn-success btn-lg fw-bold mt-4 shadow" type="submit">
                         Procedi al Pagamento ({{ number_format($totalPrice, 2, ',', '.') }}€)

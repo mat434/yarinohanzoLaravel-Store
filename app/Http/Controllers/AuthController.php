@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,16 +33,22 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Scatena l'evento "Registered" -> Laravel invia automaticamente l'email di verifica
+        event(new Registered($user));
+
+        // Log in automatico dopo la registrazione
         Auth::login($user);
 
-        return redirect('/')->with('success', 'Account creato con successo!');
+        return redirect()->route('verification.notice');
     }
 
-    public function showLogin() {
+    public function showLogin()
+    {
         return view('auth.login');
     }
 
-    public function authenticate(Request $request) {
+    public function authenticate(Request $request)
+    {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -57,7 +65,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function Logout(Request $request) {
+    public function Logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regeneratetoken();
@@ -97,6 +106,8 @@ class AuthController extends Controller
     // Salva la nuova password
     public function resetPassword(Request $request)
     {
+
+
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
@@ -115,5 +126,25 @@ class AuthController extends Controller
         return $status === PasswordBroker::PASSWORD_RESET
             ? redirect()->route('login')->with('success', 'Password reimpostata con successo! Ora puoi accedere.')
             : back()->withErrors(['email' => 'Il link non è valido o è scaduto.']);
+    }
+
+    // Gestisce il click sul link di verifica ricevuto via email
+    public function verifyEmail(EmailVerificationRequest $request)
+    {
+        $request->fulfill(); // Segna l'email come verificata
+
+        return redirect()->route('user.profile')->with('success', 'Email verificata con successo!');
+    }
+
+    // Gestisce il click su "Rinvia email di verifica"
+    public function resendVerification(Request $request)
+    {
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->route('user.profile');
+        }
+
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('success', 'Ti abbiamo inviato di nuovo il link di verifica.');
     }
 }

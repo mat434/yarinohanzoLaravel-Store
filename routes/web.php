@@ -25,6 +25,8 @@ Route::post('/carrello/acquista-ora', [CartController::class, 'buyNow'])->name('
 // Rotte per la pagina di Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/conferma', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
 
 // barra di ricerca
 Route::get('/ricerca', [PublicController::class, 'search'])->name('products.search');
@@ -52,10 +54,7 @@ Route::get('/reviews/latest', [ReviewController::class, 'getLatestReviews']);
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'getProductReviews']);
 Route::get('/api/latest-reviews', [ReviewController::class, 'getLatestReviews']);
 
-// Rotte protette 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/reviews', [ReviewController::class, 'store']);
-});
+
 
 
 // Middlware Guest registration
@@ -82,16 +81,31 @@ Route::middleware('auth')->group(function () {
     Route::get('/area-personale', [UserController::class, 'index'])->name('user.profile');
 });
 
-// rotta recensioni
+// Middleware Verifica Email
 Route::middleware('auth')->group(function () {
-    // Manteniamo il prefisso /api/reviews così NON devi toccare lo script JavaScript!
-    Route::post('/api/reviews', [ReviewController::class, 'store']);
+    // Pagina "controlla la tua email"
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
+
+    // Link che arriva via email (firmato, con ID utente e hash)
+    Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])
+        ->middleware('signed')
+        ->name('verification.verify');
+
+    // Pulsante "rinvia email di verifica"
+    Route::post('/email/verification-notification', [AuthController::class, 'resendVerification'])
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
 });
 
-Route::middleware(['auth'])->prefix('api')->group(function () {
+
+
+Route::middleware(['auth', 'verified'])->prefix('api')->group(function () {
     Route::post('/reviews', [App\Http\Controllers\API\ReviewController::class, 'store']);
 });
 // fine rotta recensioni
+
 
 // logica sidebar
 Route::get('/katana/{subcategory?}', function ($subcategory = null) {

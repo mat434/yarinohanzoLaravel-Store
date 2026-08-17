@@ -30,12 +30,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Attiva l'occhio per la Password Principale e Conferma
     setupPasswordToggle('togglePassword', 'passwordInput', 'eyeIcon');
     setupPasswordToggle('togglePasswordConfirmation', 'password_confirmation', 'eyeIconConfirmation');
+
+    // Attiva l'occhio per la Password nel Login
+    setupPasswordToggle('toggleLoginPassword', 'loginPassword', 'eyeIconLogin');
 });
 
 // 3 logica recensioni polimorfiche (Katana, Offerta, Articolo)
 document.addEventListener('DOMContentLoaded', function () {
     const reviewForm = document.getElementById('reviewForm');
-    
+
     if (reviewForm) {
         reviewForm.addEventListener('submit', function (e) {
             e.preventDefault(); // Blocca il refresh della pagina
@@ -43,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Recuperiamo ID e Tipo dai data-attributes del form polimorfico
             const reviewableId = reviewForm.getAttribute('data-reviewable-id');
             const reviewableType = reviewForm.getAttribute('data-reviewable-type');
-            
+
             const rating = document.getElementById('reviewRating').value;
             const comment = document.getElementById('reviewComment').value;
-            
+
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const messageDiv = document.getElementById('reviewMessage');
 
@@ -68,29 +71,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => {
-                if (!response.ok) throw new Error('Errore nel salvataggio');
-                return response.json();
-            })
-            .then(res => {
-                if (res.review) {
-                    // Mostra il banner di successo
-                    messageDiv.className = "mt-3 alert alert-success border-0 shadow-sm";
-                    messageDiv.textContent = res.message;
-                    messageDiv.classList.remove('d-none');
-                    
-                    // Svuota i campi del form
-                    reviewForm.reset();
+                .then(response => {
+                    if (response.status === 403) {
+                        throw new Error('EMAIL_NOT_VERIFIED');
+                    }
+                    if (!response.ok) throw new Error('Errore nel salvataggio');
+                    return response.json();
+                })
+                .then(res => {
+                    if (res.review) {
+                        // Mostra il banner di successo
+                        messageDiv.className = "mt-3 alert alert-success border-0 shadow-sm";
+                        messageDiv.textContent = res.message;
+                        messageDiv.classList.remove('d-none');
 
-                    // Rimuovi il testo di "Nessuna recensione" se presente
-                    const noReviewsText = document.getElementById('noReviewsText');
-                    if (noReviewsText) noReviewsText.remove();
+                        // Svuota i campi del form
+                        reviewForm.reset();
 
-                    // Genera le stelline grafiche
-                    const stars = '⭐'.repeat(res.review.rating);
+                        // Rimuovi il testo di "Nessuna recensione" se presente
+                        const noReviewsText = document.getElementById('noReviewsText');
+                        if (noReviewsText) noReviewsText.remove();
 
-                    // Costruisci la nuova recensione da inserire subito nella pagina
-                    const newReviewHtml = `
+                        // Genera le stelline grafiche
+                        const stars = '⭐'.repeat(res.review.rating);
+
+                        // Costruisci la nuova recensione da inserire subito nella pagina
+                        const newReviewHtml = `
                         <div class="card shadow-sm border-0 p-2 bg-white" style="border-left: 4px solid #198754 !important;">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -107,16 +113,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     `;
 
-                    // La inserisce in cima alla lista delle recensioni
-                    document.getElementById('reviewsContainer').insertAdjacentHTML('afterbegin', newReviewHtml);
-                }
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-                messageDiv.className = "mt-3 alert alert-danger border-0 shadow-sm";
-                messageDiv.textContent = "Impossibile inviare la recensione. Riprova più tardi.";
-                messageDiv.classList.remove('d-none');
-            });
+                        // La inserisce in cima alla lista delle recensioni
+                        document.getElementById('reviewsContainer').insertAdjacentHTML('afterbegin', newReviewHtml);
+                    }
+                })
+                .catch(error => {
+                    console.error('Errore:', error);
+                    messageDiv.className = "mt-3 alert alert-danger border-0 shadow-sm";
+
+                    if (error.message === 'EMAIL_NOT_VERIFIED') {
+                        messageDiv.textContent = "Devi verificare il tuo indirizzo email prima di poter lasciare una recensione. Controlla la tua casella di posta.";
+                    } else {
+                        messageDiv.textContent = "Impossibile inviare la recensione. Riprova più tardi.";
+                    }
+
+                    messageDiv.classList.remove('d-none');
+                });
         });
     }
 });
@@ -146,10 +158,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 reviews.forEach(review => {
                     const stars = '⭐'.repeat(review.rating);
-                    
+
                     // 1. Recuperiamo in sicurezza il nome dell'oggetto polimorfico (Katana, Offerta o Articolo)
                     // (Usa .name o .title a seconda di come hai chiamato la colonna nel tuo DB)
-                    const itemReviewed = review.reviewable ? (review.reviewable.nome || review.reviewable.titolo|| 'Articolo') : 'Articolo';
+                    const itemReviewed = review.reviewable ? (review.reviewable.nome || review.reviewable.titolo || 'Articolo') : 'Articolo';
                     // 2. Integriamo le tue classi custom per il supporto Dark Mode
                     const cardHtml = `
                         <div class="col-12 col-md-4 d-flex">
@@ -173,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                         </div>
                     `;
-                    
+
                     latestContainer.insertAdjacentHTML('beforeend', cardHtml);
                 });
             })
