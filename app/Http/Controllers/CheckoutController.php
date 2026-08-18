@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\CustomKatana;
 use App\Mail\CustomKatanaOrder;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 use Stripe\StripeClient;
 
 class CheckoutController extends Controller
@@ -63,27 +64,31 @@ class CheckoutController extends Controller
         }
 
         // Salviamo nome, email e indirizzo in sessione: ci serviranno dopo, quando Stripe conferma il pagamento
-        session(['checkout_info' => [
-            'nome' => $request->nome,
-            'email' => $request->email,
-            'indirizzo' => $request->indirizzo,
-        ]]);
+        session([
+            'checkout_info' => [
+                'nome' => $request->nome,
+                'email' => $request->email,
+                'indirizzo' => $request->indirizzo,
+            ]
+        ]);
 
         $stripe = new StripeClient(config('services.stripe.secret'));
 
         $checkoutSession = $stripe->checkout->sessions->create([
             'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'eur',
-                    'product_data' => [
-                        'name' => $customKatana ? 'Katana Personalizzata' : 'Ordine YariNoHanzo',
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => $customKatana ? 'Katana Personalizzata' : 'Ordine YariNoHanzo',
+                        ],
+                        // Stripe vuole il prezzo in centesimi, non in euro
+                        'unit_amount' => (int) round($totalPrice * 100),
                     ],
-                    // Stripe vuole il prezzo in centesimi, non in euro
-                    'unit_amount' => (int) round($totalPrice * 100),
-                ],
-                'quantity' => 1,
-            ]],
+                    'quantity' => 1,
+                ]
+            ],
             'mode' => 'payment',
             'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('checkout.cancel'),
@@ -95,14 +100,33 @@ class CheckoutController extends Controller
     // STEP 2: Stripe rimanda qui l'utente dopo un pagamento riuscito
     public function success(Request $request)
     {
+        $sessionId = $request->query('session_id');
+
+        if (!$sessionId) {
+            return redirect()->to('/')->with('message', 'Sessione di pagamento non valida.');
+        }
+
+        // === PROTEZIONE ANTI-DOPPIA ESECUZIONE ===
+        // Se questo session_id è già stato processato (refresh, doppio tab, retry del browser),
+        // mostriamo subito il messaggio di successo senza rieseguire nulla.
+        $cacheKey = 'stripe_session_processed_' . $sessionId;
+
+        if (Cache::has($cacheKey)) {
+            return redirect()->to('/')->with('success', 'Pagamento completato! Il progetto della tua Katana è stato inviato alla fucina.');
+        }
+
         $stripe = new StripeClient(config('services.stripe.secret'));
 
-        $checkoutSession = $stripe->checkout->sessions->retrieve($request->query('session_id'));
+        $checkoutSession = $stripe->checkout->sessions->retrieve($sessionId);
 
         // Verifica REALE col server Stripe, non ci fidiamo del semplice arrivo su questa pagina
         if ($checkoutSession->payment_status !== 'paid') {
             return redirect()->to('/checkout')->with('message', 'Il pagamento non è andato a buon fine. Riprova.');
         }
+
+        // Segniamo subito questo session_id come "in lavorazione/processato", prima di fare qualunque cosa.
+        // Così anche richieste concorrenti quasi simultanee trovano già il blocco.
+        Cache::put($cacheKey, true, now()->addHours(24));
 
         $checkoutInfo = session('checkout_info', []);
 
@@ -131,19 +155,33 @@ class CheckoutController extends Controller
 
             $customKatana = CustomKatana::create($dataForDb);
 
-            Mail::to('yarinohanzokatana@mail.com')->send(new CustomKatanaOrder($customKatana));
+            // Invio email al forgiatore (non bloccante: se fallisce, l'ordine resta comunque valido)
+
+            try {
+                Mail::to('yarinohanzokatana@mail.com')->send(new CustomKatanaOrder($customKatana));
+            } catch (\Exception $e) {
+                \Log::error('Invio email al forgiatore fallito: ' . $e->getMessage());
+            }
+
+            sleep(20); // Pausa di 20 secondi per rispettare il limite di Mailtrap in modalità test
 
             session()->forget('custom_katana');
         }
 
-        // Invio email di conferma al cliente
-        Mail::to($checkoutInfo['email'])->send(new OrderConfirmation(
-            $checkoutInfo['nome'],
-            $checkoutInfo['indirizzo'],
-            $totalPrice,
-            $katanaSession,
-            $cart
-        ));
+        // Invio email di conferma al cliente (non bloccante: se fallisce, l'ordine resta comunque valido)
+        if (!empty($checkoutInfo['email'])) {
+            try {
+                Mail::to($checkoutInfo['email'])->send(new OrderConfirmation(
+                    $checkoutInfo['nome'],
+                    $checkoutInfo['indirizzo'],
+                    $totalPrice,
+                    $katanaSession,
+                    $cart
+                ));
+            } catch (\Exception $e) {
+                \Log::error('Invio email conferma ordine fallito: ' . $e->getMessage());
+            }
+        }
 
         session()->forget('cart');
         session()->forget('checkout_info');
