@@ -10,8 +10,11 @@
             {{-- 🌟 1. Ciclo Offerte (Kaizen, Shogun, ecc.) --}}
             @foreach($offers as $offer)
                 <div class="col-12 col-md-4 col-lg-3">
-                    {{-- Passiamo l'id dell'offerta e il prezzo scontato se lo hai nel database (es. $offer->prezzo_scontato o simile) --}}
-                    <x-cards :katana="$offer" :offerId="$offer->id" :discount="$offer->prezzo_scontato ?? null" type="katana" />
+                    @php
+                        $offerType = $offer->katana_id ? 'katana' : ($offer->martial_art_id ? 'martial' : 'offer');
+                    @endphp
+                    <x-cards :katana="$offer" :offerId="$offer->id" :discount="$offer->prezzo_scontato ?? null"
+                        :type="$offerType" />
                 </div>
             @endforeach
 
@@ -29,11 +32,12 @@
                 </div>
             @endforeach
 
-            
+
             @if($products->isEmpty() && $martialArts->isEmpty() && $offers->isEmpty())
                 <div class="col-12 text-center my-5">
                     <i class="bi bi-emoji-frown" style="font-size: 3rem; color: #6c757d;"></i>
-                    <p class="mt-3 text-muted">Nessun prodotto corrisponde alla tua ricerca. Riprova con un altro termine!</p>
+                    <p class="mt-3 text-muted">Nessun prodotto corrisponde alla tua ricerca. Riprova con un altro termine!
+                    </p>
                 </div>
             @endif
         </div>

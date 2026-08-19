@@ -27,9 +27,10 @@ class PublicController extends Controller
         // Recuperiamo la parola inserita dall'utente
         $searched = $request->input('searched');
 
-        // Cerca nelle Katane/Prodotti per nome (usiamo LIKE %parola%)
-        $products = ProductKatanas::where('nome', 'LIKE', "%{$searched}%")->get();
-
+        if (empty($searched)) {
+            return view('search-results', compact('searched'))
+                ->with(['products' => collect(), 'martialArts' => collect(), 'offers' => collect()]);
+        }
         // Cerca nelle Arti Marziali per nome (se hai modelli separati)
         $martialArts = MartialArts::where('nome', 'LIKE', "%{$searched}%")->get();
 
@@ -37,7 +38,7 @@ class PublicController extends Controller
 
         // Aggiungiamo 'offers' nel compact per mandarlo alla vista
         return view('search-results', compact('products', 'martialArts', 'offers', 'searched'));
-}
+    }
 
 
 
@@ -195,14 +196,14 @@ class PublicController extends Controller
 
 
     public function showProduct($id)
-{
-    $item = ProductKatanas::findOrFail($id);
-    
-    // Assegniamo l'oggetto a $reviewSource così la vista sa da dove prendere le recensioni
-    $reviewSource = $item; 
+    {
+        $item = ProductKatanas::findOrFail($id);
 
-    return view('article', compact('item', 'reviewSource'));
-}
+        // Assegniamo l'oggetto a $reviewSource così la vista sa da dove prendere le recensioni
+        $reviewSource = $item;
+
+        return view('article', compact('item', 'reviewSource'));
+    }
 
     // 2. GESTISCE LE OFFERTE (Il "controller intelligente" di prima)
     public function showOffer($id)
@@ -237,15 +238,15 @@ class PublicController extends Controller
 
         $reviewSource = $item;
 
-    return view('article', compact('item', 'reviewSource'));
+        return view('article', compact('item', 'reviewSource'));
     }
 
     public function showMartialArt($id)
-{
-    $item = \App\Models\MartialArts::findOrFail($id);
-    
-    $reviewSource = $item;
+    {
+        $item = \App\Models\MartialArts::findOrFail($id);
 
-    return view('article', compact('item', 'reviewSource'));
-}
+        $reviewSource = $item;
+
+        return view('article', compact('item', 'reviewSource'));
+    }
 }
