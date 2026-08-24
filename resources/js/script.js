@@ -75,6 +75,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.status === 403) {
                         throw new Error('EMAIL_NOT_VERIFIED');
                     }
+                    if (response.status === 422) {
+                        throw new Error('GIA_RECENSITO');
+                    }
                     if (!response.ok) throw new Error('Errore nel salvataggio');
                     return response.json();
                 })
@@ -123,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (error.message === 'EMAIL_NOT_VERIFIED') {
                         messageDiv.textContent = "Devi verificare il tuo indirizzo email prima di poter lasciare una recensione. Controlla la tua casella di posta.";
+                    } else if (error.message === 'GIA_RECENSITO') {
+                        messageDiv.textContent = "Hai già lasciato una recensione per questo prodotto.";
                     } else {
                         messageDiv.textContent = "Impossibile inviare la recensione. Riprova più tardi.";
                     }

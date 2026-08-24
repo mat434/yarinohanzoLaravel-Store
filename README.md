@@ -46,3 +46,14 @@ aggiornamento lato front end del sito con stile minimal. leggere il commit
 
 10/07/2026
 aggiornamento: modificato stile footer, sidebar e pagina login e register
+
+
+
+24/08/2026
+revisione sito web e preparazione demo
+
+-verificato sicurezza e codice per quanto riguarda login, register, personalizza katana, pagina dettaglio, 
+-aggiunto form di pagamento tramite stripe
+-aggiunto invio email di conferma email, password dimenticata, e di conferma ordine tramite mailtrap
+
+

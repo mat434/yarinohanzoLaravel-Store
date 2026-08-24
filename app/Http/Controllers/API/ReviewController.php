@@ -13,51 +13,64 @@ class ReviewController extends Controller
      * Salva una nuova recensione nel database.
      */
     public function store(Request $request)
-{
-    // 1. Allineiamo la validazione accettando anche 'martial_arts' inviato dal JS
-    $request->validate([
-        'reviewable_id'   => 'required|integer',
-        'reviewable_type' => 'required|string|in:katana,martial,martial_arts,offer',
-        'rating'          => 'required|integer|min:1|max:5',
-        'comment'         => 'nullable|string|max:1000',
-    ]);
+    {
+        // 1. Validazione
+        $request->validate([
+            'reviewable_id'   => 'required|integer',
+            'reviewable_type' => 'required|string|in:katana,martial,martial_arts,offer',
+            'rating'          => 'required|integer|min:1|max:5',
+            'comment'         => 'nullable|string|max:1000',
+        ]);
 
-    // 2. Recuperiamo l'ID utente provando sia la sessione Web che le API
-    $userId = Auth::id() ?? auth('web')->id();
+        // 2. Recuperiamo l'ID utente dalla sessione
+        $userId = Auth::id();
 
-    if (!$userId) {
-        return response()->json(['message' => 'Utente non autenticato.'], 401);
+        if (!$userId) {
+            return response()->json(['message' => 'Utente non autenticato.'], 401);
+        }
+
+        // 3. Mappiamo il tipo stringa nel nome effettivo della classe Eloquent
+        $typeInput = $request->reviewable_type;
+        $reviewableClass = match ($typeInput) {
+            'katana'                  => \App\Models\ProductKatanas::class,
+            'martial', 'martial_arts' => \App\Models\MartialArts::class,
+            'offer'                   => \App\Models\Offers::class,
+            default                   => \App\Models\ProductKatanas::class
+        };
+
+        // 4. Verifica che l'utente non abbia già recensito questo prodotto
+        $esistente = Review::where('user_id', $userId)
+            ->where('reviewable_id', $request->reviewable_id)
+            ->where('reviewable_type', $reviewableClass)
+            ->first();
+
+        if ($esistente) {
+            return response()->json([
+                'message' => 'Hai già lasciato una recensione per questo prodotto.'
+            ], 422);
+        }
+
+        // 5. Creazione del record con i campi polimorfi corretti
+        $review = Review::create([
+            'user_id'         => $userId,
+            'reviewable_id'   => $request->reviewable_id,
+            'reviewable_type' => $reviewableClass,
+            'rating'          => $request->rating,
+            'comment'         => $request->comment,
+        ]);
+
+        return response()->json([
+            'message' => 'Recensione aggiunta con successo!',
+            'review'  => $review->load('user:id,name')
+        ], 201);
     }
 
-    // 3. Mappiamo il tipo stringa nel nome effettivo della classe Eloquent
-    $typeInput = $request->reviewable_type;
-    $reviewableClass = match($typeInput) {
-        'katana'                 => \App\Models\ProductKatanas::class,
-        'martial', 'martial_arts' => \App\Models\MartialArts::class,
-        'offer'                  => \App\Models\Offers::class,
-        default                  => \App\Models\ProductKatanas::class
-    };
-
-    // 4. Creazione del record con i campi polimorfi corretti
-    $review = Review::create([
-        'user_id'         => $userId, 
-        'reviewable_id'   => $request->reviewable_id,
-        'reviewable_type' => $reviewableClass, // Salva la classe intera (es. App\Models\ProductKatanas)
-        'rating'          => $request->rating,
-        'comment'         => $request->comment,
-    ]);
-
-    return response()->json([
-        'message' => 'Recensione aggiunta con successo!',
-        'review'  => $review->load('user:id,name')
-    ], 201);
-}
     /**
      * Recupera le ultime recensioni globali per la Home Page.
      */
     public function getLatestReviews()
     {
-        $reviews = Review::with(['user:id,name', 'reviewable']) // Carica anche il prodotto associato
+        $reviews = Review::with(['user:id,name', 'reviewable'])
             ->latest()
             ->take(6)
             ->get();
@@ -70,12 +83,18 @@ class ReviewController extends Controller
      */
     public function getProductReviews(Request $request, $productId)
     {
-        // Recuperiamo il tipo dalla query string, es: /api/products/1/reviews?type=katana
-        $type = $request->query('type', 'katana'); 
+        $type = $request->query('type', 'katana');
+
+        $reviewableClass = match ($type) {
+            'katana'                  => \App\Models\ProductKatanas::class,
+            'martial', 'martial_arts' => \App\Models\MartialArts::class,
+            'offer'                   => \App\Models\Offers::class,
+            default                   => \App\Models\ProductKatanas::class
+        };
 
         $reviews = Review::with('user:id,name')
             ->where('reviewable_id', $productId)
-            ->where('reviewable_type', $type)
+            ->where('reviewable_type', $reviewableClass)
             ->latest()
             ->get();
 
