@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CustomKatanaOrder extends Mailable
+class CustomKatanaOrder extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class CustomKatanaOrder extends Mailable
     {
         return new Envelope(
             subject: 'Custom Katana Order',
-            from: new Address($this->katanaMail['email'], $this->katanaMail['katana_name']),
+            replyTo: [new Address($this->katanaMail['email'], $this->katanaMail['name'])],
         );
     }
 

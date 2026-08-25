@@ -14,34 +14,24 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Validazione
         $request->validate([
             'reviewable_id'   => 'required|integer',
-            'reviewable_type' => 'required|string|in:katana,martial,martial_arts,offer',
+            'reviewable_type' => 'required|string|in:katana,martial,offer',
             'rating'          => 'required|integer|min:1|max:5',
             'comment'         => 'nullable|string|max:1000',
         ]);
 
-        // 2. Recuperiamo l'ID utente dalla sessione
         $userId = Auth::id();
 
         if (!$userId) {
             return response()->json(['message' => 'Utente non autenticato.'], 401);
         }
 
-        // 3. Mappiamo il tipo stringa nel nome effettivo della classe Eloquent
-        $typeInput = $request->reviewable_type;
-        $reviewableClass = match ($typeInput) {
-            'katana'                  => \App\Models\ProductKatanas::class,
-            'martial', 'martial_arts' => \App\Models\MartialArts::class,
-            'offer'                   => \App\Models\Offers::class,
-            default                   => \App\Models\ProductKatanas::class
-        };
-
-        // 4. Verifica che l'utente non abbia già recensito questo prodotto
+        // Grazie al morphMap registrato in AppServiceProvider, 'katana'/'martial'/'offer'
+        // sono già gli alias corretti da salvare — non serve nessuna mappatura manuale qui.
         $esistente = Review::where('user_id', $userId)
             ->where('reviewable_id', $request->reviewable_id)
-            ->where('reviewable_type', $reviewableClass)
+            ->where('reviewable_type', $request->reviewable_type)
             ->first();
 
         if ($esistente) {
@@ -50,11 +40,10 @@ class ReviewController extends Controller
             ], 422);
         }
 
-        // 5. Creazione del record con i campi polimorfi corretti
         $review = Review::create([
             'user_id'         => $userId,
             'reviewable_id'   => $request->reviewable_id,
-            'reviewable_type' => $reviewableClass,
+            'reviewable_type' => $request->reviewable_type,
             'rating'          => $request->rating,
             'comment'         => $request->comment,
         ]);
@@ -85,16 +74,9 @@ class ReviewController extends Controller
     {
         $type = $request->query('type', 'katana');
 
-        $reviewableClass = match ($type) {
-            'katana'                  => \App\Models\ProductKatanas::class,
-            'martial', 'martial_arts' => \App\Models\MartialArts::class,
-            'offer'                   => \App\Models\Offers::class,
-            default                   => \App\Models\ProductKatanas::class
-        };
-
         $reviews = Review::with('user:id,name')
             ->where('reviewable_id', $productId)
-            ->where('reviewable_type', $reviewableClass)
+            ->where('reviewable_type', $type)
             ->latest()
             ->get();
 

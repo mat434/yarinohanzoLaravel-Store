@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MartialArts extends Model
 {
-    protected $fillable = ['nome', 'prezzo', 'materiale', 'descrizione', 'img'];
+    protected $fillable = ['nome', 'prezzo', 'materiale', 'descrizione', 'img', 'subcategory_id'];
 
     public function subcategory() {
     return $this->belongsTo(Subcategory::class);

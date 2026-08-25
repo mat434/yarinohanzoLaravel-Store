@@ -91,7 +91,7 @@ class CartController extends Controller
         }
         session()->put('cart', $cart);
 
-        return redirect()->route('checkout.index');
+        return redirect()->route('checkout');
     }
 
     public function add(Request $request)

@@ -24,22 +24,19 @@ class PublicController extends Controller
     // logica search
     public function search(Request $request)
     {
-        // Recuperiamo la parola inserita dall'utente
         $searched = $request->input('searched');
 
         if (empty($searched)) {
             return view('search-results', compact('searched'))
                 ->with(['products' => collect(), 'martialArts' => collect(), 'offers' => collect()]);
         }
-        // Cerca nelle Arti Marziali per nome (se hai modelli separati)
-        $martialArts = MartialArts::where('nome', 'LIKE', "%{$searched}%")->get();
 
+        $products = ProductKatanas::where('nome', 'LIKE', "%{$searched}%")->get();
+        $martialArts = MartialArts::where('nome', 'LIKE', "%{$searched}%")->get();
         $offers = Offers::where('nome', 'LIKE', "%{$searched}%")->get();
 
-        // Aggiungiamo 'offers' nel compact per mandarlo alla vista
         return view('search-results', compact('products', 'martialArts', 'offers', 'searched'));
     }
-
 
 
 
