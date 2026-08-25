@@ -42,6 +42,11 @@
         </div>
     @endif
 
+
+    
+{{-- tasto rinvio email --}}
+    <x-verify-banner />
+
     <!-- footer -->
     <x-footer />
 

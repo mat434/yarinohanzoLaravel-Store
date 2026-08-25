@@ -138,13 +138,17 @@ class AuthController extends Controller
 
     // Gestisce il click su "Rinvia email di verifica"
     public function resendVerification(Request $request)
-    {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('user.profile');
-        }
-
-        $request->user()->sendEmailVerificationNotification();
-
-        return back()->with('success', 'Ti abbiamo inviato di nuovo il link di verifica.');
+{
+    if ($request->user()->hasVerifiedEmail()) {
+        return redirect()->route('user.profile');
     }
+
+    try {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('success', 'Ti abbiamo inviato di nuovo il link di verifica.');
+    } catch (\Exception $e) {
+        \Log::error('Reinvio email verifica fallito: ' . $e->getMessage());
+        return back()->with('message', 'Non siamo riusciti a inviare l\'email in questo momento. Riprova tra qualche secondo.');
+    }
+}
 }

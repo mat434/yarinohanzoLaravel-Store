@@ -124,7 +124,7 @@
             // Mappiamo il nome del modello in una stringa semplice per il database/controller
             $reviewableType = match ($modelName) {
                 'ProductKatanas' => 'katana',
-                'MartialArts' => 'martial_arts',
+                'MartialArts' => 'martial',
                 'Offers' => 'offer',
                 default => 'katana',
             };
