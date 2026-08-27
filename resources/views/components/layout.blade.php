@@ -27,6 +27,9 @@
     <x-navbar />
     {{ $slot }}
 
+    {{-- tasto rinvio email --}}
+    <x-verify-banner />
+
     @if (session('success'))
         <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100; margin-top: 90px;">
             <div class="alert alert-success alert-dismissible fade show shadow-lg border-0 bg-white p-3" role="alert" style="min-width: 320px; border-left: 5px solid #198754 !important;">
@@ -44,8 +47,7 @@
 
 
     
-{{-- tasto rinvio email --}}
-    <x-verify-banner />
+
 
     <!-- footer -->
     <x-footer />

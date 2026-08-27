@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderConfirmation;
-use Illuminate\Http\Request;
 use App\Models\CustomKatana;
+use App\Models\Order;
 use App\Mail\CustomKatanaOrder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Stripe\StripeClient;
@@ -132,12 +133,17 @@ class CheckoutController extends Controller
 
         // Ricalcoliamo cart e totalPrice qui, prima che vengano puliti dalla sessione
         $cart = session('cart', []);
-        $totalPrice = 0;
+
+        // Totale del SOLO carrello standard (senza katana personalizzata): è questo che salviamo nell'Order
+        $cartTotal = 0;
         if (!empty($cart)) {
-            $totalPrice += array_reduce($cart, function ($carry, $item) {
+            $cartTotal = array_reduce($cart, function ($carry, $item) {
                 return $carry + $item['prezzo'] * $item['quantity'];
             }, 0);
         }
+
+        // Totale complessivo (carrello + eventuale katana), usato solo per l'email di conferma
+        $totalPrice = $cartTotal;
         if (session('custom_katana')) {
             $totalPrice += session('custom_katana')['prezzo'];
         }
@@ -159,6 +165,29 @@ class CheckoutController extends Controller
             Mail::to('yarinohanzokatana@mail.com')->queue(new CustomKatanaOrder($customKatana));
 
             session()->forget('custom_katana');
+        }
+
+        // === SALVATAGGIO DELL'ORDINE STANDARD (solo se c'è un carrello, non per le katane personalizzate) ===
+        if (!empty($cart)) {
+            $order = Order::create([
+                'user_id'            => auth()->id(),
+                'nome'               => $checkoutInfo['nome'] ?? '',
+                'email'              => $checkoutInfo['email'] ?? '',
+                'indirizzo'          => $checkoutInfo['indirizzo'] ?? '',
+                'total_price'        => $cartTotal,
+                'stripe_session_id'  => $sessionId,
+                'status'             => 'in_lavorazione',
+            ]);
+
+            foreach ($cart as $item) {
+                $order->items()->create([
+                    'nome'     => $item['nome'],
+                    'prezzo'   => $item['prezzo'],
+                    'quantity' => $item['quantity'],
+                    'img'      => $item['img'] ?? null,
+                    'type'     => $item['type'] ?? null,
+                ]);
+            }
         }
 
         // Accodiamo l'email di conferma al cliente, con un ritardo rispetto alla prima

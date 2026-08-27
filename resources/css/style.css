@@ -634,3 +634,142 @@ body {
     color: #111111;
     min-height: 100vh;
 }
+
+/* AREA PERSONALE */
+
+/* Sidebar a pillole verticali */
+.custom-sidebar {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.custom-sidebar .nav-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #444444;
+    border-radius: 0px !important;
+    transition: all 0.2s ease;
+}
+
+.custom-sidebar .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    color: #111111;
+}
+
+.custom-sidebar .nav-link.active {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+}
+
+/* Contenitore del contenuto a destra */
+.custom-tab-profile {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 0px !important;
+}
+
+.custom-tab-profile h4 {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+
+/* Etichette e input informativi (sola lettura) */
+.custom-label {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #333333;
+}
+
+.custom-input {
+    border: 1px solid #cccccc !important;
+    border-radius: 0px !important;
+    background-color: #f8f9fa !important;
+    color: #111111;
+}
+
+/* Accordion Katane Personalizzate */
+.custom-accordion-item {
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 0px !important;
+    overflow: hidden;
+}
+
+.custom-accordion-btn {
+    font-family: 'Oswald', sans-serif;
+    background-color: #ffffff !important;
+    border-radius: 0px !important;
+}
+
+.custom-accordion-btn:not(.collapsed) {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+}
+
+.custom-accordion-btn:focus {
+    box-shadow: none !important;
+}
+
+.custom-accordion-body {
+    background-color: #fcfcfc;
+    font-size: 0.9rem;
+}
+
+/* Testo secondario/di supporto */
+.custom-date,
+.custom-type {
+    font-size: 0.8rem;
+    color: #888888;
+}
+
+.custom-comment {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #333333;
+}
+
+.custom-empty {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    color: #888888;
+    padding: 1rem 0;
+}
+
+/* Card Ordini e Recensioni nell'area personale (spigoli vivi coerenti col resto del sito) */
+.custom-tab-profile .card {
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 0px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-tab-profile .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Pulsanti Dettagli / Richiedi Reso */
+.custom-tab-profile .btn-outline-dark,
+.custom-tab-profile .btn-outline-danger {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    border-radius: 0px !important;
+}
+
+/* Modal (Dettagli ordine / Richiedi reso) coerenti con lo stile spigoloso del sito */
+.modal-content {
+    border-radius: 0px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.modal-title {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}

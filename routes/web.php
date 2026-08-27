@@ -79,6 +79,8 @@ Route::middleware('auth')->group(function () {
     
     // Nuova rotta per l'area personale dell'utente
     Route::get('/area-personale', [UserController::class, 'index'])->name('user.profile');
+    // rotta per gli ordini dell'utente e richiesta reso
+    Route::post('/ordini/{order}/richiedi-reso', [UserController::class, 'requestReturn'])->name('orders.request-return');
 });
 
 // Middleware Verifica Email

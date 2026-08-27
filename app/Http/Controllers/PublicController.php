@@ -68,15 +68,7 @@ class PublicController extends Controller
             }
 
             // Filtro Prezzo
-            $query->when($request->price_range, function ($q, $priceRange) {
-                if ($priceRange == '100') {
-                    return $q->where('prezzo', '<=', 100);
-                } elseif ($priceRange == '100-300') {
-                    return $q->whereBetween('prezzo', [100, 300]);
-                } elseif ($priceRange == '300') {
-                    return $q->where('prezzo', '>', 300);
-                }
-            });
+            $query = $this->applyPriceFilter($query, $request->price_range);
 
             // Filtro Acciaio
             $query->when($request->steel, function ($q, $steelArray) {
@@ -118,15 +110,7 @@ class PublicController extends Controller
             }
 
             // Filtro Prezzo
-            $query->when($request->price_range, function ($q, $priceRange) {
-                if ($priceRange == '100') {
-                    return $q->where('prezzo', '<=', 100);
-                } elseif ($priceRange == '100-300') {
-                    return $q->whereBetween('prezzo', [100, 300]);
-                } elseif ($priceRange == '300') {
-                    return $q->where('prezzo', '>', 300);
-                }
-            });
+            $query = $this->applyPriceFilter($query, $request->price_range);
 
             // Filtro Materiale
             $query->when($request->material, function ($q, $materialArray) {
@@ -245,5 +229,18 @@ class PublicController extends Controller
         $reviewSource = $item;
 
         return view('article', compact('item', 'reviewSource'));
+    }
+
+    private function applyPriceFilter($query, $priceRange)
+    {
+        return $query->when($priceRange, function ($q, $range) {
+            if ($range == '100') {
+                return $q->where('prezzo', '<=', 100);
+            } elseif ($range == '100-300') {
+                return $q->whereBetween('prezzo', [100, 300]);
+            } elseif ($range == '300') {
+                return $q->where('prezzo', '>', 300);
+            }
+        });
     }
 }
