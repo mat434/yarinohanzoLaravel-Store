@@ -13,6 +13,20 @@ use Stripe\StripeClient;
 
 class CheckoutController extends Controller
 {
+    // Costo fisso della spedizione Express, gratuita sopra questa soglia di spesa
+    private const EXPRESS_COST = 9.90;
+    private const FREE_EXPRESS_THRESHOLD = 50;
+
+    // Calcola il costo di spedizione SEMPRE lato server, mai fidandosi del client
+    private function calculateShippingCost(string $shippingType, float $subtotal): float
+    {
+        if ($shippingType === 'express') {
+            return $subtotal > self::FREE_EXPRESS_THRESHOLD ? 0 : self::EXPRESS_COST;
+        }
+
+        return 0; // Standard è sempre gratuita
+    }
+
     public function index()
     {
         $cart = session('cart', []);
@@ -22,19 +36,23 @@ class CheckoutController extends Controller
             return redirect()->to('/')->with('message', 'Il carrello è vuoto.');
         }
 
-        $totalPrice = 0;
+        $subtotal = 0;
 
         if (!empty($cart)) {
-            $totalPrice += array_reduce($cart, function ($carry, $item) {
+            $subtotal += array_reduce($cart, function ($carry, $item) {
                 return $carry + $item['prezzo'] * $item['quantity'];
             }, 0);
         }
 
         if ($customKatana) {
-            $totalPrice += $customKatana['prezzo'];
+            $subtotal += $customKatana['prezzo'];
         }
 
-        return view('checkout', compact('cart', 'customKatana', 'totalPrice'));
+        // Calcoliamo il costo dell'Express solo per mostrarlo nell'interfaccia (verrà comunque ricalcolato al process())
+        $expressCost = $this->calculateShippingCost('express', $subtotal);
+        $totalPrice = $subtotal;
+
+        return view('checkout', compact('cart', 'customKatana', 'totalPrice', 'subtotal', 'expressCost'));
     }
 
     // STEP 1: valida i dati e crea la sessione di pagamento Stripe
@@ -44,6 +62,7 @@ class CheckoutController extends Controller
             'nome' => 'required|string|max:255',
             'email' => 'required|email',
             'indirizzo' => 'required|string',
+            'shipping_type' => 'required|string|in:standard,express',
         ]);
 
         // Ricalcoliamo il totale qui, lato server, per sicurezza (non ci fidiamo di nulla dal client)
@@ -54,42 +73,62 @@ class CheckoutController extends Controller
             return redirect()->to('/')->with('message', 'Il carrello è vuoto.');
         }
 
-        $totalPrice = 0;
+        $subtotal = 0;
         if (!empty($cart)) {
-            $totalPrice += array_reduce($cart, function ($carry, $item) {
+            $subtotal += array_reduce($cart, function ($carry, $item) {
                 return $carry + $item['prezzo'] * $item['quantity'];
             }, 0);
         }
         if ($customKatana) {
-            $totalPrice += $customKatana['prezzo'];
+            $subtotal += $customKatana['prezzo'];
         }
 
-        // Salviamo nome, email e indirizzo in sessione: ci serviranno dopo, quando Stripe conferma il pagamento
+        $shippingCost = $this->calculateShippingCost($request->shipping_type, $subtotal);
+        $totalPrice = $subtotal + $shippingCost;
+
+        // Salviamo nome, email, indirizzo e spedizione in sessione: ci serviranno dopo, quando Stripe conferma il pagamento
         session([
             'checkout_info' => [
                 'nome' => $request->nome,
                 'email' => $request->email,
                 'indirizzo' => $request->indirizzo,
+                'shipping_type' => $request->shipping_type,
+                'shipping_cost' => $shippingCost,
             ]
         ]);
 
         $stripe = new StripeClient(config('services.stripe.secret'));
 
+        $lineItems = [
+            [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => $customKatana ? 'Katana Personalizzata' : 'Ordine YariNoHanzo',
+                    ],
+                    'unit_amount' => (int) round($subtotal * 100),
+                ],
+                'quantity' => 1,
+            ],
+        ];
+
+        // Aggiungiamo la spedizione come riga separata solo se ha un costo (Express sotto soglia)
+        if ($shippingCost > 0) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => 'Spedizione Express',
+                    ],
+                    'unit_amount' => (int) round($shippingCost * 100),
+                ],
+                'quantity' => 1,
+            ];
+        }
+
         $checkoutSession = $stripe->checkout->sessions->create([
             'payment_method_types' => ['card'],
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'eur',
-                        'product_data' => [
-                            'name' => $customKatana ? 'Katana Personalizzata' : 'Ordine YariNoHanzo',
-                        ],
-                        // Stripe vuole il prezzo in centesimi, non in euro
-                        'unit_amount' => (int) round($totalPrice * 100),
-                    ],
-                    'quantity' => 1,
-                ]
-            ],
+            'line_items' => $lineItems,
             'mode' => 'payment',
             'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('checkout.cancel'),
@@ -108,8 +147,6 @@ class CheckoutController extends Controller
         }
 
         // === PROTEZIONE ANTI-DOPPIA ESECUZIONE ===
-        // Se questo session_id è già stato processato (refresh, doppio tab, retry del browser),
-        // mostriamo subito il messaggio di successo senza rieseguire nulla.
         $cacheKey = 'stripe_session_processed_' . $sessionId;
 
         if (Cache::has($cacheKey)) {
@@ -120,37 +157,34 @@ class CheckoutController extends Controller
 
         $checkoutSession = $stripe->checkout->sessions->retrieve($sessionId);
 
-        // Verifica REALE col server Stripe, non ci fidiamo del semplice arrivo su questa pagina
         if ($checkoutSession->payment_status !== 'paid') {
             return redirect()->to('/checkout')->with('message', 'Il pagamento non è andato a buon fine. Riprova.');
         }
 
-        // Segniamo subito questo session_id come "in lavorazione/processato", prima di fare qualunque cosa.
-        // Così anche richieste concorrenti quasi simultanee trovano già il blocco.
         Cache::put($cacheKey, true, now()->addHours(24));
 
         $checkoutInfo = session('checkout_info', []);
+        $shippingCost = $checkoutInfo['shipping_cost'] ?? 0;
+        $shippingType = $checkoutInfo['shipping_type'] ?? 'standard';
 
-        // Ricalcoliamo cart e totalPrice qui, prima che vengano puliti dalla sessione
+        // Totale del SOLO carrello standard (senza katana personalizzata), usato per l'Order salvato nel DB
         $cart = session('cart', []);
-
-        // Totale del SOLO carrello standard (senza katana personalizzata): è questo che salviamo nell'Order
-        $cartTotal = 0;
+        $cartSubtotal = 0;
         if (!empty($cart)) {
-            $cartTotal = array_reduce($cart, function ($carry, $item) {
+            $cartSubtotal = array_reduce($cart, function ($carry, $item) {
                 return $carry + $item['prezzo'] * $item['quantity'];
             }, 0);
         }
 
-        // Totale complessivo (carrello + eventuale katana), usato solo per l'email di conferma
-        $totalPrice = $cartTotal;
+        // Totale complessivo (carrello + eventuale katana + spedizione), usato per l'email di conferma
+        $totalPrice = $cartSubtotal + $shippingCost;
         if (session('custom_katana')) {
             $totalPrice += session('custom_katana')['prezzo'];
         }
 
         $katanaSession = null;
 
-        // === LOGICA PER LA KATANA PERSONALIZZATA (finalizzata solo dopo pagamento confermato) ===
+        // === LOGICA PER LA KATANA PERSONALIZZATA ===
         if (session()->has('custom_katana')) {
             $katanaSession = session('custom_katana');
             $dataForDb = $katanaSession['info'];
@@ -161,20 +195,21 @@ class CheckoutController extends Controller
 
             $customKatana = CustomKatana::create($dataForDb);
 
-            // Accodiamo l'email al forgiatore: verrà inviata in background dal queue worker
             Mail::to('yarinohanzokatana@mail.com')->queue(new CustomKatanaOrder($customKatana));
 
             session()->forget('custom_katana');
         }
 
-        // === SALVATAGGIO DELL'ORDINE STANDARD (solo se c'è un carrello, non per le katane personalizzate) ===
+        // === SALVATAGGIO DELL'ORDINE STANDARD (solo se c'è un carrello) ===
         if (!empty($cart)) {
             $order = Order::create([
                 'user_id'            => auth()->id(),
                 'nome'               => $checkoutInfo['nome'] ?? '',
                 'email'              => $checkoutInfo['email'] ?? '',
                 'indirizzo'          => $checkoutInfo['indirizzo'] ?? '',
-                'total_price'        => $cartTotal,
+                'total_price'        => $cartSubtotal + $shippingCost,
+                'shipping_type'      => $shippingType,
+                'shipping_cost'      => $shippingCost,
                 'stripe_session_id'  => $sessionId,
                 'status'             => 'in_lavorazione',
             ]);
@@ -190,9 +225,7 @@ class CheckoutController extends Controller
             }
         }
 
-        // Accodiamo l'email di conferma al cliente, con un ritardo rispetto alla prima
-        // per restare sotto il rate limit di Mailtrap in modalità test.
-        // Questo blocco va SEMPRE eseguito, sia con katana personalizzata che con carrello standard.
+        // Accodiamo l'email di conferma al cliente
         if (!empty($checkoutInfo['email'])) {
             Mail::to($checkoutInfo['email'])->later(
                 now()->addSeconds(25),
@@ -206,7 +239,6 @@ class CheckoutController extends Controller
         return redirect()->to('/')->with('success', 'Pagamento completato! Il progetto della tua Katana è stato inviato alla fucina.');
     }
 
-    // Stripe rimanda qui se l'utente annulla il pagamento
     public function cancel()
     {
         return redirect()->to('/checkout')->with('message', 'Pagamento annullato. Il tuo ordine è ancora nel carrello.');

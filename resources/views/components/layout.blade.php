@@ -25,6 +25,7 @@
 <body>
     <!-- navbar -->
     <x-navbar />
+    <x-back-button />
     {{ $slot }}
 
     {{-- tasto rinvio email --}}

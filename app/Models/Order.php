@@ -16,6 +16,8 @@ class Order extends Model
         'status',
         'reso_motivo',
         'reso_richiesto_at',
+        'shipping_type',
+        'shipping_cost',
     ];
 
     protected $casts = [
