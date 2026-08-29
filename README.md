@@ -56,4 +56,29 @@ revisione sito web e preparazione demo
 -aggiunto form di pagamento tramite stripe
 -aggiunto invio email di conferma email, password dimenticata, e di conferma ordine tramite mailtrap
 
+Aggiornamento 29/08/2026 
+raggiunta una struttura solida del sito.
+
+implemtato logica spedizione expresse o standard in base al costo della spesa.
+aggiunta stile email
+aggiornato stile area personale
+introdotta voce ordini
+possibilità di richiesta reso
+aggiunta freccetta per navigare nel sito
+
+i procedimenti sono simili creare migration, istruirili, aggiornare i model i controller e le rotte e infine le viste.
+
+il tutto completa di backend, sicurezza IDOR
+
+Logica reso approfondita. possibilità di selezionare un'articolo in particolare all'interno dell'ordine con invio mail di richiesta e etichetta stampabile tramite link.
+
+
+
+
+
+
+(per le mail utilizzare php artisan queue:work)
+
+
+
 

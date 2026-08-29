@@ -86,6 +86,24 @@
 <div class="tab-pane fade" id="v-pills-myorders" role="tabpanel" aria-labelledby="v-pills-myorders-tab">
     <h4 class="fw-bold mb-4" style="font-family: 'Oswald', sans-serif;">I Miei Ordini</h4>
 
+    @if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+@if(session('message'))
+    <div class="alert alert-warning">{{ session('message') }}</div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     @forelse($activeOrders as $order)
         <div class="card mb-3 border-0 shadow-sm">
             <div class="card-body">
@@ -134,29 +152,58 @@
         </div>
 
         {{-- Modal Richiedi Reso --}}
-        @if($order->canRequestReturn())
-            <div class="modal fade" id="returnModal{{ $order->id }}" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="{{ route('orders.request-return', $order) }}" method="POST">
-                            @csrf
-                            <div class="modal-header">
-                                <h5 class="modal-title">Richiedi Reso — Ordine #{{ $order->id }}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label class="form-label fw-bold">Motivo del reso</label>
-                                <textarea name="reso_motivo" class="form-control" rows="4" required maxlength="1000" placeholder="Descrivi il motivo della richiesta..."></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                                <button type="submit" class="btn btn-danger">Invia Richiesta</button>
-                            </div>
-                        </form>
+        
+@if($order->canRequestReturn())
+    <div class="modal fade" id="returnModal{{ $order->id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('orders.request-return', $order) }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Richiedi Reso — Ordine #{{ $order->id }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                </div>
+                    <div class="modal-body">
+
+                        <label class="form-label fw-bold">Seleziona gli articoli da rendere</label>
+                        @foreach($order->items as $item)
+                            <div class="form-check border rounded p-2 mb-2">
+                                <input class="form-check-input" type="checkbox"
+                                       name="items[{{ $item->id }}][order_item_id]"
+                                       value="{{ $item->id }}"
+                                       id="item{{ $order->id }}_{{ $item->id }}">
+                                <label class="form-check-label d-flex justify-content-between" for="item{{ $order->id }}_{{ $item->id }}">
+                                    <span>{{ $item->nome }} (qtà ordinata: {{ $item->quantity }})</span>
+                                </label>
+                                <input type="number" name="items[{{ $item->id }}][quantity]"
+                                       class="form-control form-control-sm mt-1" style="width:100px"
+                                       min="1" max="{{ $item->quantity }}" value="1">
+                            </div>
+                        @endforeach
+
+                        <label class="form-label fw-bold mt-3">Metodo di reso</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="return_method" value="domicilio" id="metodo_domicilio{{ $order->id }}" required>
+                            <label class="form-check-label" for="metodo_domicilio{{ $order->id }}">Ritiro a domicilio</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="return_method" value="punto_postale" id="metodo_postale{{ $order->id }}" required>
+                            <label class="form-check-label" for="metodo_postale{{ $order->id }}">Punto postale più vicino</label>
+                        </div>
+
+                        <label class="form-label fw-bold mt-3">Motivo del reso (opzionale)</label>
+                        <textarea name="motivo" class="form-control" rows="3" maxlength="1000" placeholder="Descrivi il motivo della richiesta..."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                        <button type="submit" class="btn btn-danger">Invia Richiesta</button>
+                    </div>
+                </form>
             </div>
-        @endif
+        </div>
+    </div>
+@endif
+
     @empty
         <p class="text-muted italic custom-empty">Non hai ancora effettuato nessun ordine.</p>
     @endforelse
@@ -250,4 +297,16 @@
 
         </div>
     </div>
+
+    <script>
+document.querySelectorAll('.form-check-input[type="checkbox"]').forEach(checkbox => {
+    const quantityInput = checkbox.closest('.form-check').querySelector('input[type="number"]');
+
+    quantityInput.disabled = !checkbox.checked;
+
+    checkbox.addEventListener('change', () => {
+        quantityInput.disabled = !checkbox.checked;
+    });
+});
+</script>
 </x-layout>

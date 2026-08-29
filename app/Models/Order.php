@@ -41,4 +41,9 @@ class Order extends Model
     return $this->status === 'in_lavorazione'
         && $this->created_at->copy()->addDays(14)->isFuture();
 }
+
+public function returns()
+{
+    return $this->hasMany(ReturnRequest::class);
+}
 }

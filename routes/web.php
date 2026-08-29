@@ -115,3 +115,20 @@ Route::get('/katana/{subcategory?}', function ($subcategory = null) {
 });
 
 Route::get('/prodotti/{category}/{subcategory?}', [PublicController::class, 'products'])->name('products.index');
+
+// routes/web.php
+// Route::middleware('auth')->group(function () {
+//     Route::get('/miei-ordini', [OrderController::class, 'index'])->name('orders.index');
+
+//     Route::post('/resi', [ReturnRequestController::class, 'store'])->name('returns.store');
+//     Route::get('/resi', [ReturnRequestController::class, 'index'])->name('returns.index');
+// });
+
+Route::post('/ordini/{order}/richiedi-reso', [UserController::class, 'requestReturn'])
+    ->name('orders.request-return');
+
+    Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/resi', [AdminReturnController::class, 'index'])->name('admin.returns.index');
+    Route::patch('/resi/{returnRequest}', [AdminReturnController::class, 'updateStatus'])->name('admin.returns.updateStatus');
+});
+
