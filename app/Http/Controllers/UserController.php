@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\CustomKatana;
 use App\Models\Order;
 use App\Mail\ReturnRequestConfirmation;
+use App\Models\ReturnRequest;
 
 class UserController extends Controller
 {
@@ -20,9 +21,13 @@ class UserController extends Controller
 
         $orders = Order::with('items')->where('user_id', $user->id)->latest()->get();
         $activeOrders = $orders->where('status', 'in_lavorazione');
-        $returnOrders = $orders->where('status', 'reso_richiesto');
+        $returnRequests = ReturnRequest::with(['order', 'items.orderItem'])
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
 
-        return view('user.profile', compact('user', 'reviews', 'customKatanas', 'activeOrders', 'returnOrders'));
+
+        return view('user.profile', compact('user', 'reviews', 'customKatanas', 'activeOrders', 'returnRequests'));
     }
 
     public function requestReturn(Request $request, Order $order)
@@ -77,11 +82,7 @@ class UserController extends Controller
             ]);
         }
 
-        $order->update([
-            'status'            => 'reso_richiesto',
-            'reso_motivo'       => $validated['motivo'] ?? null,
-            'reso_richiesto_at' => now(),
-        ]);
+        
 
         Mail::to($order->email)->send(
     new ReturnRequestConfirmation($returnRequest, url('labels/etichetta-reso.pdf'))

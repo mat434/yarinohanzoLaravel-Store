@@ -823,3 +823,130 @@ body {
     top: 0.15rem;
     margin: 0;
 }
+
+/* Contenitore modale reso */
+.custom-modal-content {
+    border-radius: 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.custom-modal-content .modal-header,
+.custom-modal-content .modal-footer {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.custom-modal-content .modal-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+}
+
+/* Etichette di sezione dentro la modale */
+.custom-modal-label {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    color: #111111;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Riga articolo selezionabile */
+.custom-item-check {
+    border: 1px solid #cccccc !important;
+    border-radius: 0 !important;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.6rem;
+    position: relative;
+    padding-left: 2.4rem;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.custom-item-check:has(.form-check-input:checked) {
+    border-color: #111111 !important;
+    background-color: #f8f9fa;
+}
+
+.custom-item-check .form-check-input {
+    width: 1.1rem;
+    height: 1.1rem;
+    position: absolute;
+    left: 0.9rem;
+    top: 0.85rem;
+    margin: 0;
+    border-radius: 0 !important;
+    border: 1px solid #999999;
+}
+
+.custom-item-check .form-check-input:checked {
+    background-color: #111111 !important;
+    border-color: #111111 !important;
+}
+
+.custom-item-check .form-check-label {
+    font-size: 0.9rem;
+    color: #222222;
+}
+
+.custom-item-check input[type="number"] {
+    border: 1px solid #cccccc !important;
+    border-radius: 0 !important;
+    background-color: #f8f9fa !important;
+    color: #111111;
+    font-size: 0.85rem;
+}
+
+.custom-item-check input[type="number"]:disabled {
+    background-color: #eeeeee !important;
+    color: #aaaaaa;
+}
+
+/* Radio metodo di reso */
+.custom-radio-method {
+    border: 1px solid #cccccc !important;
+    padding: 0.6rem 1rem 0.6rem 2.4rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.custom-radio-method:has(.form-check-input:checked) {
+    border-color: #111111 !important;
+    background-color: #f8f9fa;
+}
+
+.custom-radio-method .form-check-input {
+    position: absolute;
+    left: 0.9rem;
+    top: 0.75rem;
+    margin: 0;
+}
+
+.custom-radio-method .form-check-label {
+    font-size: 0.9rem;
+    color: #222222;
+}
+
+/* Textarea motivo */
+.custom-textarea {
+    border: 1px solid #cccccc !important;
+    border-radius: 0 !important;
+    background-color: #f8f9fa !important;
+    color: #111111;
+    font-size: 0.9rem;
+}
+
+.custom-textarea:focus {
+    border-color: #111111 !important;
+    box-shadow: none !important;
+}
+
+/* Bottoni modale */
+.custom-modal-content .btn {
+    border-radius: 0 !important;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
