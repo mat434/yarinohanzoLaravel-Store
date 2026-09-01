@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         ProductKatanaSeeder::class,
         ProductArtialMartsSeeder::class,
         ProductOffersSeeder::class,
+        DemoDataSeeder::class,
         ]);
         // User::factory(10)->create();
 

@@ -15,11 +15,17 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'reviewable_id'   => 'required|integer',
+            'reviewable_id' => 'required|integer',
             'reviewable_type' => 'required|string|in:katana,martial,offer',
-            'rating'          => 'required|integer|min:1|max:5',
-            'comment'         => 'nullable|string|max:1000',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
         ]);
+
+        $modelClass = \Illuminate\Database\Eloquent\Relations\Relation::getMorphedModel($request->reviewable_type);
+
+        if (!$modelClass || !$modelClass::find($request->reviewable_id)) {
+            return response()->json(['message' => 'Prodotto non trovato.'], 404);
+        }
 
         $userId = Auth::id();
 
@@ -41,16 +47,16 @@ class ReviewController extends Controller
         }
 
         $review = Review::create([
-            'user_id'         => $userId,
-            'reviewable_id'   => $request->reviewable_id,
+            'user_id' => $userId,
+            'reviewable_id' => $request->reviewable_id,
             'reviewable_type' => $request->reviewable_type,
-            'rating'          => $request->rating,
-            'comment'         => $request->comment,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
         ]);
 
         return response()->json([
             'message' => 'Recensione aggiunta con successo!',
-            'review'  => $review->load('user:id,name')
+            'review' => $review->load('user:id,name')
         ], 201);
     }
 
@@ -73,6 +79,10 @@ class ReviewController extends Controller
     public function getProductReviews(Request $request, $productId)
     {
         $type = $request->query('type', 'katana');
+
+        if (!in_array($type, ['katana', 'martial', 'offer'])) {
+        return response()->json(['message' => 'Tipo non valido.'], 422);
+    }
 
         $reviews = Review::with('user:id,name')
             ->where('reviewable_id', $productId)

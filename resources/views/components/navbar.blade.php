@@ -80,6 +80,16 @@
                             <i class="bi bi-person-circle me-1 text-danger"></i> {{ Auth::user()->name }}
                         </a>
                     </li>
+
+                    @if (Auth::user()->is_admin)
+                        {{-- Pannello Admin (visibile solo agli admin) --}}
+                        <li class="nav-item mx-2">
+                            <a href="{{ route('admin.returns.index') }}" class="nav-link fw-bold custom-nav-link">
+                                <i class="bi bi-shield-lock-fill me-1"></i> Admin
+                            </a>
+                        </li>
+                    @endif
+
                     <li class="nav-item mx-2">
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf

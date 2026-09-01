@@ -134,6 +134,8 @@ class CheckoutController extends Controller
             'cancel_url' => route('checkout.cancel'),
         ]);
 
+        session(['expected_stripe_session' => $checkoutSession->id]);
+
         return redirect()->away($checkoutSession->url);
     }
 
@@ -144,6 +146,10 @@ class CheckoutController extends Controller
 
         if (!$sessionId) {
             return redirect()->to('/')->with('message', 'Sessione di pagamento non valida.');
+        }
+
+        if ($sessionId !== session('expected_stripe_session')) {
+            abort(403, 'Sessione di pagamento non riconosciuta.');
         }
 
         // === PROTEZIONE ANTI-DOPPIA ESECUZIONE ===
@@ -203,24 +209,24 @@ class CheckoutController extends Controller
         // === SALVATAGGIO DELL'ORDINE STANDARD (solo se c'è un carrello) ===
         if (!empty($cart)) {
             $order = Order::create([
-                'user_id'            => auth()->id(),
-                'nome'               => $checkoutInfo['nome'] ?? '',
-                'email'              => $checkoutInfo['email'] ?? '',
-                'indirizzo'          => $checkoutInfo['indirizzo'] ?? '',
-                'total_price'        => $cartSubtotal + $shippingCost,
-                'shipping_type'      => $shippingType,
-                'shipping_cost'      => $shippingCost,
-                'stripe_session_id'  => $sessionId,
-                'status'             => 'in_lavorazione',
+                'user_id' => auth()->id(),
+                'nome' => $checkoutInfo['nome'] ?? '',
+                'email' => $checkoutInfo['email'] ?? '',
+                'indirizzo' => $checkoutInfo['indirizzo'] ?? '',
+                'total_price' => $cartSubtotal + $shippingCost,
+                'shipping_type' => $shippingType,
+                'shipping_cost' => $shippingCost,
+                'stripe_session_id' => $sessionId,
+                'status' => 'in_lavorazione',
             ]);
 
             foreach ($cart as $item) {
                 $order->items()->create([
-                    'nome'     => $item['nome'],
-                    'prezzo'   => $item['prezzo'],
+                    'nome' => $item['nome'],
+                    'prezzo' => $item['prezzo'],
                     'quantity' => $item['quantity'],
-                    'img'      => $item['img'] ?? null,
-                    'type'     => $item['type'] ?? null,
+                    'img' => $item['img'] ?? null,
+                    'type' => $item['type'] ?? null,
                 ]);
             }
         }
@@ -235,6 +241,7 @@ class CheckoutController extends Controller
 
         session()->forget('cart');
         session()->forget('checkout_info');
+        session()->forget('expected_stripe_session');
 
         return redirect()->to('/')->with('success', 'Pagamento completato! Il progetto della tua Katana è stato inviato alla fucina.');
     }

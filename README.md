@@ -79,5 +79,7 @@ per l'accesso admin qui sotto espongo i passaggi:
 6) L'esito deve essere 1
 7) Digitare `exit`
 
+http://127.0.0.1:8000/admin/resi è l'url utilizzato da admin per visionare tutte le richieste di reso
+
 
 
