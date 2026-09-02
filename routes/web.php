@@ -8,10 +8,14 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminReturnController;
 
 // welcome page
 Route::get('/', [PublicController::class, 'welcome'])->name('welcome'); 
+
+// pagine statiche footer
+Route::view('/spedizioni', 'spedizioni')->name('spedizioni');
+Route::view('/contattaci', 'contattaci')->name('contattaci');
+Route::view('/termini-e-condizioni', 'termini')->name('termini');
 
 // articolo page catalogo normale
 Route::get('/prodotto/{id}', [PublicController::class, 'showProduct'])->name('product.show');
@@ -125,9 +129,10 @@ Route::get('/prodotti/{category}/{subcategory?}', [PublicController::class, 'pro
 //     Route::get('/resi', [ReturnRequestController::class, 'index'])->name('returns.index');
 // });
 
+Route::post('/ordini/{order}/richiedi-reso', [UserController::class, 'requestReturn'])
+    ->name('orders.request-return');
 
     Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/resi', [AdminReturnController::class, 'index'])->name('admin.returns.index');
     Route::patch('/resi/{returnRequest}', [AdminReturnController::class, 'updateStatus'])->name('admin.returns.updateStatus');
 });
-

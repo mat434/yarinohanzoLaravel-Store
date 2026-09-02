@@ -183,7 +183,14 @@ class PublicController extends Controller
         // Assegniamo l'oggetto a $reviewSource così la vista sa da dove prendere le recensioni
         $reviewSource = $item;
 
-        return view('article', compact('item', 'reviewSource'));
+        $correlati = ProductKatanas::where('id', '!=', $item->id)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        $correlatiRoute = 'product.show';
+
+        return view('article', compact('item', 'reviewSource', 'correlati', 'correlatiRoute'));
     }
 
     // 2. GESTISCE LE OFFERTE (Il "controller intelligente" di prima)
@@ -219,7 +226,14 @@ class PublicController extends Controller
 
         $reviewSource = $item;
 
-        return view('article', compact('item', 'reviewSource'));
+        $correlati = Offers::where('id', '!=', $item->id)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        $correlatiRoute = 'offer.show';
+
+        return view('article', compact('item', 'reviewSource', 'correlati', 'correlatiRoute'));
     }
 
     public function showMartialArt($id)
@@ -228,7 +242,14 @@ class PublicController extends Controller
 
         $reviewSource = $item;
 
-        return view('article', compact('item', 'reviewSource'));
+        $correlati = \App\Models\MartialArts::where('id', '!=', $item->id)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        $correlatiRoute = 'martialArt.show';
+
+        return view('article', compact('item', 'reviewSource', 'correlati', 'correlatiRoute'));
     }
 
     private function applyPriceFilter($query, $priceRange)

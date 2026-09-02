@@ -202,4 +202,26 @@
         </div>
     </div>
     {{-- fine section recensioni --}}
+
+    {{-- Sezione: Prodotti Correlati --}}
+    @if(isset($correlati) && $correlati->isNotEmpty())
+        <section class="container-fluid my-5">
+            <h4 class="fw-bold mb-4" style="font-family: 'Oswald', sans-serif;">Potrebbe interessarti anche</h4>
+            <div class="row g-4">
+                @foreach($correlati as $prodottoCorrelato)
+                    <div class="col-6 col-md-3">
+                        <a href="{{ route($correlatiRoute, $prodottoCorrelato->id) }}" class="text-decoration-none text-dark">
+                            <div class="card h-100 border-0 shadow-sm custom-correlato-card">
+                                <img src="{{ asset($prodottoCorrelato->img) }}" class="card-img-top" alt="{{ $prodottoCorrelato->nome }}">
+                                <div class="card-body">
+                                    <p class="mb-1 fw-bold custom-correlato-title">{{ $prodottoCorrelato->nome }}</p>
+                                    <p class="mb-0 text-danger fw-bold">{{ number_format($prodottoCorrelato->prezzo, 2, ',', '.') }}€</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endif
 </x-layout>

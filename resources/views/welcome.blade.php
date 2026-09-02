@@ -93,23 +93,28 @@
     <section class="container-fluid my-5 py-5">
         <div class="row align-items-center my-1">
             <div class="col-12 col-md-6">
-                <p class="text-start">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt reiciendis amet asperiores ducimus
-                    totam adipisci veritatis! Delectus odit numquam odio omnis deleniti maiores vel. Ipsam modi, ea
-                    inventore quia non atque voluptatem animi facilis nisi esse repellendus error sunt fugiat, sit
-                    blanditiis necessitatibus libero accusamus quas ab nam ex maiores consectetur quis reiciendis?
-                    Dolor, mollitia aspernatur sint corrupti eius, animi sapiente eveniet nobis deleniti impedit eum,
-                    quasi temporibus cupiditate. Error quas, illo quis iure et voluptatem nesciunt ratione veritatis.
-                    Repellat ab neque totam natus hic quia recusandae voluptatem. Veniam vel voluptates odio nobis
-                    corporis temporibus a asperiores vitae reprehenderit expedita nesciunt rerum adipisci ratione non
-                    cupiditate quam, labore saepe fugiat quasi molestiae libero ea iste quisquam. Totam ut mollitia
-                    nobis voluptas, aspernatur laborum explicabo voluptate, libero ipsum, odio recusandae atque quia!
-                    Illo sunt nisi dignissimos nobis incidunt soluta similique. Quaerat dicta itaque blanditiis ab
-                    culpa! Dignissimos maiores soluta error provident!
+                <h3 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif;">La nostra storia</h3>
+                <p class="text-start text-muted">
+                    YariNoHanzo nasce dalla passione per l'arte della spada giapponese e dal desiderio di
+                    renderla accessibile senza mai scendere a compromessi sulla qualità. Tutto è iniziato
+                    da un piccolo laboratorio, tra lame in allenamento per Iaido e Kendo e la ricerca costante
+                    della tecnica di forgiatura più autentica.
+                </p>
+                <p class="text-start text-muted">
+                    Il nome stesso racchiude questa filosofia: "Yari no Hanzo" richiama la figura leggendaria
+                    del guerriero-artigiano, capace di unire disciplina e maestria manuale. Ogni katana che
+                    esce dal nostro atelier porta con sé questa doppia anima — strumento di pratica per chi si
+                    allena, oggetto da custodire per chi colleziona.
+                </p>
+                <p class="text-start text-muted">
+                    Il nostro obiettivo non è solo vendere una lama, ma accompagnare ogni cliente — dal
+                    principiante che cerca la prima katana da allenamento, al collezionista che desidera una
+                    configurazione su misura — in un percorso fatto di competenza, trasparenza e rispetto per
+                    una tradizione che affonda le radici in secoli di storia.
                 </p>
             </div>
             <div class="col-12 col-md-6">
-                <img src="{{ asset('caroimg/caro3.jpg') }}" class="img-fluid" alt="">
+                <img src="{{ asset('caroimg/caro3.jpg') }}" class="img-fluid" alt="La storia di YariNoHanzo">
             </div>
         </div>
     </section>
@@ -157,22 +162,25 @@
     <section class="container-fluid  my-5 py-5">
         <div class="row my-1 justify-content-start align-items-center">
             <div class="col-12 col-md-6">
-                <img src="{{ asset('caroimg/caro4.jpg') }}" class="img-fluid" alt="">
+                <img src="{{ asset('caroimg/caro4.jpg') }}" class="img-fluid" alt="Qualità dei materiali YariNoHanzo">
             </div>
             <div class="col-12 col-md-6">
-                <p class="text-end">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt reiciendis amet asperiores ducimus
-                    totam adipisci veritatis! Delectus odit numquam odio omnis deleniti maiores vel. Ipsam modi, ea
-                    inventore quia non atque voluptatem animi facilis nisi esse repellendus error sunt fugiat, sit
-                    blanditiis necessitatibus libero accusamus quas ab nam ex maiores consectetur quis reiciendis?
-                    Dolor, mollitia aspernatur sint corrupti eius, animi sapiente eveniet nobis deleniti impedit eum,
-                    quasi temporibus cupiditate. Error quas, illo quis iure et voluptatem nesciunt ratione veritatis.
-                    Repellat ab neque totam natus hic quia recusandae voluptatem. Veniam vel voluptates odio nobis
-                    corporis temporibus a asperiores vitae reprehenderit expedita nesciunt rerum adipisci ratione non
-                    cupiditate quam, labore saepe fugiat quasi molestiae libero ea iste quisquam. Totam ut mollitia
-                    nobis voluptas, aspernatur laborum explicabo voluptate, libero ipsum, odio recusandae atque quia!
-                    Illo sunt nisi dignissimos nobis incidunt soluta similique. Quaerat dicta itaque blanditiis ab
-                    culpa! Dignissimos maiores soluta error provident!
+                <h3 class="fw-bold mb-3 text-end" style="font-family: 'Oswald', sans-serif;">Qualità senza compromessi</h3>
+                <p class="text-end text-muted">
+                    Ogni katana nasce dalla selezione rigorosa dell'acciaio: dal più accessibile 1045 al
+                    più performante Tamahagane-style, ogni lega viene scelta in base all'uso che ne farai,
+                    che sia pratica quotidiana o collezionismo.
+                </p>
+                <p class="text-end text-muted">
+                    Non ci fermiamo alla lama. Tsuka, tsuba, saya e ogni singolo componente vengono lavorati
+                    e assemblati a mano, verificando equilibrio e finitura pezzo per pezzo prima della
+                    spedizione — perché una katana si giudica tanto dal taglio quanto dalla sensazione che
+                    trasmette in mano.
+                </p>
+                <p class="text-end text-muted">
+                    Questa attenzione ai dettagli è la stessa che mettiamo nel configuratore delle katane
+                    personalizzate: ogni componente che scegli — dall'acciaio al colore del sageo — viene
+                    trattato con lo stesso standard artigianale delle nostre katane di serie.
                 </p>
             </div>
         </div>

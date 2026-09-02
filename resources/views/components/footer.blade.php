@@ -14,9 +14,9 @@
         <div class="col-12 col-md-3">
             <h5 class="footer-title text-uppercase mb-3">Link Utili</h5>
             <ul class="list-unstyled footer-links-list">
-                <li class="mb-2"><a class="footer-link" href="">Contattaci</a></li>
-                <li class="mb-2"><a class="footer-link" href="">Spedizioni</a></li>
-                <li class="mb-2"><a class="footer-link" href="">Termini e condizioni</a></li>
+                <li class="mb-2"><a class="footer-link" href="{{ route('contattaci') }}">Contattaci</a></li>
+                <li class="mb-2"><a class="footer-link" href="{{ route('spedizioni') }}">Spedizioni</a></li>
+                <li class="mb-2"><a class="footer-link" href="{{ route('termini') }}">Termini e condizioni</a></li>
                 <li class="mb-2">
                     <a class="footer-link d-inline-flex align-items-center" href="https://www.instagram.com/yarinohanzoswords/" target="_blank">
                         Instagram <i class="bi bi-instagram ms-2"></i>
