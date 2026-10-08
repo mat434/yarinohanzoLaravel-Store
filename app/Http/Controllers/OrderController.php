@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
@@ -44,24 +45,24 @@ class OrderController extends Controller
         ];
 
         $validatedData = $request->validate([
-            'email'         => 'required|email',
+            'email'         => 'required|email|max:255',
             'katana_name'   => 'required|string|max:255',
             'tsuka_lenght'  => 'required|numeric|min:15|max:60',
             'nagasa_lenght' => 'required|numeric|min:30|max:200',
-            'sori'          => 'required|numeric',
-            'motohaba'      => 'required|numeric',
-            'kitae'         => 'required|string',
-            'bohi'          => 'required|string',
-            'tsuba'         => 'required|string',
-            'fuchikashira'  => 'required|string',
-            'menuki'        => 'required|string',
-            'habaki'        => 'required|string',
-            'seppa'         => 'required|string',
-            'samegawa'      => 'required|string',
-            'stile_tsuka'   => 'required|string',
-            'colore_tsuka'  => 'required|string',
-            'tipo_saya'     => 'required|string',
-            'colore_sageo'  => 'required|string',
+            'sori'          => 'required|numeric|min:0|max:50',
+            'motohaba'      => 'required|numeric|min:0|max:100',
+            'kitae' => ['required', Rule::in(collect(config('katana.acciaio'))->pluck('id'))],
+            'bohi'          => ['required', Rule::in(collect(config('katana.bohi'))->pluck('id'))],
+            'tsuba'         => ['required', Rule::in(collect(config('katana.tsuba'))->pluck('id'))],
+            'fuchikashira'  => ['required', Rule::in(collect(config('katana.Fuchi_Kashira'))->pluck('id'))],
+            'menuki'        => ['required', Rule::in(collect(config('katana.menuki'))->pluck('id'))],
+            'habaki'        => ['required', Rule::in(collect(config('katana.habaki'))->pluck('id'))],
+            'seppa'         => ['required', Rule::in(collect(config('katana.Seppa'))->pluck('id'))],
+            'samegawa'      => ['required', Rule::in(collect(config('katana.Samegawa'))->pluck('id'))],
+            'stile_tsuka'   => ['required', Rule::in(collect(config('katana.Stile_Tsuka'))->pluck('id'))],
+            'colore_tsuka'  => ['required', Rule::in(collect(config('katana.Colore_Tsuka'))->pluck('id'))],
+            'tipo_saya'     => ['required', Rule::in(collect(config('katana.Tipo_Saya'))->pluck('id'))],
+            'colore_sageo'  => ['required', Rule::in(collect(config('katana.Colore_Sageo'))->pluck('id'))],
         ], $customMessages);
 
         // 1. Carichiamo il file config per tradurre gli ID in nomi leggibili
@@ -83,7 +84,7 @@ class OrderController extends Controller
             'Colore Sageo'    => $this->getOptionName($options['Colore_Sageo'] ?? [], $validatedData['colore_sageo']),
         ];
 
-        
+
 
         // 3. Prepariamo il pacchetto completo da salvare in sessione
         $summary = [
@@ -101,26 +102,33 @@ class OrderController extends Controller
     }
 
     private function calcolaPrezzo($options, $validatedData)
-{
-    $prezzoBase = 150; // prezzo di partenza della katana
-    $totale = $prezzoBase;
+    {
+        $prezzoBase = 150; // prezzo di partenza della katana
+        $totale = $prezzoBase;
 
-    $campiConPrezzo = [
-        'kitae' => 'acciaio', 'bohi' => 'bohi', 'tsuba' => 'tsuba',
-        'fuchikashira' => 'Fuchi_Kashira', 'menuki' => 'menuki',
-        'habaki' => 'habaki', 'seppa' => 'Seppa', 'samegawa' => 'Samegawa',
-        'stile_tsuka' => 'Stile_Tsuka', 'colore_tsuka' => 'Colore_Tsuka',
-        'tipo_saya' => 'Tipo_Saya', 'colore_sageo' => 'Colore_Sageo',
-    ];
+        $campiConPrezzo = [
+            'kitae' => 'acciaio',
+            'bohi' => 'bohi',
+            'tsuba' => 'tsuba',
+            'fuchikashira' => 'Fuchi_Kashira',
+            'menuki' => 'menuki',
+            'habaki' => 'habaki',
+            'seppa' => 'Seppa',
+            'samegawa' => 'Samegawa',
+            'stile_tsuka' => 'Stile_Tsuka',
+            'colore_tsuka' => 'Colore_Tsuka',
+            'tipo_saya' => 'Tipo_Saya',
+            'colore_sageo' => 'Colore_Sageo',
+        ];
 
-    foreach ($campiConPrezzo as $campoInput => $chiaveConfig) {
-        $idScelto = $validatedData[$campoInput];
-        $opzione = collect($options[$chiaveConfig] ?? [])->firstWhere('id', $idScelto);
-        $totale += $opzione ? (float) $opzione['price'] : 0;
+        foreach ($campiConPrezzo as $campoInput => $chiaveConfig) {
+            $idScelto = $validatedData[$campoInput];
+            $opzione = collect($options[$chiaveConfig] ?? [])->firstWhere('id', $idScelto);
+            $totale += $opzione ? (float) $opzione['price'] : 0;
+        }
+
+        return $totale;
     }
-
-    return $totale;
-}
 
     private function getOptionName($subOptions, $id)
     {
