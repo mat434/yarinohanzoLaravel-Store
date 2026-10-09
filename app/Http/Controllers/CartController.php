@@ -12,6 +12,8 @@ class CartController extends Controller
     // Recupera i dati REALI del prodotto dal database, ignorando qualsiasi cosa arrivi dal client
     private function getProdottoReale(Request $request)
     {
+
+        $request->validate(['id' => 'required|integer']);
         // Se c'è un offer_id, il prezzo va recuperato tramite l'offerta
         if ($request->offer_id) {
             $offer = Offers::find($request->offer_id);
@@ -26,7 +28,7 @@ class CartController extends Controller
                     'nome' => $katana->nome,
                     'prezzo' => $offer->prezzo_scontato ?? $katana->prezzo,
                     'img' => $katana->img,
-                    'type' => 'katana',
+                    $request->type === 'martial' ? 'martial' : 'katana',
                 ];
             }
 
@@ -83,6 +85,8 @@ class CartController extends Controller
             $cart[$key]['quantity']++;
         } else {
             $cart[$key] = [
+                'id' => $request->id,
+                'type' => $prodotto['type'],
                 'nome' => $prodotto['nome'],
                 'quantity' => 1,
                 'prezzo' => $prodotto['prezzo'],

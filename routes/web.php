@@ -8,9 +8,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminReturnController;
 
 // welcome page
-Route::get('/', [PublicController::class, 'welcome'])->name('welcome'); 
+Route::get('/', [PublicController::class, 'welcome'])->name('welcome');
 
 // pagine statiche footer
 Route::view('/spedizioni', 'spedizioni')->name('spedizioni');
@@ -65,7 +66,7 @@ Route::get('/api/latest-reviews', [ReviewController::class, 'getLatestReviews'])
 // Middlware Guest registration
 Route::middleware('guest')->group(function () {
 
-// Recupero password
+    // Recupero password
     Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
     Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->middleware('throttle:5,1')->name('password.email');
     Route::get('/reset-password/{token}', [AuthController::class, 'showResetPassword'])->name('password.reset');
@@ -74,14 +75,14 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'store'])->middleware('throttle:5,1')->name('register.store');
 
-        Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'authenticate'])->middleware('throttle:5,1'); // Protezione Brute-Force: Max 5 tentativi al minuto->name('login.authenticate');
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'authenticate'])->middleware('throttle:5,1')->name('login.authenticate'); // Protezione Brute-Force: Max 5 tentativi al minuto
 });
 
 // Middlware Authenticated LogOut
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    
+
     // Nuova rotta per l'area personale dell'utente
     Route::get('/area-personale', [UserController::class, 'index'])->name('user.profile');
     // rotta per gli ordini dell'utente e richiesta reso
@@ -121,18 +122,9 @@ Route::get('/katana/{subcategory?}', function ($subcategory = null) {
 
 Route::get('/prodotti/{category}/{subcategory?}', [PublicController::class, 'products'])->name('products.index');
 
-// routes/web.php
-// Route::middleware('auth')->group(function () {
-//     Route::get('/miei-ordini', [OrderController::class, 'index'])->name('orders.index');
 
-//     Route::post('/resi', [ReturnRequestController::class, 'store'])->name('returns.store');
-//     Route::get('/resi', [ReturnRequestController::class, 'index'])->name('returns.index');
-// });
 
-Route::post('/ordini/{order}/richiedi-reso', [UserController::class, 'requestReturn'])
-    ->name('orders.request-return');
-
-    Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/resi', [AdminReturnController::class, 'index'])->name('admin.returns.index');
     Route::patch('/resi/{returnRequest}', [AdminReturnController::class, 'updateStatus'])->name('admin.returns.updateStatus');
 });

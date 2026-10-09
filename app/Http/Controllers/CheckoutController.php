@@ -94,6 +94,7 @@ class CheckoutController extends Controller
                 'indirizzo' => $request->indirizzo,
                 'shipping_type' => $request->shipping_type,
                 'shipping_cost' => $shippingCost,
+                'expected_amount' => (int) round($totalPrice * 100)
             ]
         ]);
 
@@ -165,6 +166,10 @@ class CheckoutController extends Controller
 
         if ($checkoutSession->payment_status !== 'paid') {
             return redirect()->to('/checkout')->with('message', 'Il pagamento non è andato a buon fine. Riprova.');
+        }
+
+        if ((int) $checkoutSession->amount_total !== session('checkout_info.expected_amount')) {
+            abort(403, 'Importo non coerente.');
         }
 
         Cache::put($cacheKey, true, now()->addHours(24));
