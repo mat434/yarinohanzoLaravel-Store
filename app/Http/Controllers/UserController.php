@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CustomKatana;
 use App\Models\Order;
@@ -32,9 +34,7 @@ class UserController extends Controller
 
     public function requestReturn(Request $request, Order $order)
     {
-        if ($order->user_id !== auth()->id()) {
-            abort(403);
-        }
+        Gate::authorize('requestReturn', $order);
 
         if (!$order->canRequestReturn()) {
             return back()->with('message', 'Non è più possibile richiedere il reso per questo ordine.');
@@ -82,11 +82,11 @@ class UserController extends Controller
             ]);
         }
 
-        
+
 
         Mail::to($order->email)->send(
-    new ReturnRequestConfirmation($returnRequest, url('labels/etichetta-reso.pdf'))
-);
+            new ReturnRequestConfirmation($returnRequest, url('labels/etichetta-reso.pdf'))
+        );
 
         return back()->with('success', 'Richiesta di reso inviata correttamente.');
     }
