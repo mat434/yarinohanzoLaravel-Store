@@ -11,6 +11,7 @@ use App\Models\CustomKatana;
 use App\Models\Order;
 use App\Mail\ReturnRequestConfirmation;
 use App\Models\ReturnRequest;
+use App\Models\Review;
 
 class UserController extends Controller
 {
@@ -89,5 +90,14 @@ class UserController extends Controller
         );
 
         return back()->with('success', 'Richiesta di reso inviata correttamente.');
+    }
+
+
+    public function destroy(Review $review)
+    {
+        Gate::authorize('delete', $review);
+        $review->delete();
+
+        return back()->with('success', 'Recensione eliminata correttamente.');
     }
 }
