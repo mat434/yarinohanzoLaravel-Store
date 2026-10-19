@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $reviews = $user->reviews()->latest()->get();
+        $reviews = $user->reviews()->with('reviewable')->latest()->get();
         $customKatanas = CustomKatana::where('email', $user->email)->latest()->get();
 
         $orders = Order::with('items')->where('user_id', $user->id)->latest()->get();
